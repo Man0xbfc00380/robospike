@@ -6,12 +6,19 @@
 #include <errno.h>
 #include <sys/syscall.h>
 #include <mutex>
-
+#include <coroutine>
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp/executor.hpp"
-#include "rclcpp/generator.hpp"
 #include "std_srvs/srv/empty.hpp"
 #include "std_msgs/msg/string.hpp"
+#include "cospike/coroutine.hpp"
+#include "cospike/generator.hpp"
+#include "cospike/task.hpp"
+#include "cospike/task_void.hpp"
+#include "cospike/executor.hpp"
+#include "cospike/awaiter.hpp"
+#include "cospike/io_utils.hpp"
+#include "cospike/channel.hpp"
 
 using namespace std::chrono_literals;
 
@@ -45,10 +52,45 @@ void dummy_load_sleep(int load_ms) {
             __asm__ volatile ("nop");
 }
 
-// Example of Coroutine
-Generator<unsigned> coExample(){
-    for (unsigned i = 0; i < 3;)
-        co_yield i++;
+Task<int, NoopExecutor> simple_task2() {
+    using namespace std::chrono_literals;
+    debug("[S4] simple_task 002 bgn");
+    std::this_thread::sleep_for(1s); // blocking sleep
+    // co_await 1s; // unblocking sleep
+    debug("[S4] simple_task 002 end");
+    co_return 2;
+}
+
+Task<int, NoopExecutor> simple_task3() {
+    using namespace std::chrono_literals;
+    debug("[S4] simple_task 003 bgn");
+    // std::this_thread::sleep_for(2s); // blocking sleep
+    co_await 2s;
+    debug("[S4] simple_task 003 end");
+    co_return 3;
+}
+
+/**
+ * [Hint] Note that using a non-blocking pending caller concatenation requires
+ * the use of a SharedLooperExecutor or NewThreadExecutor, not a NoopExecutor.
+ * Orthewise more serious problems will occur.
+ * 
+ * The main reason lies in 
+ *    (1) blocking in the main program for maintenance of the survival of 
+ *        the blocking and re-execution of the call executor should be considered
+ *        at the same time.
+ *    (2) when TaskPromise wants to deconstruct, if the NoopExecutor & AsyncExecutor
+ *        block the code in task:hpp 
+ *            class TaskPromise --> void notify_callbacks()
+ *            --> for (...) { callback(value); }
+ */
+Task<int, SharedLooperExecutor> simple_task() {
+    using namespace std::chrono_literals;
+    debug("[S4] simple_task all bgn");
+    auto result2 = co_await simple_task2();
+    auto result3 = co_await simple_task3();
+    debug("[S4] simple_task all end");
+    co_return 1 + result2 + result3;
 }
 
 namespace cb_chain_demo
@@ -135,9 +177,18 @@ int main(int argc, char* argv[])
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "PID: %ld run in ROS2.", gettid());
 
     printf("[Let Coroutine Run!]\n");
-    auto gen = coExample();
-    while (gen)
-        std::cout << "coExample: " << gen() << std::endl;
+    auto simpleTask = simple_task();
+    debug("[CoSpike] main: line after simple_task()");
+
+    // Obatin the result in a sync way
+    // --> blocking avoids the main function 
+    //     ends before LooperExecutor
+    try {
+        auto i = simpleTask.get_result();
+        debug("[CoSpike] Final simpleTask.get_result:", i);
+    } catch (std::exception &e) {
+        debug("[CoSpike] Error: ", e.what());
+    }
 
     // Warm-up: dummy_load_calib
     while (1) {
