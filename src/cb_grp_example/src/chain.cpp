@@ -29,6 +29,8 @@ using std::placeholders::_1;
 #define USE_INTRA_PROCESS_COMMS true 
 
 #define DUMMY_LOAD_ITER	1000
+#define THREAD_SIZE     3
+
 int dummy_load_calib = 1;
 
 void dummy_load(int load_ms) {
@@ -52,21 +54,43 @@ void dummy_load_sleep(int load_ms) {
             __asm__ volatile ("nop");
 }
 
-Task<int, NoopExecutor> simple_task2() {
+void co_dummy_load(int load_ms) {
+    int i, j;
+    for (j = 0; j < dummy_load_calib * load_ms; j++)
+        for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
+            __asm__ volatile ("nop");
+}
+
+void co_dummy_load_sleep(int load_ms) {
+    int i, j;
+    // Do sth.
+    for (j = 0; j < dummy_load_calib * load_ms; j++)
+        for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
+            __asm__ volatile ("nop");
+    // Wait for the machine
+    sleep(1);
+    // Do sth. Further
+    for (j = 0; j < dummy_load_calib * load_ms; j++)
+        for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
+            __asm__ volatile ("nop");
+}
+
+Task<int, SharedThreadPoolExecutor> simple_task2() {
     using namespace std::chrono_literals;
-    debug("[S4] simple_task 002 bgn");
+    debug("[CoSpike] simple_task 002 bgn");
     std::this_thread::sleep_for(1s); // blocking sleep
-    // co_await 1s; // unblocking sleep
-    debug("[S4] simple_task 002 end");
+    debug("[CoSpike] simple_task 002 end");
     co_return 2;
 }
 
-Task<int, NoopExecutor> simple_task3() {
+Task<int, SharedThreadPoolExecutor> simple_task3() {
     using namespace std::chrono_literals;
-    debug("[S4] simple_task 003 bgn");
-    // std::this_thread::sleep_for(2s); // blocking sleep
-    co_await 2s;
-    debug("[S4] simple_task 003 end");
+    debug("[CoSpike] simple_task 003 bgn");
+    // FIXME: Avoid extra thread
+    // --> Merge the schduler into the SharedThreadPoolExecutor
+    // --> Can the schduler be suspended
+    co_await 2s; // unblocking sleep
+    debug("[CoSpike] simple_task 003 end");
     co_return 3;
 }
 
@@ -84,12 +108,12 @@ Task<int, NoopExecutor> simple_task3() {
  *            class TaskPromise --> void notify_callbacks()
  *            --> for (...) { callback(value); }
  */
-Task<int, SharedLooperExecutor> simple_task() {
+Task<int, SharedThreadPoolExecutor> simple_task() {
     using namespace std::chrono_literals;
-    debug("[S4] simple_task all bgn");
+    debug("[CoSpike] simple_task all bgn");
     auto result2 = co_await simple_task2();
     auto result3 = co_await simple_task3();
-    debug("[S4] simple_task all end");
+    debug("[CoSpike] simple_task all end");
     co_return 1 + result2 + result3;
 }
 
@@ -106,7 +130,7 @@ public:
         if (period_ == 10000)
             timer_ = this->create_wall_timer(10000ms, std::bind(&StartNode::timer_callback, this));
         else
-            timer_ = this->create_wall_timer(2000ms, std::bind(&StartNode::timer_callback, this));
+            timer_ = this->create_wall_timer( 2000ms, std::bind(&StartNode::timer_callback, this));
 
         gettimeofday(&create_timer, NULL);
         RCLCPP_INFO(this->get_logger(), "Create wall timer [PID: %ld] at %ld (s) %ld (us)", gettid(), create_timer.tv_sec, create_timer.tv_usec);
@@ -132,7 +156,28 @@ private:
         RCLCPP_INFO(this->get_logger(), "Start call [PID: %ld] back at %ld (s) %ld (us)", gettid(), ftime.tv_sec, ftime.tv_usec);
 
         publisher_->publish(message);
-    }        
+    }
+
+    // TODO: Target implementation of co_timer_callback
+    Task<void, SharedThreadPoolExecutor> co_timer_callback()
+    {
+        // [modification] dummy_load -> co_dummy_load
+        // dummy_load(exe_time_);
+        co_dummy_load(exe_time_);
+
+        // message
+        std::string name = this->get_name();
+        auto message = std_msgs::msg::String();
+        message.data = std::to_string(count_++);
+
+        // record time
+        gettimeofday(&ftime, NULL);
+        RCLCPP_INFO(this->get_logger(), "Start call [PID: %ld] back at %ld (s) %ld (us)", gettid(), ftime.tv_sec, ftime.tv_usec);
+        
+        // publish data
+        // <Q> is it possble to use channel?
+        publisher_->publish(message);
+    }
 };
 
 class IntermediateNode : public rclcpp::Node
@@ -167,7 +212,28 @@ private:
 
         RCLCPP_INFO(this->get_logger(), "Intermediate call [PID: %ld] back at %ld (s) %ld (us)", gettid(), ftime.tv_sec, ftime.tv_usec);
         if (publisher_) publisher_->publish(message);
-    }        
+    }       
+
+    // TODO: Target implementation of co_inode_callback
+    Task<void, SharedThreadPoolExecutor> co_inode_callback()
+    {
+        // [modification] dummy_load -> co_dummy_load
+        // dummy_load(exe_time_);
+        co_dummy_load(exe_time_);
+
+        // message
+        std::string name = this->get_name();
+        auto message = std_msgs::msg::String();
+        message.data = std::to_string(count_++);
+
+        // record time
+        gettimeofday(&ftime, NULL);
+        RCLCPP_INFO(this->get_logger(), "Start call [PID: %ld] back at %ld (s) %ld (us)", gettid(), ftime.tv_sec, ftime.tv_usec);
+        
+        // publish data
+        // <Q> is it possble to use channel?
+        publisher_->publish(message);
+    } 
 };
 }   // namespace cb_group_demo
 
@@ -175,8 +241,10 @@ int main(int argc, char* argv[])
 {
     rclcpp::init(argc, argv);
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "PID: %ld run in ROS2.", gettid());
+    SharedThreadPoolExecutor stpExecutor;
+    stpExecutor.executor_init(THREAD_SIZE);
 
-    printf("[Let Coroutine Run!]\n");
+    printf("[CoSpike] Let Coroutine Run!\n");
     auto simpleTask = simple_task();
     debug("[CoSpike] main: line after simple_task()");
 
@@ -207,6 +275,7 @@ int main(int argc, char* argv[])
     }
 
     // Define graph: c1 -> [c2, c3, c4]
+    // std::make_shared --> return the ptr & allocate the memory space on heap
     auto c1_t_cb_0 = std::make_shared<cb_chain_demo::StartNode>("Timer_callback", "c1", 100, 1000, false);
     auto c1_r_cb_1 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback1", "c1", "", 100, true);
     auto c1_r_cb_2 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback2", "c1", "", 100, true);

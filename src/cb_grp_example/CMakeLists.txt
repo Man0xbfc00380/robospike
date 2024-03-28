@@ -12,6 +12,8 @@ if(NOT CMAKE_CXX_STANDARD)
 endif()
 
 add_compile_options(-fcoroutines)
+add_compile_options(-g) # debug for GDB
+
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
