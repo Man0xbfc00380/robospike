@@ -48,6 +48,8 @@ MultiThreadedExecutor::spin()
   std::vector<std::thread> threads;
   size_t thread_id = 0;
   {
+    // TODO: the place where ROS2 Bind the execution thread
+    // ^^^^^ should be changed into the coroutine-based design
     std::lock_guard<std::mutex> wait_lock(wait_mutex_);
     for (; thread_id < number_of_threads_ - 1; ++thread_id) {
       auto func = std::bind(&MultiThreadedExecutor::run, this, thread_id);
@@ -97,6 +99,8 @@ MultiThreadedExecutor::run(size_t)
       std::this_thread::yield();
     }
 
+    // TODO: execute executable
+    // ^^^^^ should be changed into coroutine-based design
     execute_any_executable(any_exec);
 
     if (any_exec.timer) {

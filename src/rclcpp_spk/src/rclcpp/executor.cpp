@@ -602,7 +602,7 @@ Executor::get_next_executable(AnyExecutable & any_executable, std::chrono::nanos
   // If there are none
   if (!success) {
     // Wait for subscriptions or timers to work on
-    wait_for_work(timeout);
+    wait_for_work(timeout); // interact with the rmw
     if (!spinning.load()) {
       return false;
     }
