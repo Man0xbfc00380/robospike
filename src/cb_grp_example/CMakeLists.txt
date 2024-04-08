@@ -25,10 +25,10 @@ find_package(std_srvs REQUIRED)
 find_package(std_msgs REQUIRED)
 
 # executable
-add_executable(client_node src/client.cpp)
-ament_target_dependencies(client_node rclcpp_spk std_srvs std_msgs)
-add_executable(service_node src/service.cpp)
-ament_target_dependencies(service_node rclcpp_spk std_srvs std_msgs)
+add_executable(mexe_node src/multi_executor.cpp)
+ament_target_dependencies(mexe_node rclcpp_spk std_srvs std_msgs)
+add_executable(sexe_node src/single_executor.cpp)
+ament_target_dependencies(sexe_node rclcpp_spk std_srvs std_msgs)
 add_executable(chain src/chain.cpp)
 ament_target_dependencies(chain rclcpp_spk std_srvs std_msgs)
 

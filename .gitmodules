@@ -1,3 +1,6 @@
 [submodule "3rdparty/ros2_tracing"]
 	path = 3rdparty/ros2_tracing
 	url = https://github.com/ros2/ros2_tracing.git
+[submodule "3rdparty/ros2-picas"]
+	path = 3rdparty/ros2-picas
+	url = https://github.com/rtenlab/ros2-picas
