@@ -21,18 +21,15 @@
 #include "cospike/channel.hpp"
 
 using namespace std::chrono_literals;
-
 using std::placeholders::_1;
+using cur_executor = SharedLooperExecutor;
 
 #define gettid() syscall(__NR_gettid)
-
 #define USE_INTRA_PROCESS_COMMS true 
-
 #define DUMMY_LOAD_ITER	1000
 #define THREAD_SIZE     3
 
 timeval starting_time;
-
 int dummy_load_calib = 1;
 
 void dummy_load(int load_ms) {
@@ -42,14 +39,23 @@ void dummy_load(int load_ms) {
             __asm__ volatile ("nop");
 }
 
-void dummy_load_sleep(int load_ms) {
+Task<void, cur_executor> co_dummy_load(int load_ms) {
     int i, j;
     // Do sth.
     for (j = 0; j < dummy_load_calib * load_ms; j++)
         for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
             __asm__ volatile ("nop");
+}
+
+Task<void, cur_executor> co_dummy_load_sleep(int load_ms) {
+    int i, j;
+    using namespace std::chrono_literals;
+    // Do sth.
+    for (j = 0; j < dummy_load_calib * load_ms; j++)
+        for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
+            __asm__ volatile ("nop");
     // Wait for the machine
-    rclcpp::sleep_for(1500ms);
+    co_await 1s;
     // Do sth. Further
     for (j = 0; j < dummy_load_calib * load_ms; j++)
         for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
@@ -67,9 +73,9 @@ public:
         publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
 
         if (period_ == 10000)
-            timer_ = this->create_wall_timer(10000ms, std::bind(&StartNode::timer_callback, this));
+            timer_ = this->create_wall_timer(10000ms, std::bind(&StartNode::co_timer_callback, this));
         else
-            timer_ = this->create_wall_timer( 2000ms, std::bind(&StartNode::timer_callback, this));
+            timer_ = this->create_wall_timer( 2000ms, std::bind(&StartNode::co_timer_callback, this));
     }
 
     rclcpp::TimerBase::SharedPtr timer_;
@@ -81,18 +87,23 @@ private:
     timeval ctime, ftime, create_timer, latency_time;
     bool end_flag_;
 
-    void timer_callback()
+    // co_timer_callback
+    Task<void, cur_executor> co_timer_callback()
     {
+        co_dummy_load(exe_time_);
+
+        // message
         std::string name = this->get_name();
         auto message = std_msgs::msg::String();
         message.data = std::to_string(count_++);
-        gettimeofday(&ftime, NULL);
 
+        // record time
         int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
         long tv_sec = duration_us / 1000000;
         long tv_usec = duration_us - tv_sec * 1000000;
         RCLCPP_INFO(this->get_logger(), "Timer call [PID: %ld] back at %ld (s) %ld (us)", gettid(), tv_sec, tv_usec);
 
+        // publish
         publisher_->publish(message);
     }
 };
@@ -103,7 +114,7 @@ public:
     IntermediateNode(const std::string node_name, const std::string sub_topic, const std::string pub_topic, int exe_time, bool end_flag) 
         : Node(node_name), count_(0), exe_time_(exe_time), end_flag_(end_flag)
     {                        
-        subscription_ = this->create_subscription<std_msgs::msg::String>(sub_topic, 1, std::bind(&IntermediateNode::callback, this, _1));
+        subscription_ = this->create_subscription<std_msgs::msg::String>(sub_topic, 1, std::bind(&IntermediateNode::co_callback, this, _1));
         if (pub_topic != "") publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
     }
 
@@ -116,23 +127,26 @@ private:
     double latency;
     bool end_flag_;
 
-    void callback(const std_msgs::msg::String::SharedPtr msg) {
-        
-        gettimeofday(&ftime, NULL);
+    // co_callback
+    Task<void, SharedThreadPoolExecutor> co_callback(const std_msgs::msg::String::SharedPtr msg)
+    {
+        // workload
+        co_dummy_load_sleep(exe_time_);
+
+        // message
         std::string name = this->get_name();
-
-        // Dummy with sleep (IO)
-        dummy_load_sleep(exe_time_);
-
         auto message = std_msgs::msg::String();
-        message.data = msg->data;
+        message.data = std::to_string(count_++);
 
+        // record time
         int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
         long tv_sec = duration_us / 1000000;
         long tv_usec = duration_us - tv_sec * 1000000;
         RCLCPP_INFO(this->get_logger(), "Intermediate call [PID: %ld] back at %ld (s) %ld (us)", gettid(), tv_sec, tv_usec);
-        if (publisher_) publisher_->publish(message);
-    }       
+        
+        // publish
+        publisher_->publish(message);
+    }      
 };
 }   // namespace cb_group_demo
 
@@ -183,7 +197,8 @@ int main(int argc, char* argv[])
     gettimeofday(&starting_time, NULL);
 
     // Spin lock
-    exec1.spin();
+    // TODO: segmentation fault now
+    exec1.co_spin();
 
     // Remove Extra-node
     exec1.remove_node(c1_t_cb_0);

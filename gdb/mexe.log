@@ -1,0 +1,593 @@
+(ros2-py36) hongyi@cxhpc:~/ros2_ws/experiment/demo_ws$ gdb ./build/cb_grp_example/mexe_node 
+GNU gdb (Ubuntu 10.2-0ubuntu1~20.04~1) 10.2
+Copyright (C) 2021 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./build/cb_grp_example/mexe_node...
+(gdb) b multi_executor.cpp:170
+Breakpoint 1 at 0x35a87: file /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp, line 170.
+(gdb) b multi_executor.cpp:174
+Breakpoint 2 at 0x35ada: file /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp, line 174.
+(gdb) b multi_executor.cpp:177
+Breakpoint 3 at 0x35b1f: file /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp, line 177.
+(gdb) b multi_executor.cpp:189
+Breakpoint 4 at 0x35d1a: file /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp, line 189.
+(gdb) r
+Starting program: /data/hongyi/ros2_ws/experiment/demo_ws/build/cb_grp_example/mexe_node 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+[New Thread 0x7ffff6672700 (LWP 574576)]
+[INFO] [rclcpp]: PID: 574543 run in ROS2.
+[INFO] [rclcpp]: dummy_load_calib: 1 (duration_us: 353 ns)
+[INFO] [rclcpp]: dummy_load_calib: 283 (duration_us: 98180 ns)
+[INFO] [rclcpp]: dummy_load_calib: 288 (duration_us: 99877 ns)
+[New Thread 0x7ffff5e71700 (LWP 574577)]
+[New Thread 0x7ffff5670700 (LWP 574578)]
+[New Thread 0x7ffff4e6f700 (LWP 574579)]
+[New Thread 0x7fffeffff700 (LWP 574580)]
+[New Thread 0x7fffef7fe700 (LWP 574581)]
+[New Thread 0x7fffeeffd700 (LWP 574582)]
+[New Thread 0x7fffee7fc700 (LWP 574583)]
+[New Thread 0x7fffedffb700 (LWP 574584)]
+[New Thread 0x7fffed7fa700 (LWP 574585)]
+[New Thread 0x7fffecff9700 (LWP 574586)]
+[New Thread 0x7fffc7fff700 (LWP 574587)]
+[New Thread 0x7fffc77fe700 (LWP 574588)]
+[New Thread 0x7fffc6ffd700 (LWP 574589)]
+[New Thread 0x7fffc67fc700 (LWP 574590)]
+[New Thread 0x7fffc5ffb700 (LWP 574591)]
+[New Thread 0x7fffc57fa700 (LWP 574592)]
+[New Thread 0x7fffc4ff9700 (LWP 574593)]
+[New Thread 0x7fffa7fff700 (LWP 574594)]
+[New Thread 0x7fffa77fe700 (LWP 574595)]
+[New Thread 0x7fffa6ffd700 (LWP 574596)]
+[New Thread 0x7fffa67fc700 (LWP 574597)]
+[New Thread 0x7fffa5ffb700 (LWP 574598)]
+[New Thread 0x7fffa57fa700 (LWP 574599)]
+[New Thread 0x7fffa4ff9700 (LWP 574600)]
+[New Thread 0x7fff8ffff700 (LWP 574601)]
+--Type <RET> for more, q to quit, c to continue without paging--
+
+Thread 1 "mexe_node" hit Breakpoint 1, main (argc=1, argv=0x7fffffff4818) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp:170
+170         auto c1_r_cb_6 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback6", "c1", "", 100, true);
+(gdb) c
+Continuing.
+[New Thread 0x7fff8f7fe700 (LWP 574735)]
+[New Thread 0x7fff8effd700 (LWP 574736)]
+[New Thread 0x7fff8e7fc700 (LWP 574737)]
+[New Thread 0x7fff8dffb700 (LWP 574738)]
+
+Thread 1 "mexe_node" hit Breakpoint 2, main (argc=1, argv=0x7fffffff4818) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp:174
+174         rclcpp::executors::MultiThreadedExecutor exec1(rclcpp::executor::ExecutorArgs(), number_of_threads, true); 
+(gdb) c
+Continuing.
+
+Thread 1 "mexe_node" hit Breakpoint 3, main (argc=1, argv=0x7fffffff4818) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp:177
+177         exec1.add_node(c1_t_cb_0);
+(gdb) c
+Continuing.
+
+Thread 1 "mexe_node" hit Breakpoint 4, main (argc=1, argv=0x7fffffff4818) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp:189
+189         exec1.spin();
+(gdb) c
+Continuing.
+[New Thread 0x7fff8d7fa700 (LWP 574983)]
+[New Thread 0x7fff8cff9700 (LWP 574984)]
+[New Thread 0x7fff6ffff700 (LWP 574985)]
+[INFO] [Timer_callback]: Timer call [PID: 574983] back at 2 (s) 447794 (us)
+[INFO] [Regular_callback1]: Intermediate call [PID: 574543] back at 2 (s) 448921 (us)
+[INFO] [Regular_callback4]: Intermediate call [PID: 574983] back at 2 (s) 449252 (us)
+[INFO] [Regular_callback3]: Intermediate call [PID: 574985] back at 2 (s) 449247 (us)
+[INFO] [Regular_callback2]: Intermediate call [PID: 574984] back at 2 (s) 449044 (us)
+[INFO] [Timer_callback]: Timer call [PID: 574543] back at 3 (s) 773726 (us)
+[INFO] [Regular_callback5]: Intermediate call [PID: 574983] back at 3 (s) 659844 (us)
+[INFO] [Regular_callback6]: Intermediate call [PID: 574985] back at 3 (s) 663427 (us)
+[INFO] [Regular_callback2]: Intermediate call [PID: 574543] back at 3 (s) 774624 (us)
+[INFO] [Regular_callback1]: Intermediate call [PID: 574984] back at 3 (s) 774477 (us)
+[INFO] [Regular_callback3]: Intermediate call [PID: 574983] back at 4 (s) 868689 (us)
+[INFO] [Regular_callback4]: Intermediate call [PID: 574985] back at 4 (s) 872036 (us)
+[INFO] [Timer_callback]: Timer call [PID: 574983] back at 6 (s) 176496 (us)
+[INFO] [Regular_callback5]: Intermediate call [PID: 574543] back at 4 (s) 979704 (us)
+[INFO] [Regular_callback6]: Intermediate call [PID: 574984] back at 4 (s) 988464 (us)
+[INFO] [Regular_callback1]: Intermediate call [PID: 574985] back at 6 (s) 178055 (us)
+[INFO] [Regular_callback2]: Intermediate call [PID: 574983] back at 6 (s) 178131 (us)
+[INFO] [Regular_callback4]: Intermediate call [PID: 574984] back at 6 (s) 196482 (us)
+[INFO] [Regular_callback3]: Intermediate call [PID: 574543] back at 6 (s) 187385 (us)
+[INFO] [Timer_callback]: Timer call [PID: 574985] back at 7 (s) 489389 (us)
+[INFO] [Regular_callback5]: Intermediate call [PID: 574983] back at 7 (s) 388735 (us)
+[INFO] [Regular_callback6]: Intermediate call [PID: 574984] back at 7 (s) 404516 (us)
+[INFO] [Regular_callback3]: Intermediate call [PID: 574985] back at 7 (s) 489952 (us)
+[INFO] [Regular_callback2]: Intermediate call [PID: 574543] back at 7 (s) 489886 (us)
+[INFO] [Regular_callback4]: Intermediate call [PID: 574983] back at 8 (s) 596898 (us)
+[INFO] [Regular_callback1]: Intermediate call [PID: 574984] back at 8 (s) 607475 (us)
+[INFO] [Regular_callback5]: Intermediate call [PID: 574985] back at 8 (s) 691673 (us)
+[INFO] [Timer_callback]: Timer call [PID: 574983] back at 9 (s) 908811 (us)
+[INFO] [Regular_callback6]: Intermediate call [PID: 574543] back at 8 (s) 708880 (us)
+[INFO] [Regular_callback3]: Intermediate call [PID: 574983] back at 9 (s) 909832 (us)
+[INFO] [Regular_callback2]: Intermediate call [PID: 574985] back at 9 (s) 909830 (us)
+[INFO] [Regular_callback4]: Intermediate call [PID: 574543] back at 9 (s) 915140 (us)
+[INFO] [Regular_callback1]: Intermediate call [PID: 574984] back at 9 (s) 909621 (us)
+[INFO] [Timer_callback]: Timer call [PID: 574983] back at 11 (s) 221367 (us)
+[INFO] [Regular_callback6]: Intermediate call [PID: 574543] back at 11 (s) 122473 (us)
+[INFO] [Regular_callback5]: Intermediate call [PID: 574985] back at 11 (s) 121542 (us)
+[INFO] [Regular_callback2]: Intermediate call [PID: 574984] back at 11 (s) 221853 (us)
+[INFO] [Regular_callback4]: Intermediate call [PID: 574983] back at 11 (s) 221924 (us)
+[INFO] [Regular_callback1]: Intermediate call [PID: 574543] back at 12 (s) 330417 (us)
+[INFO] [Regular_callback3]: Intermediate call [PID: 574985] back at 12 (s) 331996 (us)
+[INFO] [Timer_callback]: Timer call [PID: 574543] back at 13 (s) 638394 (us)
+[INFO] [Regular_callback6]: Intermediate call [PID: 574984] back at 12 (s) 431905 (us)
+[INFO] [Regular_callback5]: Intermediate call [PID: 574983] back at 12 (s) 432210 (us)
+[INFO] [Regular_callback2]: Intermediate call [PID: 574985] back at 13 (s) 639032 (us)
+[INFO] [Regular_callback4]: Intermediate call [PID: 574983] back at 13 (s) 640691 (us)
+[INFO] [Regular_callback3]: Intermediate call [PID: 574984] back at 13 (s) 640366 (us)
+[INFO] [Regular_callback1]: Intermediate call [PID: 574543] back at 13 (s) 639208 (us)
+[INFO] [Timer_callback]: Timer call [PID: 574984] back at 15 (s) 113483 (us)
+[INFO] [Regular_callback5]: Intermediate call [PID: 574985] back at 14 (s) 839834 (us)
+[INFO] [Regular_callback6]: Intermediate call [PID: 574983] back at 14 (s) 851435 (us)
+[INFO] [Regular_callback2]: Intermediate call [PID: 574984] back at 15 (s) 114180 (us)
+[INFO] [Regular_callback4]: Intermediate call [PID: 574543] back at 15 (s) 114264 (us)
+[INFO] [Regular_callback1]: Intermediate call [PID: 574985] back at 16 (s) 48339 (us)
+[INFO] [Regular_callback3]: Intermediate call [PID: 574983] back at 16 (s) 60266 (us)
+[INFO] [Timer_callback]: Timer call [PID: 574985] back at 17 (s) 356929 (us)
+[INFO] [Regular_callback5]: Intermediate call [PID: 574984] back at 16 (s) 315602 (us)
+[INFO] [Regular_callback6]: Intermediate call [PID: 574543] back at 16 (s) 326543 (us)
+[INFO] [Regular_callback3]: Intermediate call [PID: 574985] back at 17 (s) 357438 (us)
+[INFO] [Regular_callback2]: Intermediate call [PID: 574983] back at 17 (s) 357364 (us)
+[INFO] [Regular_callback4]: Intermediate call [PID: 574543] back at 17 (s) 527901 (us)
+[INFO] [Regular_callback1]: Intermediate call [PID: 574984] back at 17 (s) 524044 (us)
+[INFO] [Timer_callback]: Timer call [PID: 574543] back at 19 (s) 123371 (us)
+[INFO] [Regular_callback5]: Intermediate call [PID: 574985] back at 18 (s) 564788 (us)
+[INFO] [Regular_callback6]: Intermediate call [PID: 574983] back at 18 (s) 570518 (us)
+[INFO] [Regular_callback2]: Intermediate call [PID: 574543] back at 19 (s) 124636 (us)
+[INFO] [Regular_callback1]: Intermediate call [PID: 574984] back at 19 (s) 124579 (us)
+[INFO] [Regular_callback3]: Intermediate call [PID: 574985] back at 19 (s) 775255 (us)
+[INFO] [Regular_callback4]: Intermediate call [PID: 574983] back at 19 (s) 793664 (us)
+[INFO] [Timer_callback]: Timer call [PID: 574985] back at 21 (s) 123927 (us)
+[INFO] [Regular_callback5]: Intermediate call [PID: 574543] back at 20 (s) 326295 (us)
+[INFO] [Regular_callback6]: Intermediate call [PID: 574984] back at 20 (s) 352132 (us)
+^C
+Thread 1 "mexe_node" received signal SIGINT, Interrupt.
+0x00007ffff75f623f in __GI___clock_nanosleep (clock_id=clock_id@entry=0, flags=flags@entry=0, req=req@entry=0x7fffffff2380, rem=rem@entry=0x7fffffff2380)
+    at ../sysdeps/unix/sysv/linux/clock_nanosleep.c:78
+78      ../sysdeps/unix/sysv/linux/clock_nanosleep.c: No such file or directory.
+(gdb) Quit
+(gdb) thread apply all bt
+
+Thread 34 (Thread 0x7fff6ffff700 (LWP 574985) "mexe_node"):
+#0  0x00007ffff75f623f in __GI___clock_nanosleep (clock_id=clock_id@entry=0, flags=flags@entry=0, req=req@entry=0x7fff6fffcba0, rem=rem@entry=0x7fff6fffcba0) at ../sysdeps/unix/sysv/linux/clock_nanosleep.c:78
+#1  0x00007ffff75fbec7 in __GI___nanosleep (requested_time=requested_time@entry=0x7fff6fffcba0, remaining=remaining@entry=0x7fff6fffcba0) at nanosleep.c:27
+#2  0x00007ffff75fbdfe in __sleep (seconds=0) at ../sysdeps/posix/sleep.c:55
+#3  0x00005555555892e6 in dummy_load_sleep (load_ms=100) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp:52
+#4  0x000055555558ccbe in cb_chain_demo::IntermediateNode::callback (this=0x555556afc750, msg=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (use count 4, weak count 0) = {...}) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp:127
+#5  0x00005555555a4fd1 in std::__invoke_impl<void, void (cb_chain_demo::IntermediateNode::*&)(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), cb_chain_demo::IntermediateNode*&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > > (__f=@0x555556fe2640: (void (cb_chain_demo::IntermediateNode::*)(cb_chain_demo::IntermediateNode * const, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)) 0x55555558cc18 <cb_chain_demo::IntermediateNode::callback(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>, __t=@0x555556fe2650: 0x555556afc750) at /usr/include/c++/10/bits/invoke.h:73
+#6  0x00005555555a434b in std::__invoke<void (cb_chain_demo::IntermediateNode::*&)(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), cb_chain_demo::IntermediateNode*&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > > (__fn=@0x555556fe2640: (void (cb_chain_demo::IntermediateNode::*)(cb_chain_demo::IntermediateNode * const, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)) 0x55555558cc18 <cb_chain_demo::IntermediateNode::callback(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>) at /usr/include/c++/10/bits/invoke.h:95
+#7  0x00005555555a364e in std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::__call<void, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&, 0ul, 1ul>(std::tuple<std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&>&&, std::_Index_tuple<0ul, 1ul>) (this=0x555556fe2640, __args=...) at /usr/include/c++/10/functional:416
+#8  0x00005555555a2894 in std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::operator()<std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >, void>(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (this=0x555556fe2640) at /usr/include/c++/10/functional:499
+#9  0x00005555555a18cb in std::__invoke_impl<void, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > >(std::__invoke_other, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__f=...) at /usr/include/c++/10/bits/invoke.h:60
+#10 0x00005555555a037d in std::__invoke_r<void, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > >(std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__fn=...) at /usr/include/c++/10/bits/invoke.h:110
+#11 0x000055555559e6f6 in std::_Function_handler<void (std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)> >::_M_invoke(std::_Any_data const&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__functor=..., __args#0=...) at /usr/include/c++/10/bits/std_function.h:291
+#12 0x00005555555b07e7 in std::function<void (std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::operator()(std::shared_ptr<std_msgs::msg::String_<s--Type <RET> for more, q to quit, c to continue without paging--
+td::allocator<void> > >) const (this=0x555556f88ff0, __args#0=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (empty) = {...}) at /usr/include/c++/10/bits/std_function.h:622
+#13 0x00005555555af3f6 in rclcpp::AnySubscriptionCallback<std_msgs::msg::String_<std::allocator<void> >, std::allocator<void> >::dispatch (this=0x555556f88ff0, message=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (use count 4, weak count 0) = {...}, message_info=...) at /data/hongyi/ros2_ws/experiment/demo_ws/install/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp:159
+#14 0x00005555555adf3b in rclcpp::Subscription<std_msgs::msg::String_<std::allocator<void> >, std::allocator<void> >::handle_message (this=0x555556f88f60, message=std::shared_ptr<void> (use count 4, weak count 0) = {...}, message_info=...) at /data/hongyi/ros2_ws/experiment/demo_ws/install/rclcpp_spk/include/rclcpp/subscription.hpp:146
+#15 0x00007ffff7dd2300 in rclcpp::executor::Executor::execute_subscription (subscription=std::shared_ptr<rclcpp::SubscriptionBase> (use count 3, weak count 1) = {...}) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executor.cpp:346
+#16 0x00007ffff7dd1c99 in rclcpp::executor::Executor::execute_any_executable (this=0x7fffffff4300, any_exec=...) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executor.cpp:294
+#17 0x00007ffff7dd9798 in rclcpp::executors::MultiThreadedExecutor::run (this=0x7fffffff4300) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/multi_threaded_executor.cpp:104
+#18 0x00007ffff7ddcf67 in std::__invoke_impl<void, void (rclcpp::executors::MultiThreadedExecutor::*&)(unsigned long), rclcpp::executors::MultiThreadedExecutor*&, unsigned long&> (__f=@0x55555682afe8: (void (rclcpp::executors::MultiThreadedExecutor::*)(rclcpp::executors::MultiThreadedExecutor * const, unsigned long)) 0x7ffff7dd94c4 <rclcpp::executors::MultiThreadedExecutor::run(unsigned long)>, __t=@0x55555682b000: 0x7fffffff4300) at /usr/include/c++/10/bits/invoke.h:73
+#19 0x00007ffff7ddce79 in std::__invoke<void (rclcpp::executors::MultiThreadedExecutor::*&)(unsigned long), rclcpp::executors::MultiThreadedExecutor*&, unsigned long&> (__fn=@0x55555682afe8: (void (rclcpp::executors::MultiThreadedExecutor::*)(rclcpp::executors::MultiThreadedExecutor * const, unsigned long)) 0x7ffff7dd94c4 <rclcpp::executors::MultiThreadedExecutor::run(unsigned long)>) at /usr/include/c++/10/bits/invoke.h:95
+#20 0x00007ffff7ddcd70 in std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>::__call<void, , 0ul, 1ul>(std::tuple<>&&, std::_Index_tuple<0ul, 1ul>) (this=0x55555682afe8, __args=...) at /usr/include/c++/10/functional:416
+#21 0x00007ffff7ddcca7 in std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>::operator()<, void>() (this=0x55555682afe8) at /usr/include/c++/10/functional:499
+#22 0x00007ffff7ddcc4e in std::__invoke_impl<void, std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>>(std::__invoke_other, std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>&&) (__f=...) at /usr/include/c++/10/bits/invoke.h:60
+#23 0x00007ffff7ddcbe5 in std::__invoke<std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>>(std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>&&) (__fn=...) at /usr/include/c++/10/bits/invoke.h:95
+#24 0x00007ffff7ddcb86 in std::thread::_Invoker<std::tuple<std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)> > >::_M_invoke<0ul>(std::_Index_tuple<0ul>) (this=0x55555682afe8) at /usr/include/c++/10/thread:264
+#25 0x00007ffff7ddcb56 in std::thread::_Invoker<std::tuple<std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)> > >::operator()() (this=0x55555682afe8) at /usr/include/c++/10/thread:271
+#26 0x00007ffff7ddcb36 in std::thread::_State_impl<std::thread::_Invoker<std::tuple<std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::--Type <RET> for more, q to quit, c to continue without paging--
+MultiThreadedExecutor*, unsigned long))(unsigned long)> > > >::_M_run() (this=0x55555682afe0) at /usr/include/c++/10/thread:215
+#27 0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#28 0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#29 0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 33 (Thread 0x7fff8cff9700 (LWP 574984) "mexe_node"):
+#0  0x00007ffff75f623f in __GI___clock_nanosleep (clock_id=clock_id@entry=0, flags=flags@entry=0, req=req@entry=0x7fff8cff6ba0, rem=rem@entry=0x7fff8cff6ba0) at ../sysdeps/unix/sysv/linux/clock_nanosleep.c:78
+#1  0x00007ffff75fbec7 in __GI___nanosleep (requested_time=requested_time@entry=0x7fff8cff6ba0, remaining=remaining@entry=0x7fff8cff6ba0) at nanosleep.c:27
+#2  0x00007ffff75fbdfe in __sleep (seconds=0) at ../sysdeps/posix/sleep.c:55
+#3  0x00005555555892e6 in dummy_load_sleep (load_ms=100) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp:52
+#4  0x000055555558ccbe in cb_chain_demo::IntermediateNode::callback (this=0x555556616b70, msg=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (use count 4, weak count 0) = {...}) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp:127
+#5  0x00005555555a4fd1 in std::__invoke_impl<void, void (cb_chain_demo::IntermediateNode::*&)(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), cb_chain_demo::IntermediateNode*&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > > (__f=@0x555556afc720: (void (cb_chain_demo::IntermediateNode::*)(cb_chain_demo::IntermediateNode * const, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)) 0x55555558cc18 <cb_chain_demo::IntermediateNode::callback(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>, __t=@0x555556afc730: 0x555556616b70) at /usr/include/c++/10/bits/invoke.h:73
+#6  0x00005555555a434b in std::__invoke<void (cb_chain_demo::IntermediateNode::*&)(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), cb_chain_demo::IntermediateNode*&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > > (__fn=@0x555556afc720: (void (cb_chain_demo::IntermediateNode::*)(cb_chain_demo::IntermediateNode * const, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)) 0x55555558cc18 <cb_chain_demo::IntermediateNode::callback(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>) at /usr/include/c++/10/bits/invoke.h:95
+#7  0x00005555555a364e in std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::__call<void, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&, 0ul, 1ul>(std::tuple<std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&>&&, std::_Index_tuple<0ul, 1ul>) (this=0x555556afc720, __args=...) at /usr/include/c++/10/functional:416
+#8  0x00005555555a2894 in std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::operator()<std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >, void>(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (this=0x555556afc720) at /usr/include/c++/10/functional:499
+#9  0x00005555555a18cb in std::__invoke_impl<void, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > >(std::__invoke_other, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__f=...) at /usr/include/c++/10/bits/invoke.h:60
+#10 0x00005555555a037d in std::__invoke_r<void, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > >(std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__fn=...) at /usr/include/c++/10/bits/invoke.h:110
+--Type <RET> for more, q to quit, c to continue without paging--
+#11 0x000055555559e6f6 in std::_Function_handler<void (std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)> >::_M_invoke(std::_Any_data const&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__functor=..., __args#0=...) at /usr/include/c++/10/bits/std_function.h:291
+#12 0x00005555555b07e7 in std::function<void (std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::operator()(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >) const (this=0x555556aa30d0, __args#0=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (empty) = {...}) at /usr/include/c++/10/bits/std_function.h:622
+#13 0x00005555555af3f6 in rclcpp::AnySubscriptionCallback<std_msgs::msg::String_<std::allocator<void> >, std::allocator<void> >::dispatch (this=0x555556aa30d0, message=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (use count 4, weak count 0) = {...}, message_info=...) at /data/hongyi/ros2_ws/experiment/demo_ws/install/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp:159
+#14 0x00005555555adf3b in rclcpp::Subscription<std_msgs::msg::String_<std::allocator<void> >, std::allocator<void> >::handle_message (this=0x555556aa3040, message=std::shared_ptr<void> (use count 4, weak count 0) = {...}, message_info=...) at /data/hongyi/ros2_ws/experiment/demo_ws/install/rclcpp_spk/include/rclcpp/subscription.hpp:146
+#15 0x00007ffff7dd2300 in rclcpp::executor::Executor::execute_subscription (subscription=std::shared_ptr<rclcpp::SubscriptionBase> (use count 3, weak count 1) = {...}) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executor.cpp:346
+#16 0x00007ffff7dd1c99 in rclcpp::executor::Executor::execute_any_executable (this=0x7fffffff4300, any_exec=...) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executor.cpp:294
+#17 0x00007ffff7dd9798 in rclcpp::executors::MultiThreadedExecutor::run (this=0x7fffffff4300) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/multi_threaded_executor.cpp:104
+#18 0x00007ffff7ddcf67 in std::__invoke_impl<void, void (rclcpp::executors::MultiThreadedExecutor::*&)(unsigned long), rclcpp::executors::MultiThreadedExecutor*&, unsigned long&> (__f=@0x555556ab29d8: (void (rclcpp::executors::MultiThreadedExecutor::*)(rclcpp::executors::MultiThreadedExecutor * const, unsigned long)) 0x7ffff7dd94c4 <rclcpp::executors::MultiThreadedExecutor::run(unsigned long)>, __t=@0x555556ab29f0: 0x7fffffff4300) at /usr/include/c++/10/bits/invoke.h:73
+#19 0x00007ffff7ddce79 in std::__invoke<void (rclcpp::executors::MultiThreadedExecutor::*&)(unsigned long), rclcpp::executors::MultiThreadedExecutor*&, unsigned long&> (__fn=@0x555556ab29d8: (void (rclcpp::executors::MultiThreadedExecutor::*)(rclcpp::executors::MultiThreadedExecutor * const, unsigned long)) 0x7ffff7dd94c4 <rclcpp::executors::MultiThreadedExecutor::run(unsigned long)>) at /usr/include/c++/10/bits/invoke.h:95
+#20 0x00007ffff7ddcd70 in std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>::__call<void, , 0ul, 1ul>(std::tuple<>&&, std::_Index_tuple<0ul, 1ul>) (this=0x555556ab29d8, __args=...) at /usr/include/c++/10/functional:416
+#21 0x00007ffff7ddcca7 in std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>::operator()<, void>() (this=0x555556ab29d8) at /usr/include/c++/10/functional:499
+#22 0x00007ffff7ddcc4e in std::__invoke_impl<void, std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>>(std::__invoke_other, std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>&&) (__f=...) at /usr/include/c++/10/bits/invoke.h:60
+#23 0x00007ffff7ddcbe5 in std::__invoke<std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>>(std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>&&) (__fn=...) at /usr/include/c++/10/bits/invoke.h:95
+#24 0x00007ffff7ddcb86 in std::thread::_Invoker<std::tuple<std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, u--Type <RET> for more, q to quit, c to continue without paging--
+nsigned long))(unsigned long)> > >::_M_invoke<0ul>(std::_Index_tuple<0ul>) (this=0x555556ab29d8) at /usr/include/c++/10/thread:264
+#25 0x00007ffff7ddcb56 in std::thread::_Invoker<std::tuple<std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)> > >::operator()() (this=0x555556ab29d8) at /usr/include/c++/10/thread:271
+#26 0x00007ffff7ddcb36 in std::thread::_State_impl<std::thread::_Invoker<std::tuple<std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)> > > >::_M_run() (this=0x555556ab29d0) at /usr/include/c++/10/thread:215
+#27 0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#28 0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#29 0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 32 (Thread 0x7fff8d7fa700 (LWP 574983) "mexe_node"):
+#0  0x00007ffff75f623f in __GI___clock_nanosleep (clock_id=clock_id@entry=0, flags=flags@entry=0, req=req@entry=0x7fff8d7f7ba0, rem=rem@entry=0x7fff8d7f7ba0) at ../sysdeps/unix/sysv/linux/clock_nanosleep.c:78
+#1  0x00007ffff75fbec7 in __GI___nanosleep (requested_time=requested_time@entry=0x7fff8d7f7ba0, remaining=remaining@entry=0x7fff8d7f7ba0) at nanosleep.c:27
+#2  0x00007ffff75fbdfe in __sleep (seconds=0) at ../sysdeps/posix/sleep.c:55
+#3  0x00005555555892e6 in dummy_load_sleep (load_ms=100) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp:52
+#4  0x000055555558ccbe in cb_chain_demo::IntermediateNode::callback (this=0x555556131420, msg=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (use count 4, weak count 0) = {...}) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp:127
+#5  0x00005555555a4fd1 in std::__invoke_impl<void, void (cb_chain_demo::IntermediateNode::*&)(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), cb_chain_demo::IntermediateNode*&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > > (__f=@0x555556616b40: (void (cb_chain_demo::IntermediateNode::*)(cb_chain_demo::IntermediateNode * const, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)) 0x55555558cc18 <cb_chain_demo::IntermediateNode::callback(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>, __t=@0x555556616b50: 0x555556131420) at /usr/include/c++/10/bits/invoke.h:73
+#6  0x00005555555a434b in std::__invoke<void (cb_chain_demo::IntermediateNode::*&)(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), cb_chain_demo::IntermediateNode*&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > > (__fn=@0x555556616b40: (void (cb_chain_demo::IntermediateNode::*)(cb_chain_demo::IntermediateNode * const, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)) 0x55555558cc18 <cb_chain_demo::IntermediateNode::callback(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>) at /usr/include/c++/10/bits/invoke.h:95
+#7  0x00005555555a364e in std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::__call<void, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&, 0ul, 1ul>(std::tuple<std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&>&&, std::_Index_tuple<0ul, 1ul>) (this=0x555556616b40, __args=...) at /usr/include/c++/10/functional:416
+#8  0x00005555555a2894 in std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::operator()<std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >, void>(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (this=0x555556616b40) at /usr/include/c++/10/functional:499
+#9  0x00005555555a18cb in std::__invoke_impl<void, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > >(std::__invoke_other, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__f=...) at /usr/include/c++/10/bits/invoke.h:60
+--Type <RET> for more, q to quit, c to continue without paging--
+#10 0x00005555555a037d in std::__invoke_r<void, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > >(std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__fn=...) at /usr/include/c++/10/bits/invoke.h:110
+#11 0x000055555559e6f6 in std::_Function_handler<void (std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)> >::_M_invoke(std::_Any_data const&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__functor=..., __args#0=...) at /usr/include/c++/10/bits/std_function.h:291
+#12 0x00005555555b07e7 in std::function<void (std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::operator()(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >) const (this=0x555556131ce0, __args#0=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (empty) = {...}) at /usr/include/c++/10/bits/std_function.h:622
+#13 0x00005555555af3f6 in rclcpp::AnySubscriptionCallback<std_msgs::msg::String_<std::allocator<void> >, std::allocator<void> >::dispatch (this=0x555556131ce0, message=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (use count 4, weak count 0) = {...}, message_info=...) at /data/hongyi/ros2_ws/experiment/demo_ws/install/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp:159
+#14 0x00005555555adf3b in rclcpp::Subscription<std_msgs::msg::String_<std::allocator<void> >, std::allocator<void> >::handle_message (this=0x555556131c50, message=std::shared_ptr<void> (use count 4, weak count 0) = {...}, message_info=...) at /data/hongyi/ros2_ws/experiment/demo_ws/install/rclcpp_spk/include/rclcpp/subscription.hpp:146
+#15 0x00007ffff7dd2300 in rclcpp::executor::Executor::execute_subscription (subscription=std::shared_ptr<rclcpp::SubscriptionBase> (use count 3, weak count 1) = {...}) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executor.cpp:346
+#16 0x00007ffff7dd1c99 in rclcpp::executor::Executor::execute_any_executable (this=0x7fffffff4300, any_exec=...) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executor.cpp:294
+#17 0x00007ffff7dd9798 in rclcpp::executors::MultiThreadedExecutor::run (this=0x7fffffff4300) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/multi_threaded_executor.cpp:104
+#18 0x00007ffff7ddcf67 in std::__invoke_impl<void, void (rclcpp::executors::MultiThreadedExecutor::*&)(unsigned long), rclcpp::executors::MultiThreadedExecutor*&, unsigned long&> (__f=@0x555556aa0d68: (void (rclcpp::executors::MultiThreadedExecutor::*)(rclcpp::executors::MultiThreadedExecutor * const, unsigned long)) 0x7ffff7dd94c4 <rclcpp::executors::MultiThreadedExecutor::run(unsigned long)>, __t=@0x555556aa0d80: 0x7fffffff4300) at /usr/include/c++/10/bits/invoke.h:73
+#19 0x00007ffff7ddce79 in std::__invoke<void (rclcpp::executors::MultiThreadedExecutor::*&)(unsigned long), rclcpp::executors::MultiThreadedExecutor*&, unsigned long&> (__fn=@0x555556aa0d68: (void (rclcpp::executors::MultiThreadedExecutor::*)(rclcpp::executors::MultiThreadedExecutor * const, unsigned long)) 0x7ffff7dd94c4 <rclcpp::executors::MultiThreadedExecutor::run(unsigned long)>) at /usr/include/c++/10/bits/invoke.h:95
+#20 0x00007ffff7ddcd70 in std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>::__call<void, , 0ul, 1ul>(std::tuple<>&&, std::_Index_tuple<0ul, 1ul>) (this=0x555556aa0d68, __args=...) at /usr/include/c++/10/functional:416
+#21 0x00007ffff7ddcca7 in std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>::operator()<, void>() (this=0x555556aa0d68) at /usr/include/c++/10/functional:499
+#22 0x00007ffff7ddcc4e in std::__invoke_impl<void, std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>>(std::__invoke_other, std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>&&) (__f=...) at /usr/include/c++/10/bits/invoke.h:60
+--Type <RET> for more, q to quit, c to continue without paging--
+#23 0x00007ffff7ddcbe5 in std::__invoke<std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>>(std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)>&&) (__fn=...) at /usr/include/c++/10/bits/invoke.h:95
+#24 0x00007ffff7ddcb86 in std::thread::_Invoker<std::tuple<std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)> > >::_M_invoke<0ul>(std::_Index_tuple<0ul>) (this=0x555556aa0d68) at /usr/include/c++/10/thread:264
+#25 0x00007ffff7ddcb56 in std::thread::_Invoker<std::tuple<std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)> > >::operator()() (this=0x555556aa0d68) at /usr/include/c++/10/thread:271
+#26 0x00007ffff7ddcb36 in std::thread::_State_impl<std::thread::_Invoker<std::tuple<std::_Bind<void (rclcpp::executors::MultiThreadedExecutor::*(rclcpp::executors::MultiThreadedExecutor*, unsigned long))(unsigned long)> > > >::_M_run() (this=0x555556aa0d60) at /usr/include/c++/10/thread:215
+#27 0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#28 0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#29 0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 31 (Thread 0x7fff8dffb700 (LWP 574738) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fff8dffa1e0, fd=92) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=92, msg=0x7fff8dffa1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 30 (Thread 0x7fff8e7fc700 (LWP 574737) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fff8e7fb1e0, fd=91) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=91, msg=0x7fff8e7fb1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps:--Type <RET> for more, q to quit, c to continue without paging--
+:Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 29 (Thread 0x7fff8effd700 (LWP 574736) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fff8effc1e0, fd=90) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=90, msg=0x7fff8effc1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 28 (Thread 0x7fff8f7fe700 (LWP 574735) "mexe_node"):
+#0  0x00007ffff763868e in epoll_wait (epfd=98, events=0x7fff8f7fcfb0, maxevents=128, timeout=-1) at ../sysdeps/unix/sysv/linux/epoll_wait.c:30
+#1  0x00007ffff6b9d63c in asio::detail::epoll_reactor::run(long, asio::detail::op_queue<asio::detail::scheduler_operation>&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#2  0x00007ffff6b9b5fb in eprosima::fastrtps::rtps::ResourceEvent::run_io_service() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#5  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 27 (Thread 0x7fff8ffff700 (LWP 574601) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fff8fffe1e0, fd=79) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=79, msg=0x7fff8fffe1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/i--Type <RET> for more, q to quit, c to continue without paging--
+nstall/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 26 (Thread 0x7fffa4ff9700 (LWP 574600) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffa4ff81e0, fd=78) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=78, msg=0x7fffa4ff81e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 25 (Thread 0x7fffa57fa700 (LWP 574599) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffa57f91e0, fd=77) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=77, msg=0x7fffa57f91e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+--Type <RET> for more, q to quit, c to continue without paging--
+
+Thread 24 (Thread 0x7fffa5ffb700 (LWP 574598) "mexe_node"):
+#0  0x00007ffff763868e in epoll_wait (epfd=85, events=0x7fffa5ff9fb0, maxevents=128, timeout=-1) at ../sysdeps/unix/sysv/linux/epoll_wait.c:30
+#1  0x00007ffff6b9d63c in asio::detail::epoll_reactor::run(long, asio::detail::op_queue<asio::detail::scheduler_operation>&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#2  0x00007ffff6b9b5fb in eprosima::fastrtps::rtps::ResourceEvent::run_io_service() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#5  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 23 (Thread 0x7fffa67fc700 (LWP 574597) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffa67fb1e0, fd=66) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=66, msg=0x7fffa67fb1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 22 (Thread 0x7fffa6ffd700 (LWP 574596) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffa6ffc1e0, fd=65) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=65, msg=0x7fffa6ffc1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+--Type <RET> for more, q to quit, c to continue without paging--
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 21 (Thread 0x7fffa77fe700 (LWP 574595) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffa77fd1e0, fd=64) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=64, msg=0x7fffa77fd1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 20 (Thread 0x7fffa7fff700 (LWP 574594) "mexe_node"):
+#0  0x00007ffff763868e in epoll_wait (epfd=72, events=0x7fffa7ffdfb0, maxevents=128, timeout=-1) at ../sysdeps/unix/sysv/linux/epoll_wait.c:30
+#1  0x00007ffff6b9d63c in asio::detail::epoll_reactor::run(long, asio::detail::op_queue<asio::detail::scheduler_operation>&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#2  0x00007ffff6b9b5fb in eprosima::fastrtps::rtps::ResourceEvent::run_io_service() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#5  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 19 (Thread 0x7fffc4ff9700 (LWP 574593) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffc4ff81e0, fd=53) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=53, msg=0x7fffc4ff81e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/lib--Type <RET> for more, q to quit, c to continue without paging--
+fastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 18 (Thread 0x7fffc57fa700 (LWP 574592) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffc57f91e0, fd=52) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=52, msg=0x7fffc57f91e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 17 (Thread 0x7fffc5ffb700 (LWP 574591) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffc5ffa1e0, fd=51) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=51, msg=0x7fffc5ffa1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 16 (Thread 0x7fffc67fc700 (LWP 574590) "mexe_node"):
+#0  0x00007ffff763868e in epoll_wait (epfd=59, events=0x7fffc67fafb0, maxevents=128, timeout=-1) at ../sysdeps/unix/sysv/linux/epoll_wait.c:30
+--Type <RET> for more, q to quit, c to continue without paging--
+#1  0x00007ffff6b9d63c in asio::detail::epoll_reactor::run(long, asio::detail::op_queue<asio::detail::scheduler_operation>&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#2  0x00007ffff6b9b5fb in eprosima::fastrtps::rtps::ResourceEvent::run_io_service() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#5  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 15 (Thread 0x7fffc6ffd700 (LWP 574589) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffc6ffc1e0, fd=40) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=40, msg=0x7fffc6ffc1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 14 (Thread 0x7fffc77fe700 (LWP 574588) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffc77fd1e0, fd=39) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=39, msg=0x7fffc77fd1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+--Type <RET> for more, q to quit, c to continue without paging--
+Thread 13 (Thread 0x7fffc7fff700 (LWP 574587) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffc7ffe1e0, fd=38) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=38, msg=0x7fffc7ffe1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 12 (Thread 0x7fffecff9700 (LWP 574586) "mexe_node"):
+#0  0x00007ffff763868e in epoll_wait (epfd=46, events=0x7fffecff7fb0, maxevents=128, timeout=-1) at ../sysdeps/unix/sysv/linux/epoll_wait.c:30
+#1  0x00007ffff6b9d63c in asio::detail::epoll_reactor::run(long, asio::detail::op_queue<asio::detail::scheduler_operation>&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#2  0x00007ffff6b9b5fb in eprosima::fastrtps::rtps::ResourceEvent::run_io_service() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#5  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 11 (Thread 0x7fffed7fa700 (LWP 574585) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffed7f91e0, fd=27) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=27, msg=0x7fffed7f91e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+--Type <RET> for more, q to quit, c to continue without paging--
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 10 (Thread 0x7fffedffb700 (LWP 574584) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffedffa1e0, fd=25) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=25, msg=0x7fffedffa1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 9 (Thread 0x7fffee7fc700 (LWP 574583) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffee7fb1e0, fd=24) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=24, msg=0x7fffee7fb1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 8 (Thread 0x7fffeeffd700 (LWP 574582) "mexe_node"):
+#0  0x00007ffff763868e in epoll_wait (epfd=33, events=0x7fffeeffbfb0, maxevents=128, timeout=-1) at ../sysdeps/unix/sysv/linux/epoll_wait.c:30
+#1  0x00007ffff6b9d63c in asio::detail::epoll_reactor::run(long, asio::detail::op_queue<asio::detail::scheduler_operation>&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#2  0x00007ffff6b9b5fb in eprosima::fastrtps::rtps::ResourceEvent::run_io_service() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+--Type <RET> for more, q to quit, c to continue without paging--
+#3  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#5  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 7 (Thread 0x7fffef7fe700 (LWP 574581) "mexe_node"):
+#0  futex_wait_cancelable (private=<optimized out>, expected=0, futex_word=0x7ffff6f30068 <eprosima::fastrtps::rtps::AsyncWriterThread::cv_+40>) at ../sysdeps/nptl/futex-internal.h:183
+#1  __pthread_cond_wait_common (abstime=0x0, clockid=0, mutex=0x7ffff6f300a0 <eprosima::fastrtps::rtps::AsyncWriterThread::condition_variable_mutex_>, cond=0x7ffff6f30040 <eprosima::fastrtps::rtps::AsyncWriterThread::cv_>) at pthread_cond_wait.c:508
+#2  __pthread_cond_wait (cond=0x7ffff6f30040 <eprosima::fastrtps::rtps::AsyncWriterThread::cv_>, mutex=0x7ffff6f300a0 <eprosima::fastrtps::rtps::AsyncWriterThread::condition_variable_mutex_>) at pthread_cond_wait.c:647
+#3  0x00007ffff6ba344f in eprosima::fastrtps::rtps::AsyncWriterThread::run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#5  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#6  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 6 (Thread 0x7fffeffff700 (LWP 574580) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffefffe1e0, fd=8) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=8, msg=0x7fffefffe1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 5 (Thread 0x7ffff4e6f700 (LWP 574579) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7ffff4e6e1e0, fd=7) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=7, msg=0x7ffff4e6e1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+--Type <RET> for more, q to quit, c to continue without paging--
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 4 (Thread 0x7ffff5670700 (LWP 574578) "mexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7ffff566f1e0, fd=6) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=6, msg=0x7ffff566f1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 3 (Thread 0x7ffff5e71700 (LWP 574577) "mexe_node"):
+#0  0x00007ffff763868e in epoll_wait (epfd=14, events=0x7ffff5e6ffb0, maxevents=128, timeout=-1) at ../sysdeps/unix/sysv/linux/epoll_wait.c:30
+#1  0x00007ffff6b9d63c in asio::detail::epoll_reactor::run(long, asio::detail::op_queue<asio::detail::scheduler_operation>&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#2  0x00007ffff6b9b5fb in eprosima::fastrtps::rtps::ResourceEvent::run_io_service() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#5  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+
+Thread 2 (Thread 0x7ffff6672700 (LWP 574576) "mexe_node"):
+#0  futex_abstimed_wait_cancelable (private=0, abstime=0x0, clockid=0, expected=0, futex_word=0x7ffff7fc1fa0 <rclcpp::SignalHandler::signal_handler_sem_>) at ../sysdeps/nptl/futex-internal.h:320
+--Type <RET> for more, q to quit, c to continue without paging--
+#1  do_futex_wait (sem=sem@entry=0x7ffff7fc1fa0 <rclcpp::SignalHandler::signal_handler_sem_>, abstime=0x0, clockid=0) at sem_waitcommon.c:112
+#2  0x00007ffff74fc548 in __new_sem_wait_slow (sem=0x7ffff7fc1fa0 <rclcpp::SignalHandler::signal_handler_sem_>, abstime=0x0, clockid=0) at sem_waitcommon.c:184
+#3  0x00007ffff7ec07d6 in rclcpp::SignalHandler::wait_for_signal () at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/signal_handler.cpp:357
+#4  0x00007ffff7ec0177 in rclcpp::SignalHandler::deferred_signal_handler (this=0x7ffff7fc1fe0 <rclcpp::SignalHandler::get_global_signal_handler()::signal_handler>) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/signal_handler.cpp:278
+#5  0x00007ffff7ec1129 in std::__invoke_impl<void, void (rclcpp::SignalHandler::*)(), rclcpp::SignalHandler*> (__f=@0x5555555e7860: (void (rclcpp::SignalHandler::*)(rclcpp::SignalHandler * const)) 0x7ffff7ebfac2 <rclcpp::SignalHandler::deferred_signal_handler()>, __t=@0x5555555e7858: 0x7ffff7fc1fe0 <rclcpp::SignalHandler::get_global_signal_handler()::signal_handler>) at /usr/include/c++/10/bits/invoke.h:73
+#6  0x00007ffff7ec1087 in std::__invoke<void (rclcpp::SignalHandler::*)(), rclcpp::SignalHandler*> (__fn=@0x5555555e7860: (void (rclcpp::SignalHandler::*)(rclcpp::SignalHandler * const)) 0x7ffff7ebfac2 <rclcpp::SignalHandler::deferred_signal_handler()>) at /usr/include/c++/10/bits/invoke.h:95
+#7  0x00007ffff7ec0fe7 in std::thread::_Invoker<std::tuple<void (rclcpp::SignalHandler::*)(), rclcpp::SignalHandler*> >::_M_invoke<0ul, 1ul> (this=0x5555555e7858) at /usr/include/c++/10/thread:264
+#8  0x00007ffff7ec0f9c in std::thread::_Invoker<std::tuple<void (rclcpp::SignalHandler::*)(), rclcpp::SignalHandler*> >::operator() (this=0x5555555e7858) at /usr/include/c++/10/thread:271
+#9  0x00007ffff7ec0f7c in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (rclcpp::SignalHandler::*)(), rclcpp::SignalHandler*> > >::_M_run (this=0x5555555e7850) at /usr/include/c++/10/thread:215
+#10 0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#11 0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#12 0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 1 (Thread 0x7ffff709cf40 (LWP 574543) "mexe_node"):
+#0  0x00007ffff75f623f in __GI___clock_nanosleep (clock_id=clock_id@entry=0, flags=flags@entry=0, req=req@entry=0x7fffffff2380, rem=rem@entry=0x7fffffff2380) at ../sysdeps/unix/sysv/linux/clock_nanosleep.c:78
+#1  0x00007ffff75fbec7 in __GI___nanosleep (requested_time=requested_time@entry=0x7fffffff2380, remaining=remaining@entry=0x7fffffff2380) at nanosleep.c:27
+#2  0x00007ffff75fbdfe in __sleep (seconds=0) at ../sysdeps/posix/sleep.c:55
+#3  0x00005555555892e6 in dummy_load_sleep (load_ms=100) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp:52
+#4  0x000055555558ccbe in cb_chain_demo::IntermediateNode::callback (this=0x555555c4bcd0, msg=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (use count 4, weak count 0) = {...}) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp:127
+#5  0x00005555555a4fd1 in std::__invoke_impl<void, void (cb_chain_demo::IntermediateNode::*&)(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), cb_chain_demo::IntermediateNode*&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > > (__f=@0x5555561313f0: (void (cb_chain_demo::IntermediateNode::*)(cb_chain_demo::IntermediateNode * const, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)) 0x55555558cc18 <cb_chain_demo::IntermediateNode::callback(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>, __t=@0x555556131400: 0x555555c4bcd0) at /usr/include/c++/10/bits/invoke.h:73
+#6  0x00005555555a434b in std::__invoke<void (cb_chain_demo::IntermediateNode::*&)(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), cb_chain_demo::IntermediateNode*&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > > (__fn=@0x5555561313f0: (void (cb_chain_demo::IntermediateNode::*)(cb_chain_demo::IntermediateNode * const, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)) 0x55555558cc18 <cb_chain_demo::IntermediateNode::callback(std::shared--Type <RET> for more, q to quit, c to continue without paging--
+_ptr<std_msgs::msg::String_<std::allocator<void> > >)>) at /usr/include/c++/10/bits/invoke.h:95
+#7  0x00005555555a364e in std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::__call<void, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&, 0ul, 1ul>(std::tuple<std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&>&&, std::_Index_tuple<0ul, 1ul>) (this=0x5555561313f0, __args=...) at /usr/include/c++/10/functional:416
+#8  0x00005555555a2894 in std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::operator()<std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >, void>(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (this=0x5555561313f0) at /usr/include/c++/10/functional:499
+#9  0x00005555555a18cb in std::__invoke_impl<void, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > >(std::__invoke_other, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__f=...) at /usr/include/c++/10/bits/invoke.h:60
+#10 0x00005555555a037d in std::__invoke_r<void, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > >(std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__fn=...) at /usr/include/c++/10/bits/invoke.h:110
+#11 0x000055555559e6f6 in std::_Function_handler<void (std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)> >::_M_invoke(std::_Any_data const&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__functor=..., __args#0=...) at /usr/include/c++/10/bits/std_function.h:291
+#12 0x00005555555b07e7 in std::function<void (std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::operator()(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >) const (this=0x5555560d7f10, __args#0=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (empty) = {...}) at /usr/include/c++/10/bits/std_function.h:622
+#13 0x00005555555af3f6 in rclcpp::AnySubscriptionCallback<std_msgs::msg::String_<std::allocator<void> >, std::allocator<void> >::dispatch (this=0x5555560d7f10, message=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (use count 4, weak count 0) = {...}, message_info=...) at /data/hongyi/ros2_ws/experiment/demo_ws/install/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp:159
+#14 0x00005555555adf3b in rclcpp::Subscription<std_msgs::msg::String_<std::allocator<void> >, std::allocator<void> >::handle_message (this=0x5555560d7e80, message=std::shared_ptr<void> (use count 4, weak count 0) = {...}, message_info=...) at /data/hongyi/ros2_ws/experiment/demo_ws/install/rclcpp_spk/include/rclcpp/subscription.hpp:146
+#15 0x00007ffff7dd2300 in rclcpp::executor::Executor::execute_subscription (subscription=std::shared_ptr<rclcpp::SubscriptionBase> (use count 3, weak count 1) = {...}) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executor.cpp:346
+#16 0x00007ffff7dd1c99 in rclcpp::executor::Executor::execute_any_executable (this=0x7fffffff4300, any_exec=...) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executor.cpp:294
+#17 0x00007ffff7dd9798 in rclcpp::executors::MultiThreadedExecutor::run (this=0x7fffffff4300) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/multi_threaded_executor.cpp:104
+#18 0x00007ffff7dd938f in rclcpp::executors::MultiThreadedExecutor::spin (this=0x7fffffff4300) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/multi_threaded_executor.cpp:60
+--Type <RET> for more, q to quit, c to continue without paging--
+#19 0x0000555555589d29 in main (argc=1, argv=0x7fffffff4818) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/multi_executor.cpp:189

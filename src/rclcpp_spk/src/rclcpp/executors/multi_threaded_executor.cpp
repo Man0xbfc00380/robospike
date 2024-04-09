@@ -63,6 +63,16 @@ MultiThreadedExecutor::spin()
   }
 }
 
+void
+MultiThreadedExecutor::co_spin()
+{
+  if (spinning.exchange(true)) {
+    throw std::runtime_error("spin() called while already spinning");
+  }
+  RCLCPP_SCOPE_EXIT(this->spinning.store(false); );
+  co_run(number_of_threads_);
+}
+
 size_t
 MultiThreadedExecutor::get_number_of_threads()
 {
@@ -99,8 +109,54 @@ MultiThreadedExecutor::run(size_t)
       std::this_thread::yield();
     }
 
-    // TODO: execute executable
-    // ^^^^^ should be changed into coroutine-based design
+    execute_any_executable(any_exec);
+
+    if (any_exec.timer) {
+      std::lock_guard<std::mutex> wait_lock(wait_mutex_);
+      auto it = scheduled_timers_.find(any_exec.timer);
+      if (it != scheduled_timers_.end()) {
+        scheduled_timers_.erase(it);
+      }
+    }
+    // Clear the callback_group to prevent the AnyExecutable destructor from
+    // resetting the callback group `can_be_taken_from`
+    any_exec.callback_group.reset();
+  }
+}
+
+void
+MultiThreadedExecutor::co_run(size_t number_of_threads)
+{
+  // TODO: co_run (coroutine run)
+  // ^^^^^ First issue: 
+  // ^^^^^^^^^^ From pull the task to accept the task
+  while (rclcpp::ok(this->context_) && spinning.load()) {
+    executor::AnyExecutable any_exec;
+    {
+      std::lock_guard<std::mutex> wait_lock(wait_mutex_);
+      if (!rclcpp::ok(this->context_) || !spinning.load()) {
+        return;
+      }
+      if (!get_next_executable(any_exec)) {
+        continue;
+      }
+      if (any_exec.timer) {
+        // Guard against multiple threads getting the same timer.
+        if (scheduled_timers_.count(any_exec.timer) != 0) {
+          // Make sure that any_exec's callback group is reset before
+          // the lock is released.
+          if (any_exec.callback_group) {
+            any_exec.callback_group->can_be_taken_from().store(true);
+          }
+          continue;
+        }
+        scheduled_timers_.insert(any_exec.timer);
+      }
+    }
+    if (yield_before_execute_) {
+      std::this_thread::yield();
+    }
+
     execute_any_executable(any_exec);
 
     if (any_exec.timer) {

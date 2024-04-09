@@ -58,6 +58,10 @@ public:
   void
   spin();
 
+  RCLCPP_PUBLIC
+  void
+  co_spin();
+
 private:
   RCLCPP_DISABLE_COPY(SingleThreadedExecutor)
 };

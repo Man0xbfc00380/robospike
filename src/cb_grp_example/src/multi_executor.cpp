@@ -49,7 +49,7 @@ void dummy_load_sleep(int load_ms) {
         for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
             __asm__ volatile ("nop");
     // Wait for the machine
-    sleep(1);
+    rclcpp::sleep_for(1500ms);
     // Do sth. Further
     for (j = 0; j < dummy_load_calib * load_ms; j++)
         for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
@@ -83,9 +83,7 @@ private:
 
     void timer_callback()
     {
-        std::string name = this->get_name();            
-        gettimeofday(&ctime, NULL);
-        dummy_load(exe_time_);
+        std::string name = this->get_name();
         auto message = std_msgs::msg::String();
         message.data = std::to_string(count_++);
         gettimeofday(&ftime, NULL);

@@ -24,11 +24,19 @@ find_package(rclcpp_spk REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(std_msgs REQUIRED)
 
-# executable
+# ros2 executable
 add_executable(mexe_node src/multi_executor.cpp)
 ament_target_dependencies(mexe_node rclcpp_spk std_srvs std_msgs)
 add_executable(sexe_node src/single_executor.cpp)
 ament_target_dependencies(sexe_node rclcpp_spk std_srvs std_msgs)
+
+# coroutine-based executable
+add_executable(mcoexe_node src/multi_co_executor.cpp)
+ament_target_dependencies(mcoexe_node rclcpp_spk std_srvs std_msgs)
+add_executable(scoexe_node src/single_co_executor.cpp)
+ament_target_dependencies(scoexe_node rclcpp_spk std_srvs std_msgs)
+
+# coroutine example
 add_executable(chain src/chain.cpp)
 ament_target_dependencies(chain rclcpp_spk std_srvs std_msgs)
 

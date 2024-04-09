@@ -49,7 +49,7 @@ void dummy_load_sleep(int load_ms) {
         for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
             __asm__ volatile ("nop");
     // Wait for the machine
-    rclcpp::sleep_for(1500ms);
+    sleep(1);
     // Do sth. Further
     for (j = 0; j < dummy_load_calib * load_ms; j++)
         for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
@@ -83,7 +83,9 @@ private:
 
     void timer_callback()
     {
-        std::string name = this->get_name();
+        std::string name = this->get_name();            
+        gettimeofday(&ctime, NULL);
+        dummy_load(exe_time_);
         auto message = std_msgs::msg::String();
         message.data = std::to_string(count_++);
         gettimeofday(&ftime, NULL);
@@ -168,8 +170,9 @@ int main(int argc, char* argv[])
     auto c1_r_cb_6 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback6", "c1", "", 100, true);
 
     // Create executors
-    rclcpp::executors::SingleThreadedExecutor exec1;
-    
+    int number_of_threads = 4;
+    rclcpp::executors::MultiThreadedExecutor exec1(rclcpp::executor::ExecutorArgs(), number_of_threads, true); 
+
     // Allocate callbacks to executors
     exec1.add_node(c1_t_cb_0);
     exec1.add_node(c1_r_cb_1);

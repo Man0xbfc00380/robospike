@@ -158,7 +158,6 @@ private:
         publisher_->publish(message);
     }
 
-    // TODO: Target implementation of co_timer_callback
     Task<void, SharedThreadPoolExecutor> co_timer_callback()
     {
         // [modification] dummy_load -> co_dummy_load
@@ -214,7 +213,6 @@ private:
         if (publisher_) publisher_->publish(message);
     }       
 
-    // TODO: Target implementation of co_inode_callback
     Task<void, SharedThreadPoolExecutor> co_inode_callback()
     {
         // [modification] dummy_load -> co_dummy_load

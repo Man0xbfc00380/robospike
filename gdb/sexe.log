@@ -1,0 +1,425 @@
+(ros2-py36) hongyi@cxhpc:~/ros2_ws/experiment/demo_ws$ gdb ./build/cb_grp_example/sexe_node 
+GNU gdb (Ubuntu 10.2-0ubuntu1~20.04~1) 10.2
+Copyright (C) 2021 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+--Type <RET> for more, q to quit, c to continue without paging--
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./build/cb_grp_example/sexe_node...
+(gdb) b single_executor.cpp:170
+Breakpoint 1 at 0x35a87: file /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/single_executor.cpp, line 170.
+(gdb) b single_executor.cpp:173
+Breakpoint 2 at 0x35ad0: file /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/single_executor.cpp, line 173.
+(gdb) b single_executor.cpp:176
+Breakpoint 3 at 0x35b07: file /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/single_executor.cpp, line 176.
+(gdb) r
+Starting program: /data/hongyi/ros2_ws/experiment/demo_ws/build/cb_grp_example/sexe_node 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+[New Thread 0x7ffff6672700 (LWP 578928)]
+[INFO] [rclcpp]: PID: 578913 run in ROS2.
+[INFO] [rclcpp]: dummy_load_calib: 1 (duration_us: 966 ns)
+[INFO] [rclcpp]: dummy_load_calib: 103 (duration_us: 46368 ns)
+[INFO] [rclcpp]: dummy_load_calib: 222 (duration_us: 81129 ns)
+[INFO] [rclcpp]: dummy_load_calib: 273 (duration_us: 99750 ns)
+[New Thread 0x7ffff5e71700 (LWP 578929)]
+[New Thread 0x7ffff5670700 (LWP 578930)]
+[New Thread 0x7ffff4e6f700 (LWP 578931)]
+[New Thread 0x7fffeffff700 (LWP 578932)]
+[New Thread 0x7fffef7fe700 (LWP 578933)]
+[New Thread 0x7fffeeffd700 (LWP 578934)]
+[New Thread 0x7fffee7fc700 (LWP 578935)]
+[New Thread 0x7fffedffb700 (LWP 578936)]
+[New Thread 0x7fffed7fa700 (LWP 578937)]
+[New Thread 0x7fffecff9700 (LWP 578938)]
+[New Thread 0x7fffc7fff700 (LWP 578939)]
+[New Thread 0x7fffc77fe700 (LWP 578940)]
+[New Thread 0x7fffc6ffd700 (LWP 578941)]
+[New Thread 0x7fffc67fc700 (LWP 578942)]
+[New Thread 0x7fffc5ffb700 (LWP 578943)]
+[New Thread 0x7fffc57fa700 (LWP 578944)]
+[New Thread 0x7fffc4ff9700 (LWP 578945)]
+[New Thread 0x7fffa7fff700 (LWP 578946)]
+[New Thread 0x7fffa77fe700 (LWP 578947)]
+[New Thread 0x7fffa6ffd700 (LWP 578948)]
+[New Thread 0x7fffa67fc700 (LWP 578949)]
+[New Thread 0x7fffa5ffb700 (LWP 578950)]
+[New Thread 0x7fffa57fa700 (LWP 578951)]
+[New Thread 0x7fffa4ff9700 (LWP 578952)]
+[New Thread 0x7fff8ffff700 (LWP 578953)]
+
+Thread 1 "sexe_node" hit Breakpoint 1, main (argc=1, argv=0x7fffffff47d8)
+    at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/single_executor.cpp:170
+170         auto c1_r_cb_6 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback6", "c1", "", 100, true);
+(gdb) c
+Continuing.
+[New Thread 0x7fff8f7fe700 (LWP 578979)]
+[New Thread 0x7fff8effd700 (LWP 578980)]
+[New Thread 0x7fff8e7fc700 (LWP 578981)]
+[New Thread 0x7fff8dffb700 (LWP 578982)]
+
+Thread 1 "sexe_node" hit Breakpoint 2, main (argc=1, argv=0x7fffffff47d8)
+    at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/single_executor.cpp:173
+173         rclcpp::executors::SingleThreadedExecutor exec1;
+(gdb) c
+Continuing.
+
+Thread 1 "sexe_node" hit Breakpoint 3, main (argc=1, argv=0x7fffffff47d8)
+    at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/single_executor.cpp:176
+176         exec1.add_node(c1_t_cb_0);
+(gdb) c
+Continuing.
+[INFO] [Timer_callback]: Timer call [PID: 578913] back at 0 (s) 72085 (us)
+[INFO] [Regular_callback1]: Intermediate call [PID: 578913] back at 0 (s) 73331 (us)
+[INFO] [Timer_callback]: Timer call [PID: 578913] back at 1 (s) 289118 (us)
+[INFO] [Regular_callback2]: Intermediate call [PID: 578913] back at 1 (s) 289421 (us)
+[INFO] [Regular_callback3]: Intermediate call [PID: 578913] back at 2 (s) 431701 (us)
+[INFO] [Timer_callback]: Timer call [PID: 578913] back at 3 (s) 643451 (us)
+[INFO] [Regular_callback4]: Intermediate call [PID: 578913] back at 3 (s) 643718 (us)
+[INFO] [Timer_callback]: Timer call [PID: 578913] back at 4 (s) 855910 (us)
+[INFO] [Regular_callback5]: Intermediate call [PID: 578913] back at 4 (s) 856343 (us)
+[INFO] [Regular_callback6]: Intermediate call [PID: 578913] back at 5 (s) 997048 (us)
+[INFO] [Timer_callback]: Timer call [PID: 578913] back at 7 (s) 206735 (us)
+[INFO] [Regular_callback1]: Intermediate call [PID: 578913] back at 7 (s) 207502 (us)
+^C
+Thread 1 "sexe_node" received signal SIGINT, Interrupt.
+0x00007ffff75f623f in __GI___clock_nanosleep (clock_id=clock_id@entry=0, flags=flags@entry=0, req=req@entry=0x7fffffff2430, rem=rem@entry=0x7fffffff2430)
+    at ../sysdeps/unix/sysv/linux/clock_nanosleep.c:78
+78      ../sysdeps/unix/sysv/linux/clock_nanosleep.c: No such file or directory.
+(gdb) thread apply all bt
+
+Thread 31 (Thread 0x7fff8dffb700 (LWP 578982) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fff8dffa1e0, fd=92) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=92, msg=0x7fff8dffa1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 30 (Thread 0x7fff8e7fc700 (LWP 578981) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fff8e7fb1e0, fd=91) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=91, msg=0x7fff8e7fb1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 29 (Thread 0x7fff8effd700 (LWP 578980) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fff8effc1e0, fd=90) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=90, msg=0x7fff8effc1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator--Type <RET> for more, q to quit, c to continue without paging--
+_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 28 (Thread 0x7fff8f7fe700 (LWP 578979) "sexe_node"):
+#0  0x00007ffff763868e in epoll_wait (epfd=98, events=0x7fff8f7fcfb0, maxevents=128, timeout=-1) at ../sysdeps/unix/sysv/linux/epoll_wait.c:30
+#1  0x00007ffff6b9d63c in asio::detail::epoll_reactor::run(long, asio::detail::op_queue<asio::detail::scheduler_operation>&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#2  0x00007ffff6b9b5fb in eprosima::fastrtps::rtps::ResourceEvent::run_io_service() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#5  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 27 (Thread 0x7fff8ffff700 (LWP 578953) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fff8fffe1e0, fd=79) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=79, msg=0x7fff8fffe1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+--Type <RET> for more, q to quit, c to continue without paging--
+Thread 26 (Thread 0x7fffa4ff9700 (LWP 578952) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffa4ff81e0, fd=78) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=78, msg=0x7fffa4ff81e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 25 (Thread 0x7fffa57fa700 (LWP 578951) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffa57f91e0, fd=77) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=77, msg=0x7fffa57f91e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 24 (Thread 0x7fffa5ffb700 (LWP 578950) "sexe_node"):
+#0  0x00007ffff763868e in epoll_wait (epfd=85, events=0x7fffa5ff9fb0, maxevents=128, timeout=-1) at ../sysdeps/unix/sysv/linux/epoll_wait.c:30
+#1  0x00007ffff6b9d63c in asio::detail::epoll_reactor::run(long, asio::detail::op_queue<asio::detail::scheduler_operation>&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#2  0x00007ffff6b9b5fb in eprosima::fastrtps::rtps::ResourceEvent::run_io_service() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+--Type <RET> for more, q to quit, c to continue without paging--
+#3  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#5  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 23 (Thread 0x7fffa67fc700 (LWP 578949) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffa67fb1e0, fd=66) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=66, msg=0x7fffa67fb1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 22 (Thread 0x7fffa6ffd700 (LWP 578948) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffa6ffc1e0, fd=65) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=65, msg=0x7fffa6ffc1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 21 (Thread 0x7fffa77fe700 (LWP 578947) "sexe_node"):
+--Type <RET> for more, q to quit, c to continue without paging--
+#0  __libc_recvmsg (flags=0, msg=0x7fffa77fd1e0, fd=64) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=64, msg=0x7fffa77fd1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 20 (Thread 0x7fffa7fff700 (LWP 578946) "sexe_node"):
+#0  0x00007ffff763868e in epoll_wait (epfd=72, events=0x7fffa7ffdfb0, maxevents=128, timeout=-1) at ../sysdeps/unix/sysv/linux/epoll_wait.c:30
+#1  0x00007ffff6b9d63c in asio::detail::epoll_reactor::run(long, asio::detail::op_queue<asio::detail::scheduler_operation>&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#2  0x00007ffff6b9b5fb in eprosima::fastrtps::rtps::ResourceEvent::run_io_service() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#5  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 19 (Thread 0x7fffc4ff9700 (LWP 578945) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffc4ff81e0, fd=53) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=53, msg=0x7fffc4ff81e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+--Type <RET> for more, q to quit, c to continue without paging--
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 18 (Thread 0x7fffc57fa700 (LWP 578944) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffc57f91e0, fd=52) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=52, msg=0x7fffc57f91e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 17 (Thread 0x7fffc5ffb700 (LWP 578943) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffc5ffa1e0, fd=51) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=51, msg=0x7fffc5ffa1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 16 (Thread 0x7fffc67fc700 (LWP 578942) "sexe_node"):
+#0  0x00007ffff763868e in epoll_wait (epfd=59, events=0x7fffc67fafb0, maxevents=128, timeout=-1) at ../sysdeps/unix/sysv/linux/epoll_wait.c:30
+--Type <RET> for more, q to quit, c to continue without paging--
+#1  0x00007ffff6b9d63c in asio::detail::epoll_reactor::run(long, asio::detail::op_queue<asio::detail::scheduler_operation>&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#2  0x00007ffff6b9b5fb in eprosima::fastrtps::rtps::ResourceEvent::run_io_service() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#5  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 15 (Thread 0x7fffc6ffd700 (LWP 578941) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffc6ffc1e0, fd=40) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=40, msg=0x7fffc6ffc1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 14 (Thread 0x7fffc77fe700 (LWP 578940) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffc77fd1e0, fd=39) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=39, msg=0x7fffc77fd1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+--Type <RET> for more, q to quit, c to continue without paging--
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 13 (Thread 0x7fffc7fff700 (LWP 578939) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffc7ffe1e0, fd=38) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=38, msg=0x7fffc7ffe1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 12 (Thread 0x7fffecff9700 (LWP 578938) "sexe_node"):
+#0  0x00007ffff763868e in epoll_wait (epfd=46, events=0x7fffecff7fb0, maxevents=128, timeout=-1) at ../sysdeps/unix/sysv/linux/epoll_wait.c:30
+#1  0x00007ffff6b9d63c in asio::detail::epoll_reactor::run(long, asio::detail::op_queue<asio::detail::scheduler_operation>&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#2  0x00007ffff6b9b5fb in eprosima::fastrtps::rtps::ResourceEvent::run_io_service() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#5  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 11 (Thread 0x7fffed7fa700 (LWP 578937) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffed7f91e0, fd=27) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=27, msg=0x7fffed7f91e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps:--Type <RET> for more, q to quit, c to continue without paging--
+:rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 10 (Thread 0x7fffedffb700 (LWP 578936) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffedffa1e0, fd=25) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=25, msg=0x7fffedffa1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 9 (Thread 0x7fffee7fc700 (LWP 578935) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffee7fb1e0, fd=24) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=24, msg=0x7fffee7fb1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+--Type <RET> for more, q to quit, c to continue without paging--
+
+Thread 8 (Thread 0x7fffeeffd700 (LWP 578934) "sexe_node"):
+#0  0x00007ffff763868e in epoll_wait (epfd=33, events=0x7fffeeffbfb0, maxevents=128, timeout=-1) at ../sysdeps/unix/sysv/linux/epoll_wait.c:30
+#1  0x00007ffff6b9d63c in asio::detail::epoll_reactor::run(long, asio::detail::op_queue<asio::detail::scheduler_operation>&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#2  0x00007ffff6b9b5fb in eprosima::fastrtps::rtps::ResourceEvent::run_io_service() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#5  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 7 (Thread 0x7fffef7fe700 (LWP 578933) "sexe_node"):
+#0  futex_wait_cancelable (private=<optimized out>, expected=0, futex_word=0x7ffff6f30068 <eprosima::fastrtps::rtps::AsyncWriterThread::cv_+40>) at ../sysdeps/nptl/futex-internal.h:183
+#1  __pthread_cond_wait_common (abstime=0x0, clockid=0, mutex=0x7ffff6f300a0 <eprosima::fastrtps::rtps::AsyncWriterThread::condition_variable_mutex_>, cond=0x7ffff6f30040 <eprosima::fastrtps::rtps::AsyncWriterThread::cv_>) at pthread_cond_wait.c:508
+#2  __pthread_cond_wait (cond=0x7ffff6f30040 <eprosima::fastrtps::rtps::AsyncWriterThread::cv_>, mutex=0x7ffff6f300a0 <eprosima::fastrtps::rtps::AsyncWriterThread::condition_variable_mutex_>) at pthread_cond_wait.c:647
+#3  0x00007ffff6ba344f in eprosima::fastrtps::rtps::AsyncWriterThread::run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#5  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#6  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 6 (Thread 0x7fffeffff700 (LWP 578932) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7fffefffe1e0, fd=8) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=8, msg=0x7fffefffe1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+--Type <RET> for more, q to quit, c to continue without paging--
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 5 (Thread 0x7ffff4e6f700 (LWP 578931) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7ffff4e6e1e0, fd=7) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=7, msg=0x7ffff4e6e1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 4 (Thread 0x7ffff5670700 (LWP 578930) "sexe_node"):
+#0  __libc_recvmsg (flags=0, msg=0x7ffff566f1e0, fd=6) at ../sysdeps/unix/sysv/linux/recvmsg.c:28
+#1  __libc_recvmsg (fd=6, msg=0x7ffff566f1e0, flags=0) at ../sysdeps/unix/sysv/linux/recvmsg.c:25
+#2  0x00007ffff6c3437e in eprosima::fastrtps::rtps::UDPChannelResource::Receive(unsigned char*, unsigned int, unsigned int&, eprosima::fastrtps::rtps::Locator_t&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff6c347d7 in eprosima::fastrtps::rtps::UDPChannelResource::perform_listen_operation(eprosima::fastrtps::rtps::Locator_t) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#4  0x00007ffff6c34caa in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (eprosima::fastrtps::rtps::UDPChannelResource::*)(eprosima::fastrtps::rtps::Locator_t), eprosima::fastrtps::rtps::UDPChannelResource*, eprosima::fastrtps::rtps::Locator_t> > >::_M_run() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#5  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#7  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 3 (Thread 0x7ffff5e71700 (LWP 578929) "sexe_node"):
+#0  0x00007ffff763868e in epoll_wait (epfd=14, events=0x7ffff5e6ffb0, maxevents=128, timeout=-1) at ../sysdeps/unix/sysv/linux/epoll_wait.c:30
+--Type <RET> for more, q to quit, c to continue without paging--
+#1  0x00007ffff6b9d63c in asio::detail::epoll_reactor::run(long, asio::detail::op_queue<asio::detail::scheduler_operation>&) () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#2  0x00007ffff6b9b5fb in eprosima::fastrtps::rtps::ResourceEvent::run_io_service() () from /data/hongyi/ros2_ws/install/fastrtps/lib/libfastrtps.so.1
+#3  0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#5  0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 2 (Thread 0x7ffff6672700 (LWP 578928) "sexe_node"):
+#0  futex_abstimed_wait_cancelable (private=0, abstime=0x0, clockid=0, expected=0, futex_word=0x7ffff7fc1fa0 <rclcpp::SignalHandler::signal_handler_sem_>) at ../sysdeps/nptl/futex-internal.h:320
+#1  do_futex_wait (sem=sem@entry=0x7ffff7fc1fa0 <rclcpp::SignalHandler::signal_handler_sem_>, abstime=0x0, clockid=0) at sem_waitcommon.c:112
+#2  0x00007ffff74fc548 in __new_sem_wait_slow (sem=0x7ffff7fc1fa0 <rclcpp::SignalHandler::signal_handler_sem_>, abstime=0x0, clockid=0) at sem_waitcommon.c:184
+#3  0x00007ffff7ec07d6 in rclcpp::SignalHandler::wait_for_signal () at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/signal_handler.cpp:357
+#4  0x00007ffff7ec0177 in rclcpp::SignalHandler::deferred_signal_handler (this=0x7ffff7fc1fe0 <rclcpp::SignalHandler::get_global_signal_handler()::signal_handler>) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/signal_handler.cpp:278
+#5  0x00007ffff7ec1129 in std::__invoke_impl<void, void (rclcpp::SignalHandler::*)(), rclcpp::SignalHandler*> (__f=@0x5555555e7860: (void (rclcpp::SignalHandler::*)(rclcpp::SignalHandler * const)) 0x7ffff7ebfac2 <rclcpp::SignalHandler::deferred_signal_handler()>, __t=@0x5555555e7858: 0x7ffff7fc1fe0 <rclcpp::SignalHandler::get_global_signal_handler()::signal_handler>) at /usr/include/c++/10/bits/invoke.h:73
+#6  0x00007ffff7ec1087 in std::__invoke<void (rclcpp::SignalHandler::*)(), rclcpp::SignalHandler*> (__fn=@0x5555555e7860: (void (rclcpp::SignalHandler::*)(rclcpp::SignalHandler * const)) 0x7ffff7ebfac2 <rclcpp::SignalHandler::deferred_signal_handler()>) at /usr/include/c++/10/bits/invoke.h:95
+#7  0x00007ffff7ec0fe7 in std::thread::_Invoker<std::tuple<void (rclcpp::SignalHandler::*)(), rclcpp::SignalHandler*> >::_M_invoke<0ul, 1ul> (this=0x5555555e7858) at /usr/include/c++/10/thread:264
+#8  0x00007ffff7ec0f9c in std::thread::_Invoker<std::tuple<void (rclcpp::SignalHandler::*)(), rclcpp::SignalHandler*> >::operator() (this=0x5555555e7858) at /usr/include/c++/10/thread:271
+#9  0x00007ffff7ec0f7c in std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (rclcpp::SignalHandler::*)(), rclcpp::SignalHandler*> > >::_M_run (this=0x5555555e7850) at /usr/include/c++/10/thread:215
+#10 0x00007ffff7816793 in ?? () from /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#11 0x00007ffff74f2609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#12 0x00007ffff7638353 in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+
+Thread 1 (Thread 0x7ffff709cf40 (LWP 578913) "sexe_node"):
+--Type <RET> for more, q to quit, c to continue without paging--
+#0  0x00007ffff75f623f in __GI___clock_nanosleep (clock_id=clock_id@entry=0, flags=flags@entry=0, req=req@entry=0x7fffffff2430, rem=rem@entry=0x7fffffff2430) at ../sysdeps/unix/sysv/linux/clock_nanosleep.c:78
+#1  0x00007ffff75fbec7 in __GI___nanosleep (requested_time=requested_time@entry=0x7fffffff2430, remaining=remaining@entry=0x7fffffff2430) at nanosleep.c:27
+#2  0x00007ffff75fbdfe in __sleep (seconds=0) at ../sysdeps/posix/sleep.c:55
+#3  0x00005555555892e6 in dummy_load_sleep (load_ms=100) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/single_executor.cpp:52
+#4  0x000055555558cca6 in cb_chain_demo::IntermediateNode::callback (this=0x555556131460, msg=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (use count 4, weak count 0) = {...}) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/single_executor.cpp:127
+#5  0x00005555555a4fb9 in std::__invoke_impl<void, void (cb_chain_demo::IntermediateNode::*&)(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), cb_chain_demo::IntermediateNode*&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > > (__f=@0x555556616b20: (void (cb_chain_demo::IntermediateNode::*)(cb_chain_demo::IntermediateNode * const, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)) 0x55555558cc00 <cb_chain_demo::IntermediateNode::callback(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>, __t=@0x555556616b30: 0x555556131460) at /usr/include/c++/10/bits/invoke.h:73
+#6  0x00005555555a4333 in std::__invoke<void (cb_chain_demo::IntermediateNode::*&)(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), cb_chain_demo::IntermediateNode*&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > > (__fn=@0x555556616b20: (void (cb_chain_demo::IntermediateNode::*)(cb_chain_demo::IntermediateNode * const, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)) 0x55555558cc00 <cb_chain_demo::IntermediateNode::callback(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>) at /usr/include/c++/10/bits/invoke.h:95
+#7  0x00005555555a3636 in std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::__call<void, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&, 0ul, 1ul>(std::tuple<std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&>&&, std::_Index_tuple<0ul, 1ul>) (this=0x555556616b20, __args=...) at /usr/include/c++/10/functional:416
+#8  0x00005555555a287c in std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::operator()<std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >, void>(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (this=0x555556616b20) at /usr/include/c++/10/functional:499
+#9  0x00005555555a18b3 in std::__invoke_impl<void, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > >(std::__invoke_other, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__f=...) at /usr/include/c++/10/bits/invoke.h:60
+#10 0x00005555555a0365 in std::__invoke_r<void, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > >(std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__fn=...) at /usr/include/c++/10/bits/invoke.h:110
+#11 0x000055555559e6de in std::_Function_handler<void (std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)> >::_M_invoke(std::_Any_data const&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__functor=..., __args#0=...) at /usr/include/c++/10/bits/std_function.h:29--Type <RET> for more, q to quit, c to continue without paging--
+1
+#12 0x00005555555b07cf in std::function<void (std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::operator()(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >) const (this=0x555556131d20, __args#0=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (empty) = {...}) at /usr/include/c++/10/bits/std_function.h:622
+#13 0x00005555555af3de in rclcpp::AnySubscriptionCallback<std_msgs::msg::String_<std::allocator<void> >, std::allocator<void> >::dispatch (this=0x555556131d20, message=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (use count 4, weak count 0) = {...}, message_info=...) at /data/hongyi/ros2_ws/experiment/demo_ws/install/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp:159
+#14 0x00005555555adf23 in rclcpp::Subscription<std_msgs::msg::String_<std::allocator<void> >, std::allocator<void> >::handle_message (this=0x555556131c90, message=std::shared_ptr<void> (use count 4, weak count 0) = {...}, message_info=...) at /data/hongyi/ros2_ws/experiment/demo_ws/install/rclcpp_spk/include/rclcpp/subscription.hpp:146
+#15 0x00007ffff7dd2300 in rclcpp::executor::Executor::execute_subscription (subscription=std::shared_ptr<rclcpp::SubscriptionBase> (use count 3, weak count 1) = {...}) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executor.cpp:346
+#16 0x00007ffff7dd1c99 in rclcpp::executor::Executor::execute_any_executable (this=0x7fffffff42c0, any_exec=...) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executor.cpp:294
+#17 0x00007ffff7ddd248 in rclcpp::executors::SingleThreadedExecutor::spin (this=0x7fffffff42c0) at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/single_threaded_executor.cpp:36
+#18 0x0000555555589d11 in main (argc=1, argv=0x7fffffff47d8) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/single_executor.cpp:188
+(gdb) 
+(gdb)
