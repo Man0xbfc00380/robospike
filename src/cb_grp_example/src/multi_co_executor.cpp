@@ -49,7 +49,7 @@ void dummy_load_sleep(int load_ms) {
         for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
             __asm__ volatile ("nop");
     // Wait for the machine
-    sleep(1);
+    rclcpp::sleep_for(1500ms);
     // Do sth. Further
     for (j = 0; j < dummy_load_calib * load_ms; j++)
         for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
@@ -81,21 +81,33 @@ private:
     timeval ctime, ftime, create_timer, latency_time;
     bool end_flag_;
 
-    void timer_callback()
+    void show_time(timeval ftime, timeval ctime) 
     {
-        std::string name = this->get_name();            
-        gettimeofday(&ctime, NULL);
-        dummy_load(exe_time_);
-        auto message = std_msgs::msg::String();
-        message.data = std::to_string(count_++);
-        gettimeofday(&ftime, NULL);
-
         int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
         long tv_sec = duration_us / 1000000;
         long tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "Timer call [PID: %ld] back at %ld (s) %ld (us)", gettid(), tv_sec, tv_usec);
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
 
+        duration_us = (ctime.tv_sec - starting_time.tv_sec) * 1000000 + (ctime.tv_usec - starting_time.tv_usec);
+        tv_sec = duration_us / 1000000;
+        tv_usec = duration_us - tv_sec * 1000000;
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+    }
+
+    void timer_callback()
+    {
+        gettimeofday(&ftime, NULL);
+
+        dummy_load(100);
+
+        std::string name = this->get_name();
+        auto message = std_msgs::msg::String();
+        message.data = std::to_string(count_++);
+
+        gettimeofday(&ctime, NULL);
+        
         publisher_->publish(message);
+        show_time(ftime, ctime);
     }
 };
 
@@ -118,30 +130,40 @@ private:
     double latency;
     bool end_flag_;
 
-    void callback(const std_msgs::msg::String::SharedPtr msg) {
-        
-        gettimeofday(&ftime, NULL);
-        std::string name = this->get_name();
-
-        // Dummy with sleep (IO)
-        dummy_load_sleep(exe_time_);
-
-        auto message = std_msgs::msg::String();
-        message.data = msg->data;
-
+    void show_time(timeval ftime, timeval ctime) 
+    {
         int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
         long tv_sec = duration_us / 1000000;
         long tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "Intermediate call [PID: %ld] back at %ld (s) %ld (us)", gettid(), tv_sec, tv_usec);
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+
+        duration_us = (ctime.tv_sec - starting_time.tv_sec) * 1000000 + (ctime.tv_usec - starting_time.tv_usec);
+        tv_sec = duration_us / 1000000;
+        tv_usec = duration_us - tv_sec * 1000000;
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+    }
+
+    void callback(const std_msgs::msg::String::SharedPtr msg) {
+
+        gettimeofday(&ftime, NULL);
+        
+        // Dummy with sleep (IO)
+        dummy_load_sleep(exe_time_);
+        std::string name = this->get_name();
+        auto message = std_msgs::msg::String();
+        message.data = msg->data;
+
+        gettimeofday(&ctime, NULL);
+
         if (publisher_) publisher_->publish(message);
-    }       
+        show_time(ftime, ctime);
+    }
 };
 }   // namespace cb_group_demo
 
 int main(int argc, char* argv[])
 {
     rclcpp::init(argc, argv);
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "PID: %ld run in ROS2.", gettid());
 
     // Warm-up: dummy_load_calib
     while (1) {
@@ -151,7 +173,6 @@ int main(int argc, char* argv[])
         dummy_load(100); // 100ms
         gettimeofday(&ftime, NULL);
         duration_us = (ftime.tv_sec - ctime.tv_sec) * 1000000 + (ftime.tv_usec - ctime.tv_usec);
-        RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "dummy_load_calib: %d (duration_us: %d ns)", dummy_load_calib, duration_us);
         if (abs(duration_us - 100 * 1000) < 500) {
             break;
         }
@@ -171,8 +192,8 @@ int main(int argc, char* argv[])
 
     // Create executors
     int number_of_threads = 4;
-    rclcpp::executors::MultiThreadedExecutor exec1(rclcpp::executor::ExecutorArgs(), number_of_threads, true); 
-
+    rclcpp::executors::MultiThreadedExecutor exec1(rclcpp::executor::ExecutorArgs(), number_of_threads, true);
+    
     // Allocate callbacks to executors
     exec1.add_node(c1_t_cb_0);
     exec1.add_node(c1_r_cb_1);

@@ -87,9 +87,24 @@ private:
     timeval ctime, ftime, create_timer, latency_time;
     bool end_flag_;
 
+    void show_time(timeval ftime, timeval ctime) 
+    {
+        int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
+        long tv_sec = duration_us / 1000000;
+        long tv_usec = duration_us - tv_sec * 1000000;
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+
+        duration_us = (ctime.tv_sec - starting_time.tv_sec) * 1000000 + (ctime.tv_usec - starting_time.tv_usec);
+        tv_sec = duration_us / 1000000;
+        tv_usec = duration_us - tv_sec * 1000000;
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+    }
+
     // co_timer_callback
     Task<void, cur_executor> co_timer_callback()
     {
+        gettimeofday(&ftime, NULL); // -------------
+
         co_dummy_load(exe_time_);
 
         // message
@@ -97,14 +112,11 @@ private:
         auto message = std_msgs::msg::String();
         message.data = std::to_string(count_++);
 
-        // record time
-        int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
-        long tv_sec = duration_us / 1000000;
-        long tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "Timer call [PID: %ld] back at %ld (s) %ld (us)", gettid(), tv_sec, tv_usec);
+        gettimeofday(&ctime, NULL); // -------------
 
         // publish
         publisher_->publish(message);
+        show_time(ftime, ctime);
     }
 };
 
@@ -127,9 +139,24 @@ private:
     double latency;
     bool end_flag_;
 
+    void show_time(timeval ftime, timeval ctime) 
+    {
+        int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
+        long tv_sec = duration_us / 1000000;
+        long tv_usec = duration_us - tv_sec * 1000000;
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+
+        duration_us = (ctime.tv_sec - starting_time.tv_sec) * 1000000 + (ctime.tv_usec - starting_time.tv_usec);
+        tv_sec = duration_us / 1000000;
+        tv_usec = duration_us - tv_sec * 1000000;
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+    }
+
     // co_callback
     Task<void, SharedThreadPoolExecutor> co_callback(const std_msgs::msg::String::SharedPtr msg)
     {
+        gettimeofday(&ftime, NULL); // -------------
+        
         // workload
         co_dummy_load_sleep(exe_time_);
 
@@ -138,14 +165,11 @@ private:
         auto message = std_msgs::msg::String();
         message.data = std::to_string(count_++);
 
-        // record time
-        int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
-        long tv_sec = duration_us / 1000000;
-        long tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "Intermediate call [PID: %ld] back at %ld (s) %ld (us)", gettid(), tv_sec, tv_usec);
+        gettimeofday(&ctime, NULL); // -------------
         
         // publish
         publisher_->publish(message);
+        show_time(ftime, ctime);
     }      
 };
 }   // namespace cb_group_demo
