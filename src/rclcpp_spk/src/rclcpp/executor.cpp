@@ -595,9 +595,9 @@ Executor::get_next_ready_executable(AnyExecutable & any_executable)
 bool
 Executor::get_next_executable(AnyExecutable & any_executable, std::chrono::nanoseconds timeout)
 {
+  // TODO: need to be modified for coroutine
   bool success = false;
   // Check to see if there are any subscriptions or timers needing service
-  // TODO(wjwwood): improve run to run efficiency of this function
   success = get_next_ready_executable(any_executable);
   // If there are none
   if (!success) {

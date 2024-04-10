@@ -29,6 +29,8 @@ add_executable(mexe_node src/multi_executor.cpp)
 ament_target_dependencies(mexe_node rclcpp_spk std_srvs std_msgs)
 add_executable(sexe_node src/single_executor.cpp)
 ament_target_dependencies(sexe_node rclcpp_spk std_srvs std_msgs)
+add_executable(ms2_exe_node src/multi_executor_s2.cpp)
+ament_target_dependencies(ms2_exe_node rclcpp_spk std_srvs std_msgs)
 
 # coroutine-based executable
 add_executable(mcoexe_node src/multi_co_executor.cpp)

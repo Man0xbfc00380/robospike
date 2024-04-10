@@ -4,7 +4,7 @@ import numpy as np
 import re
 
 # Set Configs
-case_name = "mexe_rclcpp_4" # Just change it
+case_name = "sexe_rclpy_1" # Just change it
 font_size = 18
 logdata = []
 BlueList = ['#92B4F4', '#7772CA', '#5E7CE2', '#C6CDFF', '#248BD6', '#0F6BAE']
@@ -48,10 +48,11 @@ plt.xticks(fontsize=font_size)
 plt.yticks(fontsize=font_size)
 
 for item in logdata:
-    # y = thread
-    axes[0].barh(y=item["thread"], width=item["end"]-item["bgn"], left=item["bgn"], color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
-    # y = callback
-    axes[1].barh(y=item["name"], width=item["end"]-item["bgn"], left=item["bgn"], color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
+    if item["end"] > 0:
+        # y = thread
+        axes[0].barh(y=item["thread"], width=item["end"]-item["bgn"], left=item["bgn"], color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
+        # y = callback
+        axes[1].barh(y=item["name"], width=item["end"]-item["bgn"], left=item["bgn"], color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
 
 # Save File
 plt.savefig("./figures/" + case_name + ".png")
