@@ -66,10 +66,10 @@ public:
     {
         publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
 
-        if (period_ == 3000)
-            timer_ = this->create_wall_timer(3000ms, std::bind(&StartNode::timer_callback, this));
+        if (period_ == 10000)
+            timer_ = this->create_wall_timer(10000ms, std::bind(&StartNode::timer_callback, this));
         else
-            timer_ = this->create_wall_timer(2000ms, std::bind(&StartNode::timer_callback, this));
+            timer_ = this->create_wall_timer( 2000ms, std::bind(&StartNode::timer_callback, this));
     }
 
     rclcpp::TimerBase::SharedPtr timer_;
@@ -180,7 +180,8 @@ int main(int argc, char* argv[])
         if (dummy_load_calib <= 0) dummy_load_calib = 1;
     }
 
-    // Define graph: c1 -> [c2, c3, c4]
+    // Define graph: t1 -> [r11, r12, r13]
+    // Define graph: c1 -> r21 -> r22
     // std::make_shared --> return the ptr & allocate the memory space on heap
     auto c1_t_cb_0 = std::make_shared<cb_chain_demo::StartNode>("Timer_callback1", "c1", 100, 2000, false);
     auto c1_r_cb_1 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback11", "c1", "", 100, true);
@@ -188,12 +189,12 @@ int main(int argc, char* argv[])
     auto c1_r_cb_3 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback13", "c1", "", 100, true);
 
     auto c1_r_cb_4 = std::make_shared<cb_chain_demo::StartNode>("Timer_callback2", "c2", 100, 3000, false);
-    auto c1_r_cb_5 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback21", "c2", "", 100, true);
-    auto c1_r_cb_6 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback22", "c2", "", 100, true);
+    auto c1_r_cb_5 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback21", "c2", "c3", 100, true);
+    auto c1_r_cb_6 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback22", "c3", "", 100, true);
 
     // Create executors
     int number_of_threads = 4;
-    rclcpp::executors::MultiThreadedExecutor exec1(rclcpp::executor::ExecutorArgs(), number_of_threads, true);
+    rclcpp::executors::DistrThreadedExecutor exec1(rclcpp::executor::ExecutorArgs(), number_of_threads, true);
     
     // Allocate callbacks to executors
     exec1.add_node(c1_t_cb_0);

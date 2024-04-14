@@ -18,6 +18,7 @@
 #include <future>
 #include <memory>
 
+#include "rclcpp/executors/distr_threaded_executor.hpp"
 #include "rclcpp/executors/multi_threaded_executor.hpp"
 #include "rclcpp/executors/single_threaded_executor.hpp"
 #include "rclcpp/node.hpp"

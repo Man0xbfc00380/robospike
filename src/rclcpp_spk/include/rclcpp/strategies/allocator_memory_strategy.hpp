@@ -267,6 +267,7 @@ public:
     executor::AnyExecutable & any_exec,
     const WeakNodeList & weak_nodes)
   {
+    printf("[info] Try to get next subscription <%d>\n", subscription_handles_.size());
     auto it = subscription_handles_.begin();
     while (it != subscription_handles_.end()) {
       auto subscription = get_subscription_by_handle(*it, weak_nodes);

@@ -32,11 +32,9 @@ ament_target_dependencies(sexe_node rclcpp_spk std_srvs std_msgs)
 add_executable(ms2_exe_node src/multi_executor_s2.cpp)
 ament_target_dependencies(ms2_exe_node rclcpp_spk std_srvs std_msgs)
 
-# coroutine-based executable
-add_executable(mcoexe_node src/multi_co_executor.cpp)
-ament_target_dependencies(mcoexe_node rclcpp_spk std_srvs std_msgs)
-add_executable(scoexe_node src/single_co_executor.cpp)
-ament_target_dependencies(scoexe_node rclcpp_spk std_srvs std_msgs)
+# distributed executable
+add_executable(distexe_node src/distr_executor.cpp)
+ament_target_dependencies(distexe_node rclcpp_spk std_srvs std_msgs)
 
 # coroutine example
 add_executable(chain src/chain.cpp)

@@ -431,6 +431,7 @@ Executor::execute_client(
 void
 Executor::wait_for_work(std::chrono::nanoseconds timeout)
 {
+  // locked critical section
   {
     std::unique_lock<std::mutex> lock(memory_strategy_mutex_);
 
@@ -453,6 +454,7 @@ Executor::wait_for_work(std::chrono::nanoseconds timeout)
         }
       }
     }
+    
     // clear wait set
     if (rcl_wait_set_clear(&wait_set_) != RCL_RET_OK) {
       throw std::runtime_error("Couldn't clear wait set");
@@ -473,6 +475,8 @@ Executor::wait_for_work(std::chrono::nanoseconds timeout)
       throw std::runtime_error("Couldn't fill wait set");
     }
   }
+
+  // exception handling
   rcl_ret_t status =
     rcl_wait(&wait_set_, std::chrono::duration_cast<std::chrono::nanoseconds>(timeout).count());
   if (status == RCL_RET_WAIT_SET_EMPTY) {
