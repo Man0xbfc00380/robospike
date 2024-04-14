@@ -75,6 +75,8 @@ void co_dummy_load_sleep(int load_ms) {
             __asm__ volatile ("nop");
 }
 
+ThreadPoolExecutor SharedThreadPoolExecutor::sharedThreadPoolExecutor;
+
 Task<int, SharedThreadPoolExecutor> simple_task2() {
     using namespace std::chrono_literals;
     debug("[CoSpike] simple_task 002 bgn");

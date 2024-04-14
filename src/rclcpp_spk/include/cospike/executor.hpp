@@ -130,7 +130,7 @@ private:
             std::unique_lock lock(queue_lock);
             DEBUG printf("[ThreadPoolExecutor] run_loop thread[%d] lock obtain\n", thread_id);
             if (executable_queue_pool[thread_id].empty()) {
-                printf("[ThreadPoolExecutor] run_loop [%d] executable_queue.empty()\n", thread_id);
+                DEBUG printf("[ThreadPoolExecutor] run_loop [%d] executable_queue.empty()\n", thread_id);
                 queue_condition.wait(lock); 
                 if (executable_queue_pool[thread_id].empty()) {
                     continue;
@@ -238,7 +238,5 @@ public:
         sharedThreadPoolExecutor.execute(std::move(func));
     }
 };
-
-ThreadPoolExecutor SharedThreadPoolExecutor::sharedThreadPoolExecutor;
 
 #endif

@@ -25,6 +25,7 @@
 #include "rclcpp/macros.hpp"
 #include "rclcpp/memory_strategies.hpp"
 #include "rclcpp/visibility_control.hpp"
+#include "cospike/executor.hpp"
 
 namespace rclcpp
 {
@@ -86,7 +87,7 @@ private:
   std::mutex wait_mutex_;
   size_t number_of_threads_;
   bool yield_before_execute_;
-
+  SharedThreadPoolExecutor co_exector_;
   std::set<TimerBase::SharedPtr> scheduled_timers_;
 };
 

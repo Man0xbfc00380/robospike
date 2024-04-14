@@ -36,6 +36,7 @@ DistrThreadedExecutor::DistrThreadedExecutor(
   if (number_of_threads_ == 0) {
     number_of_threads_ = 1;
   }
+  co_exector_.executor_init(number_of_threads_);
 }
 
 DistrThreadedExecutor::~DistrThreadedExecutor() {}

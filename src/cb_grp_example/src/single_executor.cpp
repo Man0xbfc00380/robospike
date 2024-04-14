@@ -34,6 +34,7 @@ using std::placeholders::_1;
 timeval starting_time;
 
 int dummy_load_calib = 1;
+ThreadPoolExecutor SharedThreadPoolExecutor::sharedThreadPoolExecutor;
 
 void dummy_load(int load_ms) {
     int i, j;

@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(cb_grp_example)
+set(CMAKE_VERBOSE_MAKEFILEON ON)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -27,8 +28,10 @@ find_package(std_msgs REQUIRED)
 # ros2 executable
 add_executable(mexe_node src/multi_executor.cpp)
 ament_target_dependencies(mexe_node rclcpp_spk std_srvs std_msgs)
+
 add_executable(sexe_node src/single_executor.cpp)
 ament_target_dependencies(sexe_node rclcpp_spk std_srvs std_msgs)
+
 add_executable(ms2_exe_node src/multi_executor_s2.cpp)
 ament_target_dependencies(ms2_exe_node rclcpp_spk std_srvs std_msgs)
 

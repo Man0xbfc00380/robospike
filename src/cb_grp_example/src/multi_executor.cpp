@@ -23,17 +23,14 @@
 using namespace std::chrono_literals;
 
 using std::placeholders::_1;
-
 #define gettid() syscall(__NR_gettid)
-
 #define USE_INTRA_PROCESS_COMMS true 
-
 #define DUMMY_LOAD_ITER	1000
 #define THREAD_SIZE     3
-
 timeval starting_time;
 
 int dummy_load_calib = 1;
+ThreadPoolExecutor SharedThreadPoolExecutor::sharedThreadPoolExecutor;
 
 void dummy_load(int load_ms) {
     int i, j;
