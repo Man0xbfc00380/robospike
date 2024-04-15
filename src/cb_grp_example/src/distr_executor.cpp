@@ -15,7 +15,7 @@
 #include "cospike/generator.hpp"
 #include "cospike/task.hpp"
 #include "cospike/task_void.hpp"
-#include "cospike/executor.hpp"
+#include "cospike/coexecutor.hpp"
 #include "cospike/awaiter.hpp"
 #include "cospike/io_utils.hpp"
 #include "cospike/channel.hpp"
@@ -31,25 +31,29 @@ timeval starting_time;
 int dummy_load_calib = 1;
 ThreadPoolExecutor SharedThreadPoolExecutor::sharedThreadPoolExecutor;
 
-void dummy_load(int load_ms) {
+void dummy_load(int load_ms, const char * name_str) {
     int i, j;
     for (j = 0; j < dummy_load_calib * load_ms; j++)
         for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
             __asm__ volatile ("nop");
 }
 
-void dummy_load_sleep(int load_ms) {
+Task<int, NewThreadExecutor> dummy_load_sleep(int load_ms, const char * name_str) {
     int i, j;
     // Do sth.
     for (j = 0; j < dummy_load_calib * load_ms; j++)
         for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
             __asm__ volatile ("nop");
+    RCLCPP_INFO(rclcpp::get_logger(name_str), "[PID: %ld] load before co_await", gettid());
     // Wait for the machine
-    rclcpp::sleep_for(1500ms);
+    // rclcpp::sleep_for(1500ms);
+    co_await 1500ms;
+    RCLCPP_INFO(rclcpp::get_logger(name_str), "[PID: %ld] load after co_await", gettid());
     // Do sth. Further
     for (j = 0; j < dummy_load_calib * load_ms; j++)
         for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
             __asm__ volatile ("nop");
+    co_return 1;
 }
 
 namespace cb_chain_demo
@@ -61,7 +65,7 @@ public:
         : Node(node_name, rclcpp::NodeOptions().use_intra_process_comms(USE_INTRA_PROCESS_COMMS)), count_(0), exe_time_(exe_time), period_(period), end_flag_(end_flag)
     {
         publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
-
+        name_ = node_name;
         if (period_ == 10000)
             timer_ = this->create_wall_timer(10000ms, std::bind(&StartNode::timer_callback, this));
         else
@@ -71,6 +75,7 @@ public:
     rclcpp::TimerBase::SharedPtr timer_;
     rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
 private:
+    std::string name_;
     size_t count_;
     int exe_time_;
     int period_;
@@ -94,7 +99,7 @@ private:
     {
         gettimeofday(&ftime, NULL);
 
-        dummy_load(100);
+        dummy_load(100, this->name_.c_str());
 
         std::string name = this->get_name();
         auto message = std_msgs::msg::String();
@@ -115,11 +120,13 @@ public:
     {                        
         subscription_ = this->create_subscription<std_msgs::msg::String>(sub_topic, 1, std::bind(&IntermediateNode::callback, this, _1));
         if (pub_topic != "") publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
+        this->name_ = node_name;
     }
 
     rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
 private:
+    std::string name_;
     size_t count_;
     int exe_time_;
     timeval ctime, ftime;
@@ -139,12 +146,19 @@ private:
         RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
     }
 
-    void callback(const std_msgs::msg::String::SharedPtr msg) {
+    Task<int, NoopExecutor> callback(const std_msgs::msg::String::SharedPtr msg) {
 
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld] Execute Subcriber Callback", gettid());
         gettimeofday(&ftime, NULL);
         
         // Dummy with sleep (IO)
-        dummy_load_sleep(exe_time_);
+        auto dummy_task = dummy_load_sleep(exe_time_, this->name_.c_str());
+
+        // Block Style
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld] Execute Subcriber Callback (Before Blocking)", gettid());
+        auto i = dummy_task.get_result();
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld] Execute Subcriber Callback [%d] (After dummy_load)", gettid(), i);
+
         std::string name = this->get_name();
         auto message = std_msgs::msg::String();
         message.data = msg->data;
@@ -153,6 +167,9 @@ private:
 
         if (publisher_) publisher_->publish(message);
         show_time(ftime, ctime);
+
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld] Execute Subcriber Callback (End)", gettid());
+        co_return 1;
     }
 };
 }   // namespace cb_group_demo
@@ -160,21 +177,6 @@ private:
 int main(int argc, char* argv[])
 {
     rclcpp::init(argc, argv);
-
-    // Warm-up: dummy_load_calib
-    while (1) {
-        timeval ctime, ftime;
-        int duration_us;
-        gettimeofday(&ctime, NULL);
-        dummy_load(100); // 100ms
-        gettimeofday(&ftime, NULL);
-        duration_us = (ftime.tv_sec - ctime.tv_sec) * 1000000 + (ftime.tv_usec - ctime.tv_usec);
-        if (abs(duration_us - 100 * 1000) < 500) {
-            break;
-        }
-        dummy_load_calib = 100 * 1000 * dummy_load_calib / duration_us;
-        if (dummy_load_calib <= 0) dummy_load_calib = 1;
-    }
 
     // Define graph: t1 -> [r11, r12, r13]
     // Define graph: c1 -> r21 -> r22

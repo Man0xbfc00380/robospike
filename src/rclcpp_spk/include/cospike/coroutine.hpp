@@ -1,5 +1,5 @@
-#ifndef __COROUTINE_HPP__
-#define __COROUTINE_HPP__
+#ifndef __COSPIKE_COROUTINE_HPP__
+#define __COSPIKE_COROUTINE_HPP__
 
 #include <concepts>
 #include <coroutine>

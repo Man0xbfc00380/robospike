@@ -15,7 +15,7 @@
 #include "cospike/generator.hpp"
 #include "cospike/task.hpp"
 #include "cospike/task_void.hpp"
-#include "cospike/executor.hpp"
+#include "cospike/coexecutor.hpp"
 #include "cospike/awaiter.hpp"
 #include "cospike/io_utils.hpp"
 #include "cospike/channel.hpp"

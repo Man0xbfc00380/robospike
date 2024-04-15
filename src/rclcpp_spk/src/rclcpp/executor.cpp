@@ -16,6 +16,10 @@
 #include <memory>
 #include <string>
 #include <type_traits>
+#include <unistd.h>
+#include <sys/types.h>
+#include <errno.h>
+#include <sys/syscall.h>
 
 #include "rcl/allocator.h"
 #include "rcl/error_handling.h"
@@ -240,7 +244,7 @@ Executor::spin_some(std::chrono::nanoseconds max_duration)
       execute_any_executable(any_exec);
     } else {
       break;
-    }
+    } 
   }
 }
 
@@ -328,7 +332,7 @@ Executor::execute_subscription(
       serialized_msg.get(), &message_info, nullptr);
     if (RCL_RET_OK == ret) {
       auto void_serialized_msg = std::static_pointer_cast<void>(serialized_msg);
-      subscription->handle_message(void_serialized_msg, message_info);
+      subscription->handle_message(void_serialized_msg, message_info); // NOTE: execute the callback
     } else if (RCL_RET_SUBSCRIPTION_TAKE_FAILED != ret) {
       RCUTILS_LOG_ERROR_NAMED(
         "rclcpp",
@@ -343,7 +347,7 @@ Executor::execute_subscription(
       subscription->get_subscription_handle().get(),
       message.get(), &message_info, nullptr);
     if (RCL_RET_OK == ret) {
-      subscription->handle_message(message, message_info);
+      subscription->handle_message(message, message_info); // NOTE: execute the callback
     } else if (RCL_RET_SUBSCRIPTION_TAKE_FAILED != ret) {
       RCUTILS_LOG_ERROR_NAMED(
         "rclcpp",

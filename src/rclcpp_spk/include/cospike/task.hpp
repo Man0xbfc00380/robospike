@@ -1,5 +1,5 @@
-#ifndef __TASK_HPP__
-#define __TASK_HPP__
+#ifndef __COSPIKE_TASK_HPP__
+#define __COSPIKE_TASK_HPP__
 
 #include <concepts> // c++20
 #include <coroutine> // c++20
@@ -11,7 +11,7 @@
 #include <optional>
 #include <functional>
 #include <mutex>
-#include "cospike/executor.hpp"
+#include "cospike/coexecutor.hpp"
 #include "cospike/awaiter.hpp"
 #include "cospike/io_utils.hpp"
 #include "cospike/result.hpp"
@@ -97,6 +97,7 @@ struct TaskPromise {
     ~TaskPromise() {
         // deconstruct delay: detect the completion_callbacks avoid request omitting
         std::unique_lock lock(completion_lock);
+        // FIXME: Blocking may happen here!
         if (!completion_callbacks.empty()) {
             // blocking for result
             completion.wait(lock);

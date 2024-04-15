@@ -15,7 +15,7 @@
 #include "cospike/generator.hpp"
 #include "cospike/task.hpp"
 #include "cospike/task_void.hpp"
-#include "cospike/executor.hpp"
+#include "cospike/coexecutor.hpp"
 #include "cospike/awaiter.hpp"
 #include "cospike/io_utils.hpp"
 #include "cospike/channel.hpp"
@@ -79,20 +79,19 @@ ThreadPoolExecutor SharedThreadPoolExecutor::sharedThreadPoolExecutor;
 
 Task<int, SharedThreadPoolExecutor> simple_task2() {
     using namespace std::chrono_literals;
-    debug("[CoSpike] simple_task 002 bgn");
+    // debug("[CoSpike] simple_task 002 bgn");
     std::this_thread::sleep_for(1s); // blocking sleep
-    debug("[CoSpike] simple_task 002 end");
+    // debug("[CoSpike] simple_task 002 end");
     co_return 2;
 }
 
 Task<int, SharedThreadPoolExecutor> simple_task3() {
     using namespace std::chrono_literals;
-    debug("[CoSpike] simple_task 003 bgn");
-    // FIXME: Avoid extra thread
+    // debug("[CoSpike] simple_task 003 bgn");
     // --> Merge the schduler into the SharedThreadPoolExecutor
     // --> Can the schduler be suspended
     co_await 2s; // unblocking sleep
-    debug("[CoSpike] simple_task 003 end");
+    // debug("[CoSpike] simple_task 003 end");
     co_return 3;
 }
 
@@ -112,10 +111,10 @@ Task<int, SharedThreadPoolExecutor> simple_task3() {
  */
 Task<int, SharedThreadPoolExecutor> simple_task() {
     using namespace std::chrono_literals;
-    debug("[CoSpike] simple_task all bgn");
+    // debug("[CoSpike] simple_task all bgn");
     auto result2 = co_await simple_task2();
     auto result3 = co_await simple_task3();
-    debug("[CoSpike] simple_task all end");
+    // debug("[CoSpike] simple_task all end");
     co_return 1 + result2 + result3;
 }
 
@@ -246,16 +245,16 @@ int main(int argc, char* argv[])
 
     printf("[CoSpike] Let Coroutine Run!\n");
     auto simpleTask = simple_task();
-    debug("[CoSpike] main: line after simple_task()");
+    // debug("[CoSpike] main: line after simple_task()");
 
     // Obatin the result in a sync way
     // --> blocking avoids the main function 
     //     ends before LooperExecutor
     try {
         auto i = simpleTask.get_result();
-        debug("[CoSpike] Final simpleTask.get_result:", i);
+        // debug("[CoSpike] Final simpleTask.get_result:", i);
     } catch (std::exception &e) {
-        debug("[CoSpike] Error: ", e.what());
+        // debug("[CoSpike] Error: ", e.what());
     }
 
     // Warm-up: dummy_load_calib

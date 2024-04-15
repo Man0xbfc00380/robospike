@@ -1,5 +1,5 @@
-#ifndef __CHANNEL_HPP__
-#define __CHANNEL_HPP__
+#ifndef __COSPIKE_CHANNEL_HPP__
+#define __COSPIKE_CHANNEL_HPP__
 
 #include <concepts>
 #include <coroutine>
@@ -88,13 +88,13 @@ struct Channel {
     void remove_writer(WriterAwaiter<ValueType> *writer_awaiter) {
         std::lock_guard lock(channel_lock);
         auto size = writer_list.remove(writer_awaiter);
-        debug("remove writer ", size);
+        // debug("remove writer ", size);
     }
 
     void remove_reader(ReaderAwaiter<ValueType> *reader_awaiter) {
         std::lock_guard lock(channel_lock);
         auto size = reader_list.remove(reader_awaiter);
-        debug("remove reader ", size);
+        // debug("remove reader ", size);
     }
 
     auto write(ValueType value) {

@@ -1,5 +1,5 @@
-#ifndef __IO_UTILS_H__
-#define __IO_UTILS_H__
+#ifndef __COSPIKE_IO_UTILS_HPP__
+#define __COSPIKE_IO_UTILS_HPP__
 
 #include <iostream>
 #include <chrono>

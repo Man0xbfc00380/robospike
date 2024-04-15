@@ -1,5 +1,5 @@
-#ifndef __GENERATOR_HPP__
-#define __GENERATOR_HPP__
+#ifndef __COSPIKE_GENERATOR_HPP__
+#define __COSPIKE_GENERATOR_HPP__
 
 #include <concepts>
 #include <coroutine>

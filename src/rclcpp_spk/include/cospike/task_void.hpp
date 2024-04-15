@@ -1,5 +1,5 @@
-#ifndef __TASK_VOID_HPP__
-#define __TASK_VOID_HPP__
+#ifndef __COSPIKE_TASK_VOID_HPP__
+#define __COSPIKE_TASK_VOID_HPP__
 
 #include <concepts> // c++20
 #include <coroutine> // c++20
@@ -11,7 +11,7 @@
 #include <optional>
 #include <functional>
 #include <mutex>
-#include "cospike/executor.hpp"
+#include "cospike/coexecutor.hpp"
 #include "cospike/awaiter.hpp"
 #include "cospike/io_utils.hpp"
 #include "cospike/task.hpp"
@@ -47,15 +47,7 @@ struct TaskPromise<void, Executor> {
         return awaiter;
     }
 
-    void get_result() {
-        // blocking for result or throw on exception
-        std::unique_lock lock(completion_lock);
-        if (!result.has_value()) {
-            completion.wait(lock);
-        }
-        result->get_or_throw();
-    }
-
+    // (MUST) process exception
     void unhandled_exception() {
         std::lock_guard lock(completion_lock);
         result = Result<void>(std::current_exception());
@@ -68,6 +60,16 @@ struct TaskPromise<void, Executor> {
         result = Result<void>();
         completion.notify_all();
         notify_callbacks();
+    }
+
+    // Get result as a blocking point
+    void get_result() {
+        std::unique_lock lock(completion_lock);
+        if (!result.has_value()) {
+            completion.wait(lock);
+        }
+        // give result or throw on exception
+        result->get_or_throw();
     }
 
     void on_completed(std::function<void(Result<void>)> &&func) {
@@ -109,20 +111,27 @@ private:
 template<typename Executor>
 struct Task<void, Executor> {
     using promise_type = TaskPromise<void, Executor>;
+    
+    // [sync] Used to obtain results
     void get_result() {
+        // --> TaskPromise.get_result();
         handle.promise().get_result();
     }
+    
+    // [async] Used to obtain results
     Task &then(std::function<void()> &&func) {
         handle.promise().on_completed([func](auto result) {
             try {
                 result.get_or_throw();
                 func();
             } catch (std::exception &e) {
-                // ignore.
+                // ...
             }
         });
         return *this;
     }
+
+    // Used to obtain exceptions
     Task &catching(std::function<void(std::exception &)> &&func) {
         handle.promise().on_completed([func](auto result) {
             try {
@@ -133,6 +142,8 @@ struct Task<void, Executor> {
         });
         return *this;
     }
+
+    // Execute anyway
     Task &finally(std::function<void()> &&func) {
         handle.promise().on_completed([func](auto result) { func(); });
         return *this;
@@ -141,10 +152,10 @@ struct Task<void, Executor> {
     Task(Task &&task) noexcept: handle(std::exchange(task.handle, {})) {}
     Task(Task &) = delete;
     Task &operator=(Task &) = delete;
-    ~Task() { if (handle) handle.destroy(); }
-
+    ~Task() {
+        if (handle) handle.destroy();
+    }
 private:
     std::coroutine_handle<promise_type> handle;
 };
-
-#endif // !__TASK_VOID_HPP__
+#endif

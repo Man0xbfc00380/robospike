@@ -16,13 +16,13 @@
 #define RCLCPP__ANY_SUBSCRIPTION_CALLBACK_HPP_
 
 #include <rmw/types.h>
-
+#include <unistd.h>
 #include <functional>
 #include <memory>
 #include <stdexcept>
 #include <type_traits>
 #include <utility>
-
+#include <sys/syscall.h>
 #include "rclcpp/allocator/allocator_common.hpp"
 #include "rclcpp/function_traits.hpp"
 #include "rclcpp/visibility_control.hpp"
@@ -48,6 +48,9 @@ class AnySubscriptionCallback
   using UniquePtrCallback = std::function<void (MessageUniquePtr)>;
   using UniquePtrWithInfoCallback =
     std::function<void (MessageUniquePtr, const rmw_message_info_t &)>;
+  
+  // coroutine callback
+  using CoSharedPtrCallback = std::function<void (const std::shared_ptr<MessageT>)>;
 
   SharedPtrCallback shared_ptr_callback_;
   SharedPtrWithInfoCallback shared_ptr_with_info_callback_;
@@ -156,7 +159,8 @@ public:
     std::shared_ptr<MessageT> message, const rmw_message_info_t & message_info)
   {
     if (shared_ptr_callback_) {
-      shared_ptr_callback_(message);
+      shared_ptr_callback_(message); // TODO: Callback execute in our case
+      printf("[INFO] [dispatch] [PID: %ld] After shared_ptr_callback_\n", gettid());
     } else if (shared_ptr_with_info_callback_) {
       shared_ptr_with_info_callback_(message, message_info);
     } else if (const_shared_ptr_callback_) {

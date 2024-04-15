@@ -1,5 +1,5 @@
-#ifndef __AWAITER_HPP__
-#define __AWAITER_HPP__
+#ifndef __COSPIKE_AWAITER_HPP__
+#define __COSPIKE_AWAITER_HPP__
 
 #include <concepts>
 #include <coroutine>
@@ -8,7 +8,7 @@
 #include <thread>
 #include <list>
 #include <optional>
-#include "cospike/executor.hpp"
+#include "cospike/coexecutor.hpp"
 #include "cospike/io_utils.hpp"
 #include "cospike/scheduler.hpp"
 #include "cospike/result.hpp"

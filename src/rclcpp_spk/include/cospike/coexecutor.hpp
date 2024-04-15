@@ -1,5 +1,5 @@
-#ifndef __EXECUTOR_HPP__
-#define __EXECUTOR_HPP__
+#ifndef __COSPIKE_EXECUTOR_HPP__
+#define __COSPIKE_EXECUTOR_HPP__
 
 #include <queue>
 #include <thread>
@@ -25,7 +25,7 @@ class NoopExecutor : public AbstractExecutor {
 public:
     void execute(std::function<void()> &&func) override {
         func();
-        debug("[NoopExecutor] exeute end");
+        // debug("[NoopExecutor] exeute end");
     }
 };
 
@@ -33,12 +33,12 @@ class NewThreadExecutor : public AbstractExecutor {
 public:
     void execute(std::function<void()> &&func) override {
         auto th = std::thread(func);
-    #ifdef BLOCKING
+    #ifdef BLOCKING_THREAD
         th.join(); // blocking
     #else
         th.detach(); // non-blocking
     #endif
-        debug("[NewThreadExecutor] exeute end");
+        // debug("[NewThreadExecutor] exeute end");
     }
 };
 
@@ -140,7 +140,7 @@ private:
             auto func = executable_queue_pool[thread_id].front();
             executable_queue_pool[thread_id].pop();
             lock.unlock();
-            debug("[ThreadPoolExecutor] run_loop run!", thread_id);
+            // debug("[ThreadPoolExecutor] run_loop run!", thread_id);
             func();
         }
     }
@@ -149,7 +149,7 @@ public:
     void executor_init(int thread_num) {
         // Exception handle
         if (thread_num < 1) {
-            debug("[ThreadPoolExecutor] The thread_num should be larger than zero.");
+            // debug("[ThreadPoolExecutor] The thread_num should be larger than zero.");
             throw "[ThreadPoolExecutor] The thread_num should be larger than zero.";
         }
         _thread_num = thread_num;

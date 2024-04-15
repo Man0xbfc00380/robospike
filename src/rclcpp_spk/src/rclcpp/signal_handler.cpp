@@ -103,8 +103,6 @@ SignalHandler::install()
 #endif
 
     old_signal_handler_ = SignalHandler::set_signal_handler(SIGINT, signal_handler_argument);
-    
-    // TODO: Where the thread is generated.
     signal_handler_thread_ = std::thread(&SignalHandler::deferred_signal_handler, this);
   } catch (...) {
     installed_.store(false);

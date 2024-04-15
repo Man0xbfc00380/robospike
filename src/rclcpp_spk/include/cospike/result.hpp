@@ -1,5 +1,5 @@
-#ifndef __RESULT_HPP__
-#define __RESULT_HPP__
+#ifndef __COSPIKE_RESULT_HPP__
+#define __COSPIKE_RESULT_HPP__
 
 #include <exception>
 

@@ -1,5 +1,5 @@
-#ifndef __SCHEDULER_HPP__
-#define __SCHEDULER_HPP__
+#ifndef __COSPIKE_SCHEDULER_HPP__
+#define __COSPIKE_SCHEDULER_HPP__
 
 #include <thread>
 #include <mutex>

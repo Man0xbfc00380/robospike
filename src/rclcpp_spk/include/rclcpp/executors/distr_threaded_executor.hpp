@@ -25,7 +25,7 @@
 #include "rclcpp/macros.hpp"
 #include "rclcpp/memory_strategies.hpp"
 #include "rclcpp/visibility_control.hpp"
-#include "cospike/executor.hpp"
+#include "cospike/coexecutor.hpp"
 
 namespace rclcpp
 {
