@@ -1,0 +1,77 @@
+(gdb) b distr_executor.cpp:184
+Breakpoint 1 at 0x414b6: file /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/distr_executor.cpp, line 184.
+(gdb) r
+Starting program: /data/hongyi/ros2_ws/experiment/demo_ws/build/cb_grp_example/distexe_node 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+[New Thread 0x7ffff665c700 (LWP 1533504)]
+[New Thread 0x7ffff5e5b700 (LWP 1533505)]
+[New Thread 0x7ffff565a700 (LWP 1533506)]
+[New Thread 0x7ffff4e59700 (LWP 1533507)]
+[New Thread 0x7fffeffff700 (LWP 1533508)]
+[New Thread 0x7fffef7fe700 (LWP 1533509)]
+[New Thread 0x7fffeeffd700 (LWP 1533510)]
+[New Thread 0x7fffee7fc700 (LWP 1533511)]
+[New Thread 0x7fffedffb700 (LWP 1533512)]
+[New Thread 0x7fffed7fa700 (LWP 1533513)]
+[New Thread 0x7fffecff9700 (LWP 1533514)]
+[New Thread 0x7fffcffff700 (LWP 1533515)]
+[New Thread 0x7fffcf7fe700 (LWP 1533516)]
+[Hello RoboSpike] Use DistrThreadedExecutor
+[Hello RoboSpike] Use DistrThreadedExecutor
+[INFO] [Timer_callback1]: [PID: 1533516] [Bgn] [s: 1] [us: 991900]
+[INFO] [Timer_callback1]: [PID: 1533516] [End] [s: 1] [us: 992926]
+[New Thread 0x7fffceffd700 (LWP 1533535)]
+[INFO] [Regular_callback11]: [PID: 1533477] Execute Subcriber Callback (Before blocking)
+[INFO] [Regular_callback11]: [PID: 1533535] load before co_await [s: 1] [us: 995242]
+[New Thread 0x7fffce7fc700 (LWP 1533536)]
+[Thread 0x7fffceffd700 (LWP 1533535) exited]
+[New Thread 0x7fffceffd700 (LWP 1533555)]
+[INFO] [Regular_callback11]: [PID: 1533555] load after co_await [s: 3] [us: 496471]
+[INFO] [Regular_callback11]: [PID: 1533477] Execute Subcriber Callback [1] (After blocking)
+[Thread 0x7fffceffd700 (LWP 1533555) exited]
+--Type <RET> for more, q to quit, c to continue without paging--
+
+Thread 1 "distexe_node" hit Breakpoint 1, cb_chain_demo::IntermediateNode::callback (this=0x555555bcd210, 
+    msg=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (use count 4, weak count 0) = {...})
+    at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/distr_executor.cpp:184
+warning: Source file is more recent than executable.
+184             show_time(ftime, ctime);
+(gdb) bt
+#0  cb_chain_demo::IntermediateNode::callback (this=0x555555bcd210, 
+    msg=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (use count 4, weak count 0) = {...})
+    at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/distr_executor.cpp:184
+#1  0x00005555555b21b7 in std::__invoke_impl<void, void (cb_chain_demo::IntermediateNode::*&)(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), cb_chain_demo::IntermediateNode*&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > > (__f=
+    @0x555556141490: (void (cb_chain_demo::IntermediateNode::*)(cb_chain_demo::IntermediateNode * const, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)) 0x555555595012 <cb_chain_demo::IntermediateNode::callback(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>, 
+    __t=@0x5555561414a0: 0x555555bcd210) at /usr/include/c++/10/bits/invoke.h:73
+#2  0x00005555555b1545 in std::__invoke<void (cb_chain_demo::IntermediateNode::*&)(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), cb_chain_demo::IntermediateNode*&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > > (__fn=
+    @0x555556141490: (void (cb_chain_demo::IntermediateNode::*)(cb_chain_demo::IntermediateNode * const, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)) 0x555555595012 <cb_chain_demo::IntermediateNode::callback(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>)
+    at /usr/include/c++/10/bits/invoke.h:95
+#3  0x00005555555b0848 in std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_--Type <RET> for more, q to quit, c to continue without paging--
+msgs::msg::String_<std::allocator<void> > >)>::__call<void, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&, 0ul, 1ul>(std::tuple<std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&>&&, std::_Index_tuple<0ul, 1ul>) (this=0x555556141490, __args=...)
+    at /usr/include/c++/10/functional:416
+#4  0x00005555555afa8e in std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::operator()<std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >, void>(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (this=0x555556141490) at /usr/include/c++/10/functional:499
+#5  0x00005555555aeae3 in std::__invoke_impl<void, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > >(std::__invoke_other, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__f=...) at /usr/include/c++/10/bits/invoke.h:60
+#6  0x00005555555ad521 in std::__invoke_r<void, std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > > >(std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__fn=...) at /usr/include/c++/10/bits/invoke.h:110
+--Type <RET> for more, q to quit, c to continue without paging--
+#7  0x00005555555ab7ae in std::_Function_handler<void (std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >), std::_Bind<void (cb_chain_demo::IntermediateNode::*(cb_chain_demo::IntermediateNode*, std::_Placeholder<1>))(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)> >::_M_invoke(std::_Any_data const&, std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >&&) (__functor=..., __args#0=...)
+    at /usr/include/c++/10/bits/std_function.h:291
+#8  0x00005555555bdc9d in std::function<void (std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >)>::operator()(std::shared_ptr<std_msgs::msg::String_<std::allocator<void> > >) const (this=0x5555560e8020, __args#0=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (empty) = {...})
+    at /usr/include/c++/10/bits/std_function.h:622
+#9  0x00005555555bc85e in rclcpp::AnySubscriptionCallback<std_msgs::msg::String_<std::allocator<void> >, std::allocator<void> >::dispatch (
+    this=0x5555560e8020, message=std::shared_ptr<std_msgs::msg::String_<std::allocator<void> >> (use count 4, weak count 0) = {...}, message_info=...)
+    at /data/hongyi/ros2_ws/experiment/demo_ws/install/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp:162
+#10 0x00005555555bb383 in rclcpp::Subscription<std_msgs::msg::String_<std::allocator<void> >, std::allocator<void> >::handle_message (
+    this=0x5555560e7f90, message=std::shared_ptr<void> (use count 4, weak count 0) = {...}, message_info=...)
+    at /data/hongyi/ros2_ws/experiment/demo_ws/install/rclcpp_spk/include/rclcpp/subscription.hpp:146
+#11 0x00007ffff7dc82d0 in rclcpp::executor::Executor::execute_subscription (subscription=
+--Type <RET> for more, q to quit, c to continue without paging--
+    std::shared_ptr<rclcpp::SubscriptionBase> (use count 3, weak count 1) = {...})
+    at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executor.cpp:350
+#12 0x00007ffff7dc7c69 in rclcpp::executor::Executor::execute_any_executable (this=0x7fffffff4640, any_exec=...)
+    at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executor.cpp:298
+#13 0x00007ffff7dcf910 in rclcpp::executors::DistrThreadedExecutor::run (this=0x7fffffff4640)
+    at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/distr_threaded_executor.cpp:119
+#14 0x00007ffff7dcf3c5 in rclcpp::executors::DistrThreadedExecutor::spin (this=0x7fffffff4640)
+    at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/distr_threaded_executor.cpp:63
+#15 0x0000555555590b90 in main (argc=1, argv=0x7fffffff48c8) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/distr_executor.cpp:243

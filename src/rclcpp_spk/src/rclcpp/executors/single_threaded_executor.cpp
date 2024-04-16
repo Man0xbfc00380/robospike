@@ -45,9 +45,7 @@ SingleThreadedExecutor::co_spin()
     throw std::runtime_error("spin() called while already spinning");
   }
   RCLCPP_SCOPE_EXIT(this->spinning.store(false); );
-  
-  // TODO: execute executable
-  // ^^^^^ should be changed into coroutine-based design
+
   while (rclcpp::ok(this->context_) && spinning.load()) {
     rclcpp::executor::AnyExecutable any_executable;
     if (get_next_executable(any_executable)) {

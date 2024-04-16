@@ -11,6 +11,10 @@
 #include <optional>
 #include <functional>
 #include <mutex>
+#include <unistd.h>
+#include <sys/types.h>
+#include <errno.h>
+#include <sys/syscall.h>
 #include "cospike/coexecutor.hpp"
 #include "cospike/awaiter.hpp"
 #include "cospike/io_utils.hpp"
@@ -93,15 +97,9 @@ struct TaskPromise {
         }
     }
 
-    // Deconstructor
+    // Indicate Deconstructor
     ~TaskPromise() {
-        // deconstruct delay: detect the completion_callbacks avoid request omitting
-        std::unique_lock lock(completion_lock);
-        // FIXME: Blocking may happen here!
-        if (!completion_callbacks.empty()) {
-            // blocking for result
-            completion.wait(lock);
-        }
+        printf("[INFO] [PID: %ld] [~TaskPromise]\n", gettid());
     }
 
 private:

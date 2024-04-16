@@ -64,14 +64,6 @@ public:
   spin();
 
   RCLCPP_PUBLIC
-  void
-  co_spin();
-
-  RCLCPP_PUBLIC
-  void
-  co_run(size_t number_of_threads);
-
-  RCLCPP_PUBLIC
   size_t
   get_number_of_threads();
 
