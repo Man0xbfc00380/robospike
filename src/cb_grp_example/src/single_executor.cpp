@@ -144,7 +144,7 @@ private:
         RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
     }
 
-    void callback(const std_msgs::msg::String::SharedPtr msg) {
+    int callback(const std_msgs::msg::String::SharedPtr msg) {
 
         gettimeofday(&ftime, NULL); // -------------
         
@@ -158,6 +158,8 @@ private:
 
         if (publisher_) publisher_->publish(message);
         show_time(ftime, ctime);
+
+        return 0;
     }
 };
 }   // namespace cb_group_demo

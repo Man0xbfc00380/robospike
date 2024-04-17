@@ -39,6 +39,7 @@ template<
 [[deprecated("use alternative rclcpp::create_subscription() signatures")]]
 typename std::shared_ptr<SubscriptionT>
 create_subscription(
+  // create_subscription <1>
   rclcpp::node_interfaces::NodeTopicsInterface * node_topics,
   const std::string & topic_name,
   CallbackT && callback,
@@ -99,6 +100,7 @@ create_subscription(
     CallbackMessageT, AllocatorT>::SharedPtr
   msg_mem_strat = nullptr)
 {
+  // create_subscription <2>
   using rclcpp::node_interfaces::get_node_topics_interface;
   auto node_topics = get_node_topics_interface(std::forward<NodeT>(node));
 

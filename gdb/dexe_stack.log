@@ -75,3 +75,468 @@ msgs::msg::String_<std::allocator<void> > >)>::__call<void, std::shared_ptr<std_
 #14 0x00007ffff7dcf3c5 in rclcpp::executors::DistrThreadedExecutor::spin (this=0x7fffffff4640)
     at /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/distr_threaded_executor.cpp:63
 #15 0x0000555555590b90 in main (argc=1, argv=0x7fffffff48c8) at /data/hongyi/ros2_ws/experiment/demo_ws/src/cb_grp_example/src/distr_executor.cpp:243
+
+hongyi@cxhpc:~/ros2_ws/experiment/demo_ws$ bash build.sh 
+Starting >>> rclcpp_spk
+--- stderr: rclcpp_spk                               
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/multi_threaded_executor.cpp: In member function ‘void rclcpp::executors::MultiThreadedExecutor::run(size_t)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/multi_threaded_executor.cpp:82:65: warning: conversion from ‘__time_t’ {aka ‘long int’} to ‘int’ may change value [-Wconversion]
+   82 |       int duration_us = (ftime.tv_sec - ctime.tv_sec) * 1000000 + (ftime.tv_usec - ctime.tv_usec);
+      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/multi_threaded_executor.cpp:87:34: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘__pid_t’ {aka ‘int’} [-Wformat=]
+   87 |       printf("[Blocking] [PID: %ld] [s: %ld] [us: %ld]\n", gettid(), tv_sec, tv_usec);
+      |                                ~~^                         ~~~~~~~~
+      |                                  |                               |
+      |                                  long int                        __pid_t {aka int}
+      |                                %d
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/distr_threaded_executor.cpp:15:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:162:30: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  162 |         for (size_t i = 0; i < thread_num; i++) {
+      |                            ~~^~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void ThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:186:91: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘std::queue<std::function<void()> >::size_type’ {aka ‘long unsigned int’} [-Wformat=]
+  186 |             DEBUG printf("[CoSpike] ThreadPoolExecutor: executable_queue_pool[%d].size = %d\n", id, executable_queue_pool[id].size());
+      |                                                                                          ~^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                                                           |                                       |
+      |                                                                                           int                                     std::queue<std::function<void()> >::size_type {aka long unsigned int}
+      |                                                                                          %ld
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/distr_threaded_executor.cpp:15:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::shutdown_all(bool)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:196:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  196 |             for (size_t i = 0; i < _thread_num; i++) {
+      |                                ~~^~~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void SharedThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:233:53: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  233 |         DEBUG printf("[stpExecutor executor_init]: %p\n", &sharedThreadPoolExecutor);
+      |                                                    ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                     |     |
+      |                                                     void* ThreadPoolExecutor*
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void SharedThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:237:47: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  237 |         DEBUG printf("[stpExecutor execute]: %p\n", &sharedThreadPoolExecutor);
+      |                                              ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                               |     |
+      |                                               void* ThreadPoolExecutor*
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors.hpp:21,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/parameter_service.hpp:27,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/parameter_service.cpp:15:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:162:30: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  162 |         for (size_t i = 0; i < thread_num; i++) {
+      |                            ~~^~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void ThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:186:91: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘std::queue<std::function<void()> >::size_type’ {aka ‘long unsigned int’} [-Wformat=]
+  186 |             DEBUG printf("[CoSpike] ThreadPoolExecutor: executable_queue_pool[%d].size = %d\n", id, executable_queue_pool[id].size());
+      |                                                                                          ~^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                                                           |                                       |
+      |                                                                                           int                                     std::queue<std::function<void()> >::size_type {aka long unsigned int}
+      |                                                                                          %ld
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors.hpp:21,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/parameter_service.hpp:27,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/parameter_service.cpp:15:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::shutdown_all(bool)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:196:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  196 |             for (size_t i = 0; i < _thread_num; i++) {
+      |                                ~~^~~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void SharedThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:233:53: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  233 |         DEBUG printf("[stpExecutor executor_init]: %p\n", &sharedThreadPoolExecutor);
+      |                                                    ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                     |     |
+      |                                                     void* ThreadPoolExecutor*
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void SharedThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:237:47: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  237 |         DEBUG printf("[stpExecutor execute]: %p\n", &sharedThreadPoolExecutor);
+      |                                              ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                               |     |
+      |                                               void* ThreadPoolExecutor*
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/distr_threaded_executor.cpp: In constructor ‘rclcpp::executors::DistrThreadedExecutor::DistrThreadedExecutor(const rclcpp::executor::ExecutorArgs&, size_t, bool)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/distr_threaded_executor.cpp:39:29: warning: conversion from ‘size_t’ {aka ‘long unsigned int’} to ‘int’ may change value [-Wconversion]
+   39 |   co_exector_.executor_init(number_of_threads_);
+      |                             ^~~~~~~~~~~~~~~~~~
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors.hpp:21,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors.cpp:15:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:162:30: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  162 |         for (size_t i = 0; i < thread_num; i++) {
+      |                            ~~^~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void ThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:186:91: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘std::queue<std::function<void()> >::size_type’ {aka ‘long unsigned int’} [-Wformat=]
+  186 |             DEBUG printf("[CoSpike] ThreadPoolExecutor: executable_queue_pool[%d].size = %d\n", id, executable_queue_pool[id].size());
+      |                                                                                          ~^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                                                           |                                       |
+      |                                                                                           int                                     std::queue<std::function<void()> >::size_type {aka long unsigned int}
+      |                                                                                          %ld
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors.hpp:21,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors.cpp:15:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::shutdown_all(bool)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:196:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  196 |             for (size_t i = 0; i < _thread_num; i++) {
+      |                                ~~^~~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void SharedThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:233:53: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  233 |         DEBUG printf("[stpExecutor executor_init]: %p\n", &sharedThreadPoolExecutor);
+      |                                                    ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                     |     |
+      |                                                     void* ThreadPoolExecutor*
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void SharedThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:237:47: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  237 |         DEBUG printf("[stpExecutor execute]: %p\n", &sharedThreadPoolExecutor);
+      |                                              ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                               |     |
+      |                                               void* ThreadPoolExecutor*
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors.hpp:21,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/parameter_client.hpp:32,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/parameter_client.cpp:15:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:162:30: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  162 |         for (size_t i = 0; i < thread_num; i++) {
+      |                            ~~^~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void ThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:186:91: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘std::queue<std::function<void()> >::size_type’ {aka ‘long unsigned int’} [-Wformat=]
+  186 |             DEBUG printf("[CoSpike] ThreadPoolExecutor: executable_queue_pool[%d].size = %d\n", id, executable_queue_pool[id].size());
+      |                                                                                          ~^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                                                           |                                       |
+      |                                                                                           int                                     std::queue<std::function<void()> >::size_type {aka long unsigned int}
+      |                                                                                          %ld
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors.hpp:21,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/parameter_client.hpp:32,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/parameter_client.cpp:15:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::shutdown_all(bool)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:196:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  196 |             for (size_t i = 0; i < _thread_num; i++) {
+      |                                ~~^~~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void SharedThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:233:53: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  233 |         DEBUG printf("[stpExecutor executor_init]: %p\n", &sharedThreadPoolExecutor);
+      |                                                    ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                     |     |
+      |                                                     void* ThreadPoolExecutor*
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void SharedThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:237:47: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  237 |         DEBUG printf("[stpExecutor execute]: %p\n", &sharedThreadPoolExecutor);
+      |                                              ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                               |     |
+      |                                               void* ThreadPoolExecutor*
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/distr_threaded_executor.cpp: In member function ‘void rclcpp::executors::DistrThreadedExecutor::co_run(size_t)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/executors/distr_threaded_executor.cpp:135:38: warning: unused parameter ‘number_of_threads’ [-Wunused-parameter]
+  135 | DistrThreadedExecutor::co_run(size_t number_of_threads)
+      |                               ~~~~~~~^~~~~~~~~~~~~~~~~
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors.hpp:21,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/parameter_client.hpp:32,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/time_source.cpp:28:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:162:30: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  162 |         for (size_t i = 0; i < thread_num; i++) {
+      |                            ~~^~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void ThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:186:91: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘std::queue<std::function<void()> >::size_type’ {aka ‘long unsigned int’} [-Wformat=]
+  186 |             DEBUG printf("[CoSpike] ThreadPoolExecutor: executable_queue_pool[%d].size = %d\n", id, executable_queue_pool[id].size());
+      |                                                                                          ~^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                                                           |                                       |
+      |                                                                                           int                                     std::queue<std::function<void()> >::size_type {aka long unsigned int}
+      |                                                                                          %ld
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors.hpp:21,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/parameter_client.hpp:32,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/time_source.cpp:28:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::shutdown_all(bool)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:196:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  196 |             for (size_t i = 0; i < _thread_num; i++) {
+      |                                ~~^~~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void SharedThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:233:53: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  233 |         DEBUG printf("[stpExecutor executor_init]: %p\n", &sharedThreadPoolExecutor);
+      |                                                    ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                     |     |
+      |                                                     void* ThreadPoolExecutor*
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void SharedThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:237:47: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  237 |         DEBUG printf("[stpExecutor execute]: %p\n", &sharedThreadPoolExecutor);
+      |                                              ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                               |     |
+      |                                               void* ThreadPoolExecutor*
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors.hpp:21,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/parameter_service.hpp:27,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/node_interfaces/node_parameters.hpp:34,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/parameter.cpp:29:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:162:30: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  162 |         for (size_t i = 0; i < thread_num; i++) {
+      |                            ~~^~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void ThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:186:91: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘std::queue<std::function<void()> >::size_type’ {aka ‘long unsigned int’} [-Wformat=]
+  186 |             DEBUG printf("[CoSpike] ThreadPoolExecutor: executable_queue_pool[%d].size = %d\n", id, executable_queue_pool[id].size());
+      |                                                                                          ~^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                                                           |                                       |
+      |                                                                                           int                                     std::queue<std::function<void()> >::size_type {aka long unsigned int}
+      |                                                                                          %ld
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors.hpp:21,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/parameter_service.hpp:27,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/node_interfaces/node_parameters.hpp:34,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/parameter.cpp:29:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::shutdown_all(bool)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:196:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  196 |             for (size_t i = 0; i < _thread_num; i++) {
+      |                                ~~^~~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void SharedThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:233:53: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  233 |         DEBUG printf("[stpExecutor executor_init]: %p\n", &sharedThreadPoolExecutor);
+      |                                                    ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                     |     |
+      |                                                     void* ThreadPoolExecutor*
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void SharedThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:237:47: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  237 |         DEBUG printf("[stpExecutor execute]: %p\n", &sharedThreadPoolExecutor);
+      |                                              ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                               |     |
+      |                                               void* ThreadPoolExecutor*
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors.hpp:21,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/parameter_service.hpp:27,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/node_interfaces/node_parameters.hpp:34,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/node.cpp:37:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:162:30: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  162 |         for (size_t i = 0; i < thread_num; i++) {
+      |                            ~~^~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void ThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:186:91: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘std::queue<std::function<void()> >::size_type’ {aka ‘long unsigned int’} [-Wformat=]
+  186 |             DEBUG printf("[CoSpike] ThreadPoolExecutor: executable_queue_pool[%d].size = %d\n", id, executable_queue_pool[id].size());
+      |                                                                                          ~^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                                                           |                                       |
+      |                                                                                           int                                     std::queue<std::function<void()> >::size_type {aka long unsigned int}
+      |                                                                                          %ld
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors.hpp:21,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/parameter_service.hpp:27,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/node_interfaces/node_parameters.hpp:34,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/node.cpp:37:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::shutdown_all(bool)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:196:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  196 |             for (size_t i = 0; i < _thread_num; i++) {
+      |                                ~~^~~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void SharedThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:233:53: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  233 |         DEBUG printf("[stpExecutor executor_init]: %p\n", &sharedThreadPoolExecutor);
+      |                                                    ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                     |     |
+      |                                                     void* ThreadPoolExecutor*
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void SharedThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:237:47: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  237 |         DEBUG printf("[stpExecutor execute]: %p\n", &sharedThreadPoolExecutor);
+      |                                              ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                               |     |
+      |                                               void* ThreadPoolExecutor*
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors.hpp:21,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/parameter_service.hpp:27,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/node_interfaces/node_parameters.hpp:34,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/node_interfaces/node_parameters.cpp:22:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:162:30: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  162 |         for (size_t i = 0; i < thread_num; i++) {
+      |                            ~~^~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void ThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:186:91: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘std::queue<std::function<void()> >::size_type’ {aka ‘long unsigned int’} [-Wformat=]
+  186 |             DEBUG printf("[CoSpike] ThreadPoolExecutor: executable_queue_pool[%d].size = %d\n", id, executable_queue_pool[id].size());
+      |                                                                                          ~^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                                                           |                                       |
+      |                                                                                           int                                     std::queue<std::function<void()> >::size_type {aka long unsigned int}
+      |                                                                                          %ld
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors/distr_threaded_executor.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/executors.hpp:21,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/parameter_service.hpp:27,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/node_interfaces/node_parameters.hpp:34,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/node_interfaces/node_parameters.cpp:22:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void ThreadPoolExecutor::shutdown_all(bool)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:196:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  196 |             for (size_t i = 0; i < _thread_num; i++) {
+      |                                ~~^~~~~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘void SharedThreadPoolExecutor::executor_init(int)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:233:53: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  233 |         DEBUG printf("[stpExecutor executor_init]: %p\n", &sharedThreadPoolExecutor);
+      |                                                    ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                     |     |
+      |                                                     void* ThreadPoolExecutor*
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp: In member function ‘virtual void SharedThreadPoolExecutor::execute(std::function<void()>&&)’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/cospike/coexecutor.hpp:237:47: warning: format ‘%p’ expects argument of type ‘void*’, but argument 2 has type ‘ThreadPoolExecutor*’ [-Wformat=]
+  237 |         DEBUG printf("[stpExecutor execute]: %p\n", &sharedThreadPoolExecutor);
+      |                                              ~^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                               |     |
+      |                                               void* ThreadPoolExecutor*
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/subscription_base.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/intra_process_manager_impl.hpp:38,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/intra_process_manager.hpp:32,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/publisher.hpp:35,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/callback_group.hpp:24,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/node.hpp:37,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/time_source.cpp:27:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp: In instantiation of ‘void rclcpp::AnySubscriptionCallback<MessageT, Alloc>::set(CallbackT) [with CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>; typename std::enable_if<rclcpp::function_traits::same_arguments<CallbackT, std::function<int(std::shared_ptr<_Tp>)> >::value>::type* <anonymous> = 0; MessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; Alloc = std::allocator<void>]’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/subscription_factory.hpp:93:32:   required from ‘rclcpp::SubscriptionFactory rclcpp::create_subscription_factory(CallbackT&&, const rclcpp::SubscriptionEventCallbacks&, typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr, std::shared_ptr<PublisherT>) [with MessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>; Alloc = std::allocator<void>; CallbackMessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; SubscriptionT = rclcpp::Subscription<rosgraph_msgs::msg::Clock_<std::allocator<void> >, std::allocator<void> >; typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr = std::shared_ptr<rclcpp::message_memory_strategy::MessageMemoryStrategy<rosgraph_msgs::msg::Clock_<std::allocator<void> >, std::allocator<void> > >]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/create_subscription.hpp:115:71:   required from ‘std::shared_ptr<SubscriptionT> rclcpp::create_subscription(NodeT&&, const string&, const rclcpp::QoS&, CallbackT&&, const rclcpp::SubscriptionOptionsWithAllocator<AllocatorT>&, typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr) [with MessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>; AllocatorT = std::allocator<void>; CallbackMessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; SubscriptionT = rclcpp::Subscription<rosgraph_msgs::msg::Clock_<std::allocator<void> >, std::allocator<void> >; NodeT = std::shared_ptr<rclcpp::node_interfaces::NodeTopicsInterface>&; std::string = std::__cxx11::basic_string<char>; typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr = std::shared_ptr<rclcpp::message_memory_strategy::MessageMemoryStrategy<rosgraph_msgs::msg::Clock_<std::allocator<void> >, std::allocator<void> > >]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/time_source.cpp:212:3:   required from here
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp:84:26: error: no match for ‘operator=’ (operand types are ‘rclcpp::AnySubscriptionCallback<rosgraph_msgs::msg::Clock_<std::allocator<void> >, std::allocator<void> >::SharedPtrCallback’ {aka ‘std::function<int(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>’} and ‘std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>’)
+   84 |     shared_ptr_callback_ = callback;
+      |     ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+In file included from /usr/include/c++/10/functional:59,
+                 from /usr/include/c++/10/pstl/glue_algorithm_defs.h:13,
+                 from /usr/include/c++/10/algorithm:74,
+                 from /data/hongyi/ros2_ws/install/rosidl_generator_cpp/include/rosidl_generator_cpp/bounded_vector.hpp:18,
+                 from /data/hongyi/ros2_ws/install/builtin_interfaces/include/builtin_interfaces/msg/time__struct.hpp:8,
+                 from /data/hongyi/ros2_ws/install/builtin_interfaces/include/builtin_interfaces/msg/time.hpp:7,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/time_source.cpp:20:
+/usr/include/c++/10/bits/std_function.h:396:7: note: candidate: ‘std::function<_Res(_ArgTypes ...)>& std::function<_Res(_ArgTypes ...)>::operator=(const std::function<_Res(_ArgTypes ...)>&) [with _Res = int; _ArgTypes = {std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >}]’
+  396 |       operator=(const function& __x)
+      |       ^~~~~~~~
+/usr/include/c++/10/bits/std_function.h:396:33: note:   no known conversion for argument 1 from ‘std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>’ to ‘const std::function<int(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>&’
+  396 |       operator=(const function& __x)
+      |                 ~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/10/bits/std_function.h:414:7: note: candidate: ‘std::function<_Res(_ArgTypes ...)>& std::function<_Res(_ArgTypes ...)>::operator=(std::function<_Res(_ArgTypes ...)>&&) [with _Res = int; _ArgTypes = {std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >}]’
+  414 |       operator=(function&& __x) noexcept
+      |       ^~~~~~~~
+/usr/include/c++/10/bits/std_function.h:414:28: note:   no known conversion for argument 1 from ‘std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>’ to ‘std::function<int(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>&&’
+  414 |       operator=(function&& __x) noexcept
+      |                 ~~~~~~~~~~~^~~
+/usr/include/c++/10/bits/std_function.h:428:7: note: candidate: ‘std::function<_Res(_ArgTypes ...)>& std::function<_Res(_ArgTypes ...)>::operator=(std::nullptr_t) [with _Res = int; _ArgTypes = {std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >}; std::nullptr_t = std::nullptr_t]’
+  428 |       operator=(nullptr_t) noexcept
+      |       ^~~~~~~~
+/usr/include/c++/10/bits/std_function.h:428:17: note:   no known conversion for argument 1 from ‘std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>’ to ‘std::nullptr_t’
+  428 |       operator=(nullptr_t) noexcept
+      |                 ^~~~~~~~~
+/usr/include/c++/10/bits/std_function.h:457:2: note: candidate: ‘template<class _Functor> std::function<_Res(_ArgTypes ...)>::_Requires<std::function<_Res(_ArgTypes ...)>::_Callable<typename std::decay<_Up>::type>, std::function<_Res(_ArgTypes ...)>&> std::function<_Res(_ArgTypes ...)>::operator=(_Functor&&) [with _Functor = _Functor; _Res = int; _ArgTypes = {std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >}]’
+  457 |  operator=(_Functor&& __f)
+      |  ^~~~~~~~
+/usr/include/c++/10/bits/std_function.h:457:2: note:   template argument deduction/substitution failed:
+/usr/include/c++/10/bits/std_function.h: In substitution of ‘template<class _Res, class ... _ArgTypes> template<class _Cond, class _Tp> using _Requires = typename std::enable_if<_Cond::value, _Tp>::type [with _Cond = std::function<int(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>::_Callable<std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>, std::__invoke_result<std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>&, std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > > > >; _Tp = std::function<int(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>&; _Res = int; _ArgTypes = {std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >}]’:
+/usr/include/c++/10/bits/std_function.h:457:2:   required by substitution of ‘template<class _Functor> std::function<int(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>::_Requires<std::function<int(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>::_Callable<typename std::decay<_Tp>::type, std::__invoke_result<typename std::decay<_Tp>::type&, std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > > > >, std::function<int(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>&> std::function<int(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>::operator=<_Functor>(_Functor&&) [with _Functor = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>&]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp:84:26:   required from ‘void rclcpp::AnySubscriptionCallback<MessageT, Alloc>::set(CallbackT) [with CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>; typename std::enable_if<rclcpp::function_traits::same_arguments<CallbackT, std::function<int(std::shared_ptr<_Tp>)> >::value>::type* <anonymous> = 0; MessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; Alloc = std::allocator<void>]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/subscription_factory.hpp:93:32:   required from ‘rclcpp::SubscriptionFactory rclcpp::create_subscription_factory(CallbackT&&, const rclcpp::SubscriptionEventCallbacks&, typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr, std::shared_ptr<PublisherT>) [with MessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>; Alloc = std::allocator<void>; CallbackMessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; SubscriptionT = rclcpp::Subscription<rosgraph_msgs::msg::Clock_<std::allocator<void> >, std::allocator<void> >; typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr = std::shared_ptr<rclcpp::message_memory_strategy::MessageMemoryStrategy<rosgraph_msgs::msg::Clock_<std::allocator<void> >, std::allocator<void> > >]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/create_subscription.hpp:115:71:   required from ‘std::shared_ptr<SubscriptionT> rclcpp::create_subscription(NodeT&&, const string&, const rclcpp::QoS&, CallbackT&&, const rclcpp::SubscriptionOptionsWithAllocator<AllocatorT>&, typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr) [with MessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>; AllocatorT = std::allocator<void>; CallbackMessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; SubscriptionT = rclcpp::Subscription<rosgraph_msgs::msg::Clock_<std::allocator<void> >, std::allocator<void> >; NodeT = std::shared_ptr<rclcpp::node_interfaces::NodeTopicsInterface>&; std::string = std::__cxx11::basic_string<char>; typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr = std::shared_ptr<rclcpp::message_memory_strategy::MessageMemoryStrategy<rosgraph_msgs::msg::Clock_<std::allocator<void> >, std::allocator<void> > >]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/time_source.cpp:212:3:   required from here
+/usr/include/c++/10/bits/std_function.h:319:8: error: no type named ‘type’ in ‘struct std::enable_if<false, std::function<int(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>&>’
+  319 |  using _Requires = typename enable_if<_Cond::value, _Tp>::type;
+      |        ^~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp: In instantiation of ‘void rclcpp::AnySubscriptionCallback<MessageT, Alloc>::set(CallbackT) [with CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>; typename std::enable_if<rclcpp::function_traits::same_arguments<CallbackT, std::function<int(std::shared_ptr<_Tp>)> >::value>::type* <anonymous> = 0; MessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; Alloc = std::allocator<void>]’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/subscription_factory.hpp:93:32:   required from ‘rclcpp::SubscriptionFactory rclcpp::create_subscription_factory(CallbackT&&, const rclcpp::SubscriptionEventCallbacks&, typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr, std::shared_ptr<PublisherT>) [with MessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>; Alloc = std::allocator<void>; CallbackMessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; SubscriptionT = rclcpp::Subscription<rosgraph_msgs::msg::Clock_<std::allocator<void> >, std::allocator<void> >; typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr = std::shared_ptr<rclcpp::message_memory_strategy::MessageMemoryStrategy<rosgraph_msgs::msg::Clock_<std::allocator<void> >, std::allocator<void> > >]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/create_subscription.hpp:115:71:   required from ‘std::shared_ptr<SubscriptionT> rclcpp::create_subscription(NodeT&&, const string&, const rclcpp::QoS&, CallbackT&&, const rclcpp::SubscriptionOptionsWithAllocator<AllocatorT>&, typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr) [with MessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>; AllocatorT = std::allocator<void>; CallbackMessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; SubscriptionT = rclcpp::Subscription<rosgraph_msgs::msg::Clock_<std::allocator<void> >, std::allocator<void> >; NodeT = std::shared_ptr<rclcpp::node_interfaces::NodeTopicsInterface>&; std::string = std::__cxx11::basic_string<char>; typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr = std::shared_ptr<rclcpp::message_memory_strategy::MessageMemoryStrategy<rosgraph_msgs::msg::Clock_<std::allocator<void> >, std::allocator<void> > >]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/time_source.cpp:212:3:   required from here
+/usr/include/c++/10/bits/std_function.h:466:2: note: candidate: ‘template<class _Functor> std::function<_Res(_ArgTypes ...)>& std::function<_Res(_ArgTypes ...)>::operator=(std::reference_wrapper<_Functor>) [with _Functor = _Functor; _Res = int; _ArgTypes = {std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >}]’
+  466 |  operator=(reference_wrapper<_Functor> __f) noexcept
+      |  ^~~~~~~~
+/usr/include/c++/10/bits/std_function.h:466:2: note:   template argument deduction/substitution failed:
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/subscription_base.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/intra_process_manager_impl.hpp:38,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/intra_process_manager.hpp:32,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/publisher.hpp:35,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/callback_group.hpp:24,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/node.hpp:37,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/time_source.cpp:27:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp:84:26: note:   ‘std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rosgraph_msgs::msg::Clock_<std::allocator<void> > >)>’ is not derived from ‘std::reference_wrapper<_Tp>’
+   84 |     shared_ptr_callback_ = callback;
+      |     ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp: In instantiation of ‘void rclcpp::AnySubscriptionCallback<MessageT, Alloc>::set(CallbackT) [with CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>; typename std::enable_if<rclcpp::function_traits::same_arguments<CallbackT, std::function<int(std::shared_ptr<_Tp>)> >::value>::type* <anonymous> = 0; MessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; Alloc = std::allocator<void>]’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/subscription_factory.hpp:93:32:   required from ‘rclcpp::SubscriptionFactory rclcpp::create_subscription_factory(CallbackT&&, const rclcpp::SubscriptionEventCallbacks&, typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr, std::shared_ptr<PublisherT>) [with MessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>; Alloc = std::allocator<void>; CallbackMessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; SubscriptionT = rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >; typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr = std::shared_ptr<rclcpp::message_memory_strategy::MessageMemoryStrategy<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >, std::allocator<void> > >]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/create_subscription.hpp:115:71:   required from ‘std::shared_ptr<SubscriptionT> rclcpp::create_subscription(NodeT&&, const string&, const rclcpp::QoS&, CallbackT&&, const rclcpp::SubscriptionOptionsWithAllocator<AllocatorT>&, typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr) [with MessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>; AllocatorT = std::allocator<void>; CallbackMessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; SubscriptionT = rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >; NodeT = std::shared_ptr<rclcpp::node_interfaces::NodeTopicsInterface>&; std::string = std::__cxx11::basic_string<char>; typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr = std::shared_ptr<rclcpp::message_memory_strategy::MessageMemoryStrategy<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >, std::allocator<void> > >]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/parameter_client.hpp:172:76:   required from ‘static rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >::SharedPtr rclcpp::AsyncParametersClient::on_parameter_event(NodeT&&, CallbackT&&, const rclcpp::QoS&, const rclcpp::SubscriptionOptionsWithAllocator<AllocatorT>&) [with CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>; NodeT = std::shared_ptr<rclcpp::node_interfaces::NodeTopicsInterface>&; AllocatorT = std::allocator<void>; rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >::SharedPtr = std::shared_ptr<rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > > >]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/time_source.cpp:110:76:   required from here
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp:84:26: error: no match for ‘operator=’ (operand types are ‘rclcpp::AnySubscriptionCallback<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >, std::allocator<void> >::SharedPtrCallback’ {aka ‘std::function<int(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>’} and ‘std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>’)
+In file included from /usr/include/c++/10/functional:59,
+                 from /usr/include/c++/10/pstl/glue_algorithm_defs.h:13,
+                 from /usr/include/c++/10/algorithm:74,
+                 from /data/hongyi/ros2_ws/install/rosidl_generator_cpp/include/rosidl_generator_cpp/bounded_vector.hpp:18,
+                 from /data/hongyi/ros2_ws/install/builtin_interfaces/include/builtin_interfaces/msg/time__struct.hpp:8,
+                 from /data/hongyi/ros2_ws/install/builtin_interfaces/include/builtin_interfaces/msg/time.hpp:7,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/time_source.cpp:20:
+/usr/include/c++/10/bits/std_function.h:396:7: note: candidate: ‘std::function<_Res(_ArgTypes ...)>& std::function<_Res(_ArgTypes ...)>::operator=(const std::function<_Res(_ArgTypes ...)>&) [with _Res = int; _ArgTypes = {std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >}]’
+  396 |       operator=(const function& __x)
+      |       ^~~~~~~~
+/usr/include/c++/10/bits/std_function.h:396:33: note:   no known conversion for argument 1 from ‘std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>’ to ‘const std::function<int(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>&’
+  396 |       operator=(const function& __x)
+      |                 ~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/10/bits/std_function.h:414:7: note: candidate: ‘std::function<_Res(_ArgTypes ...)>& std::function<_Res(_ArgTypes ...)>::operator=(std::function<_Res(_ArgTypes ...)>&&) [with _Res = int; _ArgTypes = {std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >}]’
+  414 |       operator=(function&& __x) noexcept
+      |       ^~~~~~~~
+/usr/include/c++/10/bits/std_function.h:414:28: note:   no known conversion for argument 1 from ‘std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>’ to ‘std::function<int(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>&&’
+  414 |       operator=(function&& __x) noexcept
+      |                 ~~~~~~~~~~~^~~
+/usr/include/c++/10/bits/std_function.h:428:7: note: candidate: ‘std::function<_Res(_ArgTypes ...)>& std::function<_Res(_ArgTypes ...)>::operator=(std::nullptr_t) [with _Res = int; _ArgTypes = {std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >}; std::nullptr_t = std::nullptr_t]’
+  428 |       operator=(nullptr_t) noexcept
+      |       ^~~~~~~~
+/usr/include/c++/10/bits/std_function.h:428:17: note:   no known conversion for argument 1 from ‘std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>’ to ‘std::nullptr_t’
+  428 |       operator=(nullptr_t) noexcept
+      |                 ^~~~~~~~~
+/usr/include/c++/10/bits/std_function.h:457:2: note: candidate: ‘template<class _Functor> std::function<_Res(_ArgTypes ...)>::_Requires<std::function<_Res(_ArgTypes ...)>::_Callable<typename std::decay<_Up>::type>, std::function<_Res(_ArgTypes ...)>&> std::function<_Res(_ArgTypes ...)>::operator=(_Functor&&) [with _Functor = _Functor; _Res = int; _ArgTypes = {std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >}]’
+  457 |  operator=(_Functor&& __f)
+      |  ^~~~~~~~
+/usr/include/c++/10/bits/std_function.h:457:2: note:   template argument deduction/substitution failed:
+/usr/include/c++/10/bits/std_function.h: In substitution of ‘template<class _Res, class ... _ArgTypes> template<class _Cond, class _Tp> using _Requires = typename std::enable_if<_Cond::value, _Tp>::type [with _Cond = std::function<int(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>::_Callable<std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>, std::__invoke_result<std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>&, std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > > > >; _Tp = std::function<int(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>&; _Res = int; _ArgTypes = {std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >}]’:
+/usr/include/c++/10/bits/std_function.h:457:2:   required by substitution of ‘template<class _Functor> std::function<int(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>::_Requires<std::function<int(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>::_Callable<typename std::decay<_Tp>::type, std::__invoke_result<typename std::decay<_Tp>::type&, std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > > > >, std::function<int(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>&> std::function<int(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>::operator=<_Functor>(_Functor&&) [with _Functor = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>&]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp:84:26:   required from ‘void rclcpp::AnySubscriptionCallback<MessageT, Alloc>::set(CallbackT) [with CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>; typename std::enable_if<rclcpp::function_traits::same_arguments<CallbackT, std::function<int(std::shared_ptr<_Tp>)> >::value>::type* <anonymous> = 0; MessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; Alloc = std::allocator<void>]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/subscription_factory.hpp:93:32:   required from ‘rclcpp::SubscriptionFactory rclcpp::create_subscription_factory(CallbackT&&, const rclcpp::SubscriptionEventCallbacks&, typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr, std::shared_ptr<PublisherT>) [with MessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>; Alloc = std::allocator<void>; CallbackMessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; SubscriptionT = rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >; typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr = std::shared_ptr<rclcpp::message_memory_strategy::MessageMemoryStrategy<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >, std::allocator<void> > >]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/create_subscription.hpp:115:71:   required from ‘std::shared_ptr<SubscriptionT> rclcpp::create_subscription(NodeT&&, const string&, const rclcpp::QoS&, CallbackT&&, const rclcpp::SubscriptionOptionsWithAllocator<AllocatorT>&, typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr) [with MessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>; AllocatorT = std::allocator<void>; CallbackMessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; SubscriptionT = rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >; NodeT = std::shared_ptr<rclcpp::node_interfaces::NodeTopicsInterface>&; std::string = std::__cxx11::basic_string<char>; typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr = std::shared_ptr<rclcpp::message_memory_strategy::MessageMemoryStrategy<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >, std::allocator<void> > >]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/parameter_client.hpp:172:76:   required from ‘static rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >::SharedPtr rclcpp::AsyncParametersClient::on_parameter_event(NodeT&&, CallbackT&&, const rclcpp::QoS&, const rclcpp::SubscriptionOptionsWithAllocator<AllocatorT>&) [with CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>; NodeT = std::shared_ptr<rclcpp::node_interfaces::NodeTopicsInterface>&; AllocatorT = std::allocator<void>; rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >::SharedPtr = std::shared_ptr<rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > > >]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/time_source.cpp:110:76:   required from here
+/usr/include/c++/10/bits/std_function.h:319:8: error: no type named ‘type’ in ‘struct std::enable_if<false, std::function<int(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>&>’
+  319 |  using _Requires = typename enable_if<_Cond::value, _Tp>::type;
+      |        ^~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp: In instantiation of ‘void rclcpp::AnySubscriptionCallback<MessageT, Alloc>::set(CallbackT) [with CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>; typename std::enable_if<rclcpp::function_traits::same_arguments<CallbackT, std::function<int(std::shared_ptr<_Tp>)> >::value>::type* <anonymous> = 0; MessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; Alloc = std::allocator<void>]’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/subscription_factory.hpp:93:32:   required from ‘rclcpp::SubscriptionFactory rclcpp::create_subscription_factory(CallbackT&&, const rclcpp::SubscriptionEventCallbacks&, typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr, std::shared_ptr<PublisherT>) [with MessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>; Alloc = std::allocator<void>; CallbackMessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; SubscriptionT = rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >; typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr = std::shared_ptr<rclcpp::message_memory_strategy::MessageMemoryStrategy<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >, std::allocator<void> > >]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/create_subscription.hpp:115:71:   required from ‘std::shared_ptr<SubscriptionT> rclcpp::create_subscription(NodeT&&, const string&, const rclcpp::QoS&, CallbackT&&, const rclcpp::SubscriptionOptionsWithAllocator<AllocatorT>&, typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr) [with MessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>; AllocatorT = std::allocator<void>; CallbackMessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; SubscriptionT = rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >; NodeT = std::shared_ptr<rclcpp::node_interfaces::NodeTopicsInterface>&; std::string = std::__cxx11::basic_string<char>; typename rclcpp::message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr = std::shared_ptr<rclcpp::message_memory_strategy::MessageMemoryStrategy<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >, std::allocator<void> > >]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/parameter_client.hpp:172:76:   required from ‘static rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >::SharedPtr rclcpp::AsyncParametersClient::on_parameter_event(NodeT&&, CallbackT&&, const rclcpp::QoS&, const rclcpp::SubscriptionOptionsWithAllocator<AllocatorT>&) [with CallbackT = std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>; NodeT = std::shared_ptr<rclcpp::node_interfaces::NodeTopicsInterface>&; AllocatorT = std::allocator<void>; rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >::SharedPtr = std::shared_ptr<rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > > >]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/time_source.cpp:110:76:   required from here
+/usr/include/c++/10/bits/std_function.h:466:2: note: candidate: ‘template<class _Functor> std::function<_Res(_ArgTypes ...)>& std::function<_Res(_ArgTypes ...)>::operator=(std::reference_wrapper<_Functor>) [with _Functor = _Functor; _Res = int; _ArgTypes = {std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >}]’
+  466 |  operator=(reference_wrapper<_Functor> __f) noexcept
+      |  ^~~~~~~~
+/usr/include/c++/10/bits/std_function.h:466:2: note:   template argument deduction/substitution failed:
+In file included from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/subscription_base.hpp:28,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/intra_process_manager_impl.hpp:38,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/intra_process_manager.hpp:32,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/publisher.hpp:35,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/callback_group.hpp:24,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/node.hpp:37,
+                 from /data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/src/rclcpp/time_source.cpp:27:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp:84:26: note:   ‘std::_Bind<void (rclcpp::TimeSource::*(rclcpp::TimeSource*, std::_Placeholder<1>))(std::shared_ptr<rcl_interfaces::msg::ParameterEvent_<std::allocator<void> > >)>’ is not derived from ‘std::reference_wrapper<_Tp>’
+   84 |     shared_ptr_callback_ = callback;
+      |     ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp: In instantiation of ‘void rclcpp::AnySubscriptionCallback<MessageT, Alloc>::dispatch(std::shared_ptr<_Tp>, const rmw_message_info_t&) [with MessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; Alloc = std::allocator<void>; rmw_message_info_t = rmw_message_info_t]’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/subscription.hpp:146:27:   required from ‘void rclcpp::Subscription<CallbackMessageT, Alloc>::handle_message(std::shared_ptr<void>&, const rmw_message_info_t&) [with CallbackMessageT = rosgraph_msgs::msg::Clock_<std::allocator<void> >; Alloc = std::allocator<void>; rmw_message_info_t = rmw_message_info_t]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/subscription.hpp:138:8:   required from here
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp:162:41: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘__pid_t’ {aka ‘int’} [-Wformat=]
+  162 |       printf("[INFO] [dispatch] [PID: %ld] After shared_ptr_callback_\n", gettid());
+      |                                       ~~^                                 ~~~~~~~~
+      |                                         |                                       |
+      |                                         long int                                __pid_t {aka int}
+      |                                       %d
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp: In instantiation of ‘void rclcpp::AnySubscriptionCallback<MessageT, Alloc>::dispatch(std::shared_ptr<_Tp>, const rmw_message_info_t&) [with MessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; Alloc = std::allocator<void>; rmw_message_info_t = rmw_message_info_t]’:
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/subscription.hpp:146:27:   required from ‘void rclcpp::Subscription<CallbackMessageT, Alloc>::handle_message(std::shared_ptr<void>&, const rmw_message_info_t&) [with CallbackMessageT = rcl_interfaces::msg::ParameterEvent_<std::allocator<void> >; Alloc = std::allocator<void>; rmw_message_info_t = rmw_message_info_t]’
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/subscription.hpp:138:8:   required from here
+/data/hongyi/ros2_ws/experiment/demo_ws/src/rclcpp_spk/include/rclcpp/any_subscription_callback.hpp:162:41: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘__pid_t’ {aka ‘int’} [-Wformat=]
+  162 |       printf("[INFO] [dispatch] [PID: %ld] After shared_ptr_callback_\n", gettid());
+      |                                       ~~^                                 ~~~~~~~~
+      |                                         |                                       |
+      |                                         long int                                __pid_t {aka int}
+      |                                       %d
+make[2]: *** [CMakeFiles/rclcpp_spk.dir/build.make:679: CMakeFiles/rclcpp_spk.dir/src/rclcpp/time_source.cpp.o] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [CMakeFiles/Makefile2:77: CMakeFiles/rclcpp_spk.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2
+---
+Failed   <<< rclcpp_spk [17.0s, exited with code 2]
+
+Summary: 0 packages finished [17.6s]
+  1 package failed: rclcpp_spk
+  1 package had stderr output: rclcpp_spk
+hongyi@cxhpc:~/ros2_ws/experiment/demo_ws$

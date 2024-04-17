@@ -99,7 +99,7 @@ struct TaskPromise {
 
     // Indicate Deconstructor
     ~TaskPromise() {
-        printf("[INFO] [PID: %ld] [~TaskPromise]\n", gettid());
+        printf("[INFO] [PID: %d] [~TaskPromise]\n", gettid());
     }
 
 private:

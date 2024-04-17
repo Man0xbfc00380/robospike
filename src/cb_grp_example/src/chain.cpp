@@ -199,7 +199,7 @@ private:
     double latency;
     bool end_flag_;
 
-    void callback(const std_msgs::msg::String::SharedPtr msg) {
+    int callback(const std_msgs::msg::String::SharedPtr msg) {
         
         gettimeofday(&ftime, NULL);
         std::string name = this->get_name();
@@ -212,6 +212,8 @@ private:
 
         RCLCPP_INFO(this->get_logger(), "Intermediate call [PID: %ld] back at %ld (s) %ld (us)", gettid(), ftime.tv_sec, ftime.tv_usec);
         if (publisher_) publisher_->publish(message);
+
+        return 0;
     }       
 
     Task<void, SharedThreadPoolExecutor> co_inode_callback()

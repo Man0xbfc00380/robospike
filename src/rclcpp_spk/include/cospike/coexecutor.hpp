@@ -183,7 +183,7 @@ public:
         if (is_active.load(std::memory_order_relaxed)) {
             DEBUG printf("[CoSpike] ThreadPoolExecutor: push func to thread %d\n", id);
             executable_queue_pool[id].push(func);
-            DEBUG printf("[CoSpike] ThreadPoolExecutor: executable_queue_pool[%d].size = %d\n", id, executable_queue_pool[id].size());
+            DEBUG printf("[CoSpike] ThreadPoolExecutor: executable_queue_pool[%d].size = %ld\n", id, executable_queue_pool[id].size());
             lock.unlock();
             DEBUG printf("[CoSpike] ThreadPoolExecutor: unlock\n");
             queue_condition.notify_all();
@@ -230,11 +230,11 @@ class SharedThreadPoolExecutor : public AbstractExecutor {
 public:
     static ThreadPoolExecutor sharedThreadPoolExecutor;
     void executor_init(int thread_num) {
-        DEBUG printf("[stpExecutor executor_init]: %p\n", &sharedThreadPoolExecutor);
+        DEBUG printf("[stpExecutor executor_init]: %p\n", (void*) &sharedThreadPoolExecutor);
         sharedThreadPoolExecutor.executor_init(thread_num);
     }
     void execute(std::function<void()> &&func) override {
-        DEBUG printf("[stpExecutor execute]: %p\n", &sharedThreadPoolExecutor);
+        DEBUG printf("[stpExecutor execute]: %p\n", (void*) &sharedThreadPoolExecutor);
         sharedThreadPoolExecutor.execute(std::move(func));
     }
 };

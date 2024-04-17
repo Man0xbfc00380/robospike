@@ -84,7 +84,7 @@ MultiThreadedExecutor::run(size_t)
       long tv_usec = duration_us - tv_sec * 1000000;
       
       if (tv_sec > 0 || tv_usec > 10000)
-      printf("[Blocking] [PID: %ld] [s: %ld] [us: %ld]\n", gettid(), tv_sec, tv_usec);
+      printf("[Blocking] [PID: %d] [s: %ld] [us: %ld]\n", gettid(), tv_sec, tv_usec);
       
       if (!rclcpp::ok(this->context_) || !spinning.load()) {
         return;

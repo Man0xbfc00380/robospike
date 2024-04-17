@@ -27,6 +27,8 @@
 #include "rclcpp/function_traits.hpp"
 #include "rclcpp/visibility_control.hpp"
 
+// FIXME: Support return value in AnySubscriptionCallback
+
 namespace rclcpp
 {
 
@@ -39,18 +41,15 @@ class AnySubscriptionCallback
   using ConstMessageSharedPtr = std::shared_ptr<const MessageT>;
   using MessageUniquePtr = std::unique_ptr<MessageT, MessageDeleter>;
 
-  using SharedPtrCallback = std::function<void (const std::shared_ptr<MessageT>)>;
+  using SharedPtrCallback = std::function<int (const std::shared_ptr<MessageT>)>;
   using SharedPtrWithInfoCallback =
-    std::function<void (const std::shared_ptr<MessageT>, const rmw_message_info_t &)>;
-  using ConstSharedPtrCallback = std::function<void (const std::shared_ptr<const MessageT>)>;
+    std::function<int (const std::shared_ptr<MessageT>, const rmw_message_info_t &)>;
+  using ConstSharedPtrCallback = std::function<int (const std::shared_ptr<const MessageT>)>;
   using ConstSharedPtrWithInfoCallback =
-    std::function<void (const std::shared_ptr<const MessageT>, const rmw_message_info_t &)>;
-  using UniquePtrCallback = std::function<void (MessageUniquePtr)>;
+    std::function<int (const std::shared_ptr<const MessageT>, const rmw_message_info_t &)>;
+  using UniquePtrCallback = std::function<int (MessageUniquePtr)>;
   using UniquePtrWithInfoCallback =
-    std::function<void (MessageUniquePtr, const rmw_message_info_t &)>;
-  
-  // coroutine callback
-  using CoSharedPtrCallback = std::function<void (const std::shared_ptr<MessageT>)>;
+    std::function<int (MessageUniquePtr, const rmw_message_info_t &)>;
 
   SharedPtrCallback shared_ptr_callback_;
   SharedPtrWithInfoCallback shared_ptr_with_info_callback_;
@@ -155,26 +154,26 @@ public:
     unique_ptr_with_info_callback_ = callback;
   }
 
+  // TODO: Use ret to return sth.
   void dispatch(
     std::shared_ptr<MessageT> message, const rmw_message_info_t & message_info)
   {
     if (shared_ptr_callback_) {
-      shared_ptr_callback_(message); // TODO: Callback execute in our case
-      printf("[INFO] [dispatch] [PID: %ld] After shared_ptr_callback_\n", gettid());
+      auto ret = shared_ptr_callback_(message);
     } else if (shared_ptr_with_info_callback_) {
-      shared_ptr_with_info_callback_(message, message_info);
+      auto ret = shared_ptr_with_info_callback_(message, message_info);
     } else if (const_shared_ptr_callback_) {
-      const_shared_ptr_callback_(message);
+      auto ret = const_shared_ptr_callback_(message);
     } else if (const_shared_ptr_with_info_callback_) {
-      const_shared_ptr_with_info_callback_(message, message_info);
+      auto ret = const_shared_ptr_with_info_callback_(message, message_info);
     } else if (unique_ptr_callback_) {
       auto ptr = MessageAllocTraits::allocate(*message_allocator_.get(), 1);
       MessageAllocTraits::construct(*message_allocator_.get(), ptr, *message);
-      unique_ptr_callback_(MessageUniquePtr(ptr, message_deleter_));
+      auto ret = unique_ptr_callback_(MessageUniquePtr(ptr, message_deleter_));
     } else if (unique_ptr_with_info_callback_) {
       auto ptr = MessageAllocTraits::allocate(*message_allocator_.get(), 1);
       MessageAllocTraits::construct(*message_allocator_.get(), ptr, *message);
-      unique_ptr_with_info_callback_(MessageUniquePtr(ptr, message_deleter_), message_info);
+      auto ret = unique_ptr_with_info_callback_(MessageUniquePtr(ptr, message_deleter_), message_info);
     } else {
       throw std::runtime_error("unexpected message without any callback set");
     }

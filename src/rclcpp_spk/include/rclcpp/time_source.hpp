@@ -90,7 +90,7 @@ private:
   std::mutex clock_sub_lock_;
 
   // The clock callback itself
-  void clock_cb(const rosgraph_msgs::msg::Clock::SharedPtr msg);
+  int clock_cb(const rosgraph_msgs::msg::Clock::SharedPtr msg);
 
   // Create the subscription for the clock topic
   void create_clock_sub();
@@ -104,7 +104,7 @@ private:
   std::shared_ptr<ParamSubscriptionT> parameter_subscription_;
 
   // Callback for parameter updates
-  void on_parameter_event(const rcl_interfaces::msg::ParameterEvent::SharedPtr event);
+  int on_parameter_event(const rcl_interfaces::msg::ParameterEvent::SharedPtr event);
 
   // An enum to hold the parameter state
   enum UseSimTimeParameterState {UNSET, SET_TRUE, SET_FALSE};
