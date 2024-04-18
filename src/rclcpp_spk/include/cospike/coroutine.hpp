@@ -7,8 +7,14 @@
 #include <iostream>
 #include <thread>
 #include "cospike/awaiter.hpp"
+#include "cospike/coexecutor.hpp"
+#include "cospike/task_void.hpp"
+#include "cospike/task.hpp"
+#include "cospike/result.hpp"
 
-#define retTask Task<int, NewThreadExecutor>
+#define retTask         Task<int, NewThreadExecutor>
+#define queueTaskRef    std::queue<retTask>&
+#define queueTaskPtr    std::queue<retTask>*
 
 /**
  * SimpleResult: an empty promise_type

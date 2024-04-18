@@ -40,6 +40,8 @@ using rclcpp::executor::Executor;
 using rclcpp::executor::ExecutorArgs;
 using rclcpp::executor::FutureReturnCode;
 
+std::queue<retTask> Executor::task_queue;
+
 Executor::Executor(const ExecutorArgs & args)
 : spinning(false),
   memory_strategy_(args.memory_strategy)
@@ -324,7 +326,6 @@ Executor::execute_subscription(
 {
   rmw_message_info_t message_info;
   message_info.from_intra_process = false;
-
   if (subscription->is_serialized()) {
     auto serialized_msg = subscription->create_serialized_message();
     auto ret = rcl_take_serialized_message(
@@ -332,7 +333,7 @@ Executor::execute_subscription(
       serialized_msg.get(), &message_info, nullptr);
     if (RCL_RET_OK == ret) {
       auto void_serialized_msg = std::static_pointer_cast<void>(serialized_msg);
-      subscription->handle_message(void_serialized_msg, message_info); // NOTE: execute the callback
+      subscription->handle_message(&task_queue, void_serialized_msg, message_info); // NOTE: execute the callback
     } else if (RCL_RET_SUBSCRIPTION_TAKE_FAILED != ret) {
       RCUTILS_LOG_ERROR_NAMED(
         "rclcpp",
@@ -347,7 +348,7 @@ Executor::execute_subscription(
       subscription->get_subscription_handle().get(),
       message.get(), &message_info, nullptr);
     if (RCL_RET_OK == ret) {
-      subscription->handle_message(message, message_info); // NOTE: execute the callback
+      subscription->handle_message(&task_queue, message, message_info); // NOTE: execute the callback
     } else if (RCL_RET_SUBSCRIPTION_TAKE_FAILED != ret) {
       RCUTILS_LOG_ERROR_NAMED(
         "rclcpp",
@@ -373,7 +374,7 @@ Executor::execute_intra_process_subscription(
 
   if (status == RCL_RET_OK) {
     message_info.from_intra_process = true;
-    subscription->handle_intra_process_message(ipm, message_info);
+    subscription->handle_intra_process_message(&task_queue, ipm, message_info);
   } else if (status != RCL_RET_SUBSCRIPTION_TAKE_FAILED) {
     RCUTILS_LOG_ERROR_NAMED(
       "rclcpp",

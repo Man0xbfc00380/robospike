@@ -312,7 +312,7 @@ __set_parameters_atomically_common(
   }
   // If accepted, actually set the values.
   if (result.successful) {
-    for (size_t i = 0; i < parameters.size(); ++i) {
+    for (int i = 0; i < parameters.size(); ++i) {
       const std::string & name = parameters[i].get_name();
       parameter_infos[name].descriptor.name = parameters[i].get_name();
       parameter_infos[name].descriptor.type = parameters[i].get_type();

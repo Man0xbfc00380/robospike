@@ -225,44 +225,37 @@ public:
   }
 
   // Nomal Callback
-  int dispatch(
+  void dispatch(
     std::shared_ptr<MessageT> message, const rmw_message_info_t & message_info)
   {
     if (shared_ptr_callback_) {
-      auto ret = shared_ptr_callback_(message);
-      return ret;
+      shared_ptr_callback_(message);
     } else if (shared_ptr_with_info_callback_) {
-      auto ret = shared_ptr_with_info_callback_(message, message_info);
-      return ret;
+      shared_ptr_with_info_callback_(message, message_info);
     } else if (const_shared_ptr_callback_) {
-      auto ret = const_shared_ptr_callback_(message);
-      return ret;
+      const_shared_ptr_callback_(message);
     } else if (const_shared_ptr_with_info_callback_) {
-      auto ret = const_shared_ptr_with_info_callback_(message, message_info);
-      return ret;
+      const_shared_ptr_with_info_callback_(message, message_info);
     } else if (unique_ptr_callback_) {
       auto ptr = MessageAllocTraits::allocate(*message_allocator_.get(), 1);
       MessageAllocTraits::construct(*message_allocator_.get(), ptr, *message);
-      auto ret = unique_ptr_callback_(MessageUniquePtr(ptr, message_deleter_));
-      return ret;
+      unique_ptr_callback_(MessageUniquePtr(ptr, message_deleter_));
     } else if (unique_ptr_with_info_callback_) {
       auto ptr = MessageAllocTraits::allocate(*message_allocator_.get(), 1);
       MessageAllocTraits::construct(*message_allocator_.get(), ptr, *message);
-      auto ret = unique_ptr_with_info_callback_(MessageUniquePtr(ptr, message_deleter_), message_info);
-      return ret;
+      unique_ptr_with_info_callback_(MessageUniquePtr(ptr, message_deleter_), message_info);
     } else {
       throw std::runtime_error("unexpected message without any callback set");
     }
-    return 0;
   }
 
-  int dispatch_intra_process(
+  void dispatch_intra_process(
     ConstMessageSharedPtr message, const rmw_message_info_t & message_info)
   {
     if (const_shared_ptr_callback_) {
-      auto ret = const_shared_ptr_callback_(message);
+      const_shared_ptr_callback_(message);
     } else if (const_shared_ptr_with_info_callback_) {
-      auto ret = const_shared_ptr_with_info_callback_(message, message_info);
+      const_shared_ptr_with_info_callback_(message, message_info);
     } else {
       if (unique_ptr_callback_ || unique_ptr_with_info_callback_ ||
         shared_ptr_callback_ || shared_ptr_with_info_callback_)
@@ -273,39 +266,105 @@ public:
         throw std::runtime_error("unexpected message without any callback set");
       }
     }
-    return 0;
   }
 
-  int dispatch_intra_process(
+  void dispatch_intra_process(
     MessageUniquePtr message, const rmw_message_info_t & message_info)
   {
     if (shared_ptr_callback_) {
       typename std::shared_ptr<MessageT> shared_message = std::move(message);
-      auto ret = shared_ptr_callback_(shared_message);
+      shared_ptr_callback_(shared_message);
     } else if (shared_ptr_with_info_callback_) {
       typename std::shared_ptr<MessageT> shared_message = std::move(message);
-      auto ret = shared_ptr_with_info_callback_(shared_message, message_info);
+      shared_ptr_with_info_callback_(shared_message, message_info);
     } else if (unique_ptr_callback_) {
-      auto ret = unique_ptr_callback_(std::move(message));
+      unique_ptr_callback_(std::move(message));
     } else if (unique_ptr_with_info_callback_) {
-      auto ret = unique_ptr_with_info_callback_(std::move(message), message_info);
+      unique_ptr_with_info_callback_(std::move(message), message_info);
     } else if (const_shared_ptr_callback_ || const_shared_ptr_with_info_callback_) {
       throw std::runtime_error("unexpected dispatch_intra_process unique message call"
               " with const shared_ptr callback");
     } else {
       throw std::runtime_error("unexpected message without any callback set");
     }
-    return 0;
   }
 
   // Coroutine Callback
-  // FIXME: error: return type ‘struct Task<int, NewThreadExecutor>’ is incomplete
-  // retTask co_dispatch(
-  //   std::shared_ptr<MessageT> message, const rmw_message_info_t & message_info) 
-  // {
-  //   // TODO: ...
-  //   co_return 0;
-  // }
+  void co_dispatch(
+    queueTaskPtr qPtr, std::shared_ptr<MessageT> message, const rmw_message_info_t & message_info) 
+  {
+    if (co_shared_ptr_callback_) {
+      auto ret = co_shared_ptr_callback_(message);
+      (*qPtr).push(std::move(ret));
+    } else if (co_shared_ptr_with_info_callback_) {
+      auto ret = co_shared_ptr_with_info_callback_(message, message_info);
+      (*qPtr).push(std::move(ret));
+    } else if (co_const_shared_ptr_callback_) {
+      auto ret = co_const_shared_ptr_callback_(message);
+      (*qPtr).push(std::move(ret));
+    } else if (co_const_shared_ptr_with_info_callback_) {
+      auto ret = co_const_shared_ptr_with_info_callback_(message, message_info);
+      (*qPtr).push(std::move(ret));
+    } else if (co_unique_ptr_callback_) {
+      auto ptr = MessageAllocTraits::allocate(*message_allocator_.get(), 1);
+      MessageAllocTraits::construct(*message_allocator_.get(), ptr, *message);
+      auto ret = co_unique_ptr_callback_(MessageUniquePtr(ptr, message_deleter_));
+      (*qPtr).push(std::move(ret));
+    } else if (co_unique_ptr_with_info_callback_) {
+      auto ptr = MessageAllocTraits::allocate(*message_allocator_.get(), 1);
+      MessageAllocTraits::construct(*message_allocator_.get(), ptr, *message);
+      auto ret = co_unique_ptr_with_info_callback_(MessageUniquePtr(ptr, message_deleter_), message_info);
+      (*qPtr).push(std::move(ret));
+    } else {
+      throw std::runtime_error("unexpected message without any callback set");
+    }
+  }
+
+  void co_dispatch_intra_process(
+    queueTaskPtr qPtr, ConstMessageSharedPtr message, const rmw_message_info_t & message_info)
+  {
+    if (co_const_shared_ptr_callback_) {
+      auto ret = co_const_shared_ptr_callback_(message);
+      (*qPtr).push(std::move(ret));
+    } else if (co_const_shared_ptr_with_info_callback_) {
+      auto ret = co_const_shared_ptr_with_info_callback_(message, message_info);
+      (*qPtr).push(std::move(ret));
+    } else {
+      if (co_unique_ptr_callback_ || co_unique_ptr_with_info_callback_ ||
+        co_shared_ptr_callback_ || co_shared_ptr_with_info_callback_)
+      {
+        throw std::runtime_error("unexpected dispatch_intra_process const shared "
+                "message call with no const shared_ptr callback");
+      } else {
+        throw std::runtime_error("unexpected message without any callback set");
+      }
+    }
+  }
+
+  void co_dispatch_intra_process(
+    queueTaskPtr qPtr, MessageUniquePtr message, const rmw_message_info_t & message_info)
+  {
+    if (co_shared_ptr_callback_) {
+      typename std::shared_ptr<MessageT> shared_message = std::move(message);
+      auto ret = co_shared_ptr_callback_(shared_message);
+      (*qPtr).push(std::move(ret));
+    } else if (co_shared_ptr_with_info_callback_) {
+      typename std::shared_ptr<MessageT> shared_message = std::move(message);
+      auto ret = co_shared_ptr_with_info_callback_(shared_message, message_info);
+      (*qPtr).push(std::move(ret));
+    } else if (co_unique_ptr_callback_) {
+      auto ret = co_unique_ptr_callback_(std::move(message));
+      (*qPtr).push(std::move(ret));
+    } else if (co_unique_ptr_with_info_callback_) {
+      auto ret = co_unique_ptr_with_info_callback_(std::move(message), message_info);
+      (*qPtr).push(std::move(ret));
+    } else if (co_const_shared_ptr_callback_ || co_const_shared_ptr_with_info_callback_) {
+      throw std::runtime_error("unexpected dispatch_intra_process unique message call"
+              " with const shared_ptr callback");
+    } else {
+      throw std::runtime_error("unexpected message without any callback set");
+    }
+  }
 
   bool use_take_shared_method()
   {

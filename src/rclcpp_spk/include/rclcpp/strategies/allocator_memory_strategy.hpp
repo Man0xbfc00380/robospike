@@ -98,27 +98,27 @@ public:
     // Important to use subscription_handles_.size() instead of wait set's size since
     // there may be more subscriptions in the wait set due to Waitables added to the end.
     // The same logic applies for other entities.
-    for (size_t i = 0; i < subscription_handles_.size(); ++i) {
+    for (int i = 0; i < subscription_handles_.size(); ++i) {
       if (!wait_set->subscriptions[i]) {
         subscription_handles_[i].reset();
       }
     }
-    for (size_t i = 0; i < service_handles_.size(); ++i) {
+    for (int i = 0; i < service_handles_.size(); ++i) {
       if (!wait_set->services[i]) {
         service_handles_[i].reset();
       }
     }
-    for (size_t i = 0; i < client_handles_.size(); ++i) {
+    for (int i = 0; i < client_handles_.size(); ++i) {
       if (!wait_set->clients[i]) {
         client_handles_[i].reset();
       }
     }
-    for (size_t i = 0; i < timer_handles_.size(); ++i) {
+    for (int i = 0; i < timer_handles_.size(); ++i) {
       if (!wait_set->timers[i]) {
         timer_handles_[i].reset();
       }
     }
-    for (size_t i = 0; i < waitable_handles_.size(); ++i) {
+    for (int i = 0; i < waitable_handles_.size(); ++i) {
       if (!waitable_handles_[i]->is_ready(wait_set)) {
         waitable_handles_[i].reset();
       }

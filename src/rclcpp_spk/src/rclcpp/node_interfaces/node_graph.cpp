@@ -72,9 +72,9 @@ NodeGraph::get_topic_names_and_types(bool no_demangle) const
   }
 
   std::map<std::string, std::vector<std::string>> topics_and_types;
-  for (size_t i = 0; i < topic_names_and_types.names.size; ++i) {
+  for (int i = 0; i < topic_names_and_types.names.size; ++i) {
     std::string topic_name = topic_names_and_types.names.data[i];
-    for (size_t j = 0; j < topic_names_and_types.types[i].size; ++j) {
+    for (int j = 0; j < topic_names_and_types.types[i].size; ++j) {
       topics_and_types[topic_name].emplace_back(topic_names_and_types.types[i].data[j]);
     }
   }
@@ -113,9 +113,9 @@ NodeGraph::get_service_names_and_types() const
   }
 
   std::map<std::string, std::vector<std::string>> services_and_types;
-  for (size_t i = 0; i < service_names_and_types.names.size; ++i) {
+  for (int i = 0; i < service_names_and_types.names.size; ++i) {
     std::string service_name = service_names_and_types.names.data[i];
-    for (size_t j = 0; j < service_names_and_types.types[i].size; ++j) {
+    for (int j = 0; j < service_names_and_types.types[i].size; ++j) {
       services_and_types[service_name].emplace_back(service_names_and_types.types[i].data[j]);
     }
   }
@@ -192,7 +192,7 @@ NodeGraph::get_node_names_and_namespaces() const
 
   std::vector<std::pair<std::string, std::string>> node_names;
   node_names.reserve(node_names_c.size);
-  for (size_t i = 0; i < node_names_c.size; ++i) {
+  for (int i = 0; i < node_names_c.size; ++i) {
     if (node_names_c.data[i] && node_namespaces_c.data[i]) {
       node_names.emplace_back(node_names_c.data[i], node_namespaces_c.data[i]);
     }

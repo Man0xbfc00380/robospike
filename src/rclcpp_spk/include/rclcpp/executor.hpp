@@ -37,6 +37,8 @@
 #include "rclcpp/visibility_control.hpp"
 #include "rclcpp/scope_exit.hpp"
 
+#include "cospike/coroutine.hpp"
+
 namespace rclcpp
 {
 
@@ -289,6 +291,10 @@ public:
   RCLCPP_PUBLIC
   void
   set_memory_strategy(memory_strategy::MemoryStrategy::SharedPtr memory_strategy);
+
+  /// Maintaining the life of TaskPromise
+  RCLCPP_PUBLIC
+  static std::queue<retTask> task_queue;
 
 protected:
   RCLCPP_PUBLIC

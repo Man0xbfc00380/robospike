@@ -105,7 +105,7 @@ remove_ros_arguments(int argc, char const * const argv[])
 
   std::vector<std::string> return_arguments(static_cast<size_t>(nonros_argc));
 
-  for (size_t ii = 0; ii < static_cast<size_t>(nonros_argc); ++ii) {
+  for (int ii = 0; ii < static_cast<size_t>(nonros_argc); ++ii) {
     return_arguments[ii] = std::string(nonros_argv[ii]);
   }
 

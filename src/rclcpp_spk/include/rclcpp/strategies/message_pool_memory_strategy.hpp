@@ -52,7 +52,7 @@ public:
   MessagePoolMemoryStrategy()
   : next_array_index_(0)
   {
-    for (size_t i = 0; i < Size; ++i) {
+    for (int i = 0; i < Size; ++i) {
       pool_[i].msg_ptr_ = std::make_shared<MessageT>();
       pool_[i].used = false;
     }
@@ -85,7 +85,7 @@ public:
    */
   void return_message(std::shared_ptr<MessageT> & msg)
   {
-    for (size_t i = 0; i < Size; ++i) {
+    for (int i = 0; i < Size; ++i) {
       if (pool_[i].msg_ptr_ == msg) {
         pool_[i].used = false;
         return;

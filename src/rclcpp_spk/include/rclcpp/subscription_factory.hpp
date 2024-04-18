@@ -79,7 +79,7 @@ template<
   typename SubscriptionT>
 SubscriptionFactory
 create_subscription_factory(
-  const bool & use_coroutine,
+  bool use_coroutine,
   CallbackT && callback,
   const SubscriptionEventCallbacks & event_callbacks,
   typename rclcpp::message_memory_strategy::MessageMemoryStrategy<
@@ -98,7 +98,7 @@ create_subscription_factory(
 
   // factory function that creates a MessageT specific SubscriptionT
   factory.create_typed_subscription =
-    [allocator, msg_mem_strat, any_subscription_callback, event_callbacks, message_alloc](
+    [use_coroutine, allocator, msg_mem_strat, any_subscription_callback, event_callbacks, message_alloc](
     rclcpp::node_interfaces::NodeBaseInterface * node_base,
     const std::string & topic_name,
     const rcl_subscription_options_t & subscription_options
@@ -112,6 +112,7 @@ create_subscription_factory(
       using rclcpp::SubscriptionBase;
 
       auto sub = Subscription<CallbackMessageT, Alloc>::make_shared(
+        use_coroutine,
         node_base->get_shared_rcl_node_handle(),
         *rosidl_typesupport_cpp::get_message_type_support_handle<MessageT>(),
         topic_name,

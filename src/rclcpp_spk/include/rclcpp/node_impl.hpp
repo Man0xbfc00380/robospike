@@ -113,7 +113,7 @@ template<
   typename SubscriptionT>
 std::shared_ptr<SubscriptionT>
 Node::create_subscription(
-  const bool & use_coroutine,
+  bool use_coroutine,
   const std::string & topic_name,
   const rclcpp::QoS & qos,
   CallbackT && callback,
@@ -139,7 +139,7 @@ template<
   typename SubscriptionT>
 std::shared_ptr<SubscriptionT>
 Node::create_subscription(
-  const bool & use_coroutine,
+  bool use_coroutine,
   const std::string & topic_name,
   CallbackT && callback,
   const rmw_qos_profile_t & qos_profile,
@@ -169,7 +169,7 @@ template<
   typename SubscriptionT>
 std::shared_ptr<SubscriptionT>
 Node::create_subscription(
-  const bool & use_coroutine,
+  bool use_coroutine,
   const std::string & topic_name,
   CallbackT && callback,
   size_t qos_history_depth,

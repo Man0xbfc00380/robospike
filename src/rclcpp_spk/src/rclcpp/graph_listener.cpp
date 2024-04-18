@@ -170,7 +170,7 @@ GraphListener::run_loop()
     }
     // Put graph guard conditions for each node into the wait set.
     std::vector<size_t> graph_gc_indexes(node_graph_interfaces_size, 0u);
-    for (size_t i = 0u; i < node_graph_interfaces_size; ++i) {
+    for (int i = 0u; i < node_graph_interfaces_size; ++i) {
       auto node_ptr = node_graph_interfaces_[i];
       // Only wait on graph changes if some user of the node is watching.
       if (node_ptr->count_graph_users() == 0) {
@@ -200,7 +200,7 @@ GraphListener::run_loop()
     bool shutdown_guard_condition_triggered =
       (shutdown_guard_condition_ == wait_set_.guard_conditions[shutdown_guard_condition_index]);
     // Notify nodes who's guard conditions are set (triggered).
-    for (size_t i = 0u; i < node_graph_interfaces_size; ++i) {
+    for (int i = 0u; i < node_graph_interfaces_size; ++i) {
       const auto node_ptr = node_graph_interfaces_[i];
       auto graph_gc = node_ptr->get_graph_guard_condition();
       if (!graph_gc) {

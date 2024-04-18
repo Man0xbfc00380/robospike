@@ -114,7 +114,7 @@ public:
    * \param[in] message_info Metadata associated with this message.
    */
   virtual void
-  handle_message(std::shared_ptr<void> & message, const rmw_message_info_t & message_info) = 0;
+  handle_message(queueTaskPtr qPtr, std::shared_ptr<void> & message, const rmw_message_info_t & message_info) = 0;
 
   /// Return the message borrowed in create_message.
   /** \param[in] message Shared pointer to the returned message. */
@@ -128,6 +128,7 @@ public:
 
   virtual void
   handle_intra_process_message(
+    queueTaskPtr qPtr,
     rcl_interfaces::msg::IntraProcessMessage & ipm,
     const rmw_message_info_t & message_info) = 0;
 

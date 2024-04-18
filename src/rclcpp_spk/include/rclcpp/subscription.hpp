@@ -81,6 +81,7 @@ public:
    * \param[in] memory_strategy The memory strategy to be used for managing message memory.
    */
   Subscription(
+    bool use_coroutine,
     std::shared_ptr<rcl_node_t> node_handle,
     const rosidl_message_type_support_t & type_support_handle,
     const std::string & topic_name,
@@ -107,6 +108,7 @@ public:
       this->add_event_handler(event_callbacks.liveliness_callback,
         RCL_SUBSCRIPTION_LIVELINESS_CHANGED);
     }
+    this->use_coroutine_ = use_coroutine;
   }
 
   /// Support dynamically setting the message memory strategy.
@@ -135,7 +137,7 @@ public:
     return message_memory_strategy_->borrow_serialized_message();
   }
 
-  void handle_message(std::shared_ptr<void> & message, const rmw_message_info_t & message_info)
+  void handle_message(queueTaskPtr qPtr, std::shared_ptr<void> & message, const rmw_message_info_t & message_info)
   {
     if (matches_any_intra_process_publishers(&message_info.publisher_gid)) {
       // In this case, the message will be delivered via intra process and
@@ -144,8 +146,11 @@ public:
     }
     auto typed_message = std::static_pointer_cast<CallbackMessageT>(message);
 
-    // TODO: Judge whether we need to use coroutine here
-    auto ret_callback = any_callback_.dispatch(typed_message, message_info);
+    if (this->use_coroutine_) {
+      any_callback_.co_dispatch(qPtr, typed_message, message_info);
+    } else {
+      any_callback_.dispatch(typed_message, message_info);
+    }
   }
 
   /// Return the loaned message.
@@ -162,6 +167,7 @@ public:
   }
 
   void handle_intra_process_message(
+    queueTaskPtr qPtr,
     rcl_interfaces::msg::IntraProcessMessage & ipm,
     const rmw_message_info_t & message_info)
   {
@@ -194,8 +200,11 @@ public:
         // but not in the first one.
         return;
       }
-      // TODO: Judge whether we need to use coroutine here
-      auto ret_callback = any_callback_.dispatch_intra_process(msg, message_info);
+      if (this->use_coroutine_) {
+        any_callback_.co_dispatch_intra_process(qPtr, msg, message_info);
+      } else {
+        any_callback_.dispatch_intra_process(msg, message_info);
+      }
     } else {
       MessageUniquePtr msg;
       take_intra_process_message(
@@ -211,8 +220,11 @@ public:
         // but not in the first one.
         return;
       }
-      // TODO: Judge whether we need to use coroutine here
-      auto ret_callback = any_callback_.dispatch_intra_process(std::move(msg), message_info);
+      if (this->use_coroutine_) {
+        any_callback_.co_dispatch_intra_process(qPtr, std::move(msg), message_info);
+      } else {
+        any_callback_.dispatch_intra_process(std::move(msg), message_info);
+      }
     }
   }
 
@@ -279,6 +291,7 @@ private:
   AnySubscriptionCallback<CallbackMessageT, Alloc> any_callback_;
   typename message_memory_strategy::MessageMemoryStrategy<CallbackMessageT, Alloc>::SharedPtr
     message_memory_strategy_;
+  bool use_coroutine_;
 };
 
 }  // namespace rclcpp

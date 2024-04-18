@@ -159,7 +159,7 @@ public:
         std::atomic_thread_fence(std::memory_order_release);
 
         // Initialize the threadpool with run_loop
-        for (size_t i = 0; i < thread_num; i++) {
+        for (int i = 0; i < thread_num; i++) {
             // Warning copy construction is forbidden in std::thread 
             executable_queue_pool.emplace_back();
             work_thread_pool.push_back(std::thread(&ThreadPoolExecutor::run_loop, this, i));
@@ -193,7 +193,7 @@ public:
         is_active.store(false, std::memory_order_relaxed);
         if (!wait_for_complete) {
             // clear queue.
-            for (size_t i = 0; i < _thread_num; i++) {
+            for (int i = 0; i < _thread_num; i++) {
                 auto executable_queue = executable_queue_pool[i];
                 std::unique_lock lock(queue_lock);
                 decltype(executable_queue) empty_queue;

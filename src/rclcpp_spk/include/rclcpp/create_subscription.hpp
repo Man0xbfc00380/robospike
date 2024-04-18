@@ -40,7 +40,7 @@ template<
 typename std::shared_ptr<SubscriptionT>
 create_subscription(
   // create_subscription <1>
-  const bool & use_coroutine,
+  bool use_coroutine,
   rclcpp::node_interfaces::NodeTopicsInterface * node_topics,
   const std::string & topic_name,
   CallbackT && callback,
@@ -92,7 +92,7 @@ template<
   typename NodeT>
 typename std::shared_ptr<SubscriptionT>
 create_subscription(
-  const bool & use_coroutine,
+  bool use_coroutine,
   NodeT && node,
   const std::string & topic_name,
   const rclcpp::QoS & qos,

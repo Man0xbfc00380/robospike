@@ -132,10 +132,10 @@ public:
         : Node(node_name), count_(0), exe_time_(exe_time), end_flag_(end_flag)
     {                        
         // create_subscription interface for sync callback
-        subscription_ = this->create_subscription<std_msgs::msg::String>(false, sub_topic, 1, std::bind(&IntermediateNode::callback, this, _1));
+        // subscription_ = this->create_subscription<std_msgs::msg::String>(false, sub_topic, 1, std::bind(&IntermediateNode::callback, this, _1));
         
         // TODO: create_subscription interface for async callback
-        // subscription_ = this->create_subscription<std_msgs::msg::String>(true, sub_topic, 1, std::bind(&IntermediateNode::co_callback, this, _1));
+        subscription_ = this->create_subscription<std_msgs::msg::String>(true, sub_topic, 1, std::bind(&IntermediateNode::co_callback, this, _1));
         
         if (pub_topic != "") publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
         this->name_ = node_name;
@@ -228,6 +228,7 @@ int main(int argc, char* argv[])
     // Create executors
     int number_of_threads = 2;
     rclcpp::executors::DistrThreadedExecutor exec1(rclcpp::executor::ExecutorArgs(), number_of_threads, true);
+    std::queue<retTask> task_queue;
     
     // Allocate callbacks to executors
     exec1.add_node(c1_t_cb_0);
