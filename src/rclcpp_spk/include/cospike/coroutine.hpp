@@ -8,6 +8,8 @@
 #include <thread>
 #include "cospike/awaiter.hpp"
 
+#define retTask Task<int, NewThreadExecutor>
+
 /**
  * SimpleResult: an empty promise_type
  *         promise_type indicate the struct is for coroutine

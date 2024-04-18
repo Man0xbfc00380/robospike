@@ -79,6 +79,7 @@ template<
   typename SubscriptionT>
 SubscriptionFactory
 create_subscription_factory(
+  const bool & use_coroutine,
   CallbackT && callback,
   const SubscriptionEventCallbacks & event_callbacks,
   typename rclcpp::message_memory_strategy::MessageMemoryStrategy<

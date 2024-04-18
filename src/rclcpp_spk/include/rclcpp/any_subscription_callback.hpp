@@ -26,8 +26,7 @@
 #include "rclcpp/allocator/allocator_common.hpp"
 #include "rclcpp/function_traits.hpp"
 #include "rclcpp/visibility_control.hpp"
-
-// FIXME: Support return value in AnySubscriptionCallback
+#include "cospike/coroutine.hpp"
 
 namespace rclcpp
 {
@@ -41,6 +40,8 @@ class AnySubscriptionCallback
   using ConstMessageSharedPtr = std::shared_ptr<const MessageT>;
   using MessageUniquePtr = std::unique_ptr<MessageT, MessageDeleter>;
 
+  
+  // Normal Callback
   using SharedPtrCallback = std::function<int (const std::shared_ptr<MessageT>)>;
   using SharedPtrWithInfoCallback =
     std::function<int (const std::shared_ptr<MessageT>, const rmw_message_info_t &)>;
@@ -50,13 +51,32 @@ class AnySubscriptionCallback
   using UniquePtrCallback = std::function<int (MessageUniquePtr)>;
   using UniquePtrWithInfoCallback =
     std::function<int (MessageUniquePtr, const rmw_message_info_t &)>;
-
+  
   SharedPtrCallback shared_ptr_callback_;
   SharedPtrWithInfoCallback shared_ptr_with_info_callback_;
   ConstSharedPtrCallback const_shared_ptr_callback_;
   ConstSharedPtrWithInfoCallback const_shared_ptr_with_info_callback_;
   UniquePtrCallback unique_ptr_callback_;
   UniquePtrWithInfoCallback unique_ptr_with_info_callback_;
+
+  
+  // Coroutine Callback
+  using CoSharedPtrCallback = std::function<retTask (const std::shared_ptr<MessageT>)>;
+  using CoSharedPtrWithInfoCallback =
+    std::function<retTask (const std::shared_ptr<MessageT>, const rmw_message_info_t &)>;
+  using CoConstSharedPtrCallback = std::function<retTask (const std::shared_ptr<const MessageT>)>;
+  using CoConstSharedPtrWithInfoCallback =
+    std::function<retTask (const std::shared_ptr<const MessageT>, const rmw_message_info_t &)>;
+  using CoUniquePtrCallback = std::function<retTask (MessageUniquePtr)>;
+  using CoUniquePtrWithInfoCallback =
+    std::function<retTask (MessageUniquePtr, const rmw_message_info_t &)>;
+  
+  CoSharedPtrCallback co_shared_ptr_callback_;
+  CoSharedPtrWithInfoCallback co_shared_ptr_with_info_callback_;
+  CoConstSharedPtrCallback co_const_shared_ptr_callback_;
+  CoConstSharedPtrWithInfoCallback co_const_shared_ptr_with_info_callback_;
+  CoUniquePtrCallback co_unique_ptr_callback_;
+  CoUniquePtrWithInfoCallback co_unique_ptr_with_info_callback_;
 
 public:
   explicit AnySubscriptionCallback(std::shared_ptr<Alloc> allocator)
@@ -70,13 +90,11 @@ public:
 
   AnySubscriptionCallback(const AnySubscriptionCallback &) = default;
 
+  // Nomal Callback
   template<
     typename CallbackT,
     typename std::enable_if<
-      rclcpp::function_traits::same_arguments<
-        CallbackT,
-        SharedPtrCallback
-      >::value
+      rclcpp::function_traits::same_function<CallbackT, SharedPtrCallback>::value
     >::type * = nullptr
   >
   void set(CallbackT callback)
@@ -87,10 +105,7 @@ public:
   template<
     typename CallbackT,
     typename std::enable_if<
-      rclcpp::function_traits::same_arguments<
-        CallbackT,
-        SharedPtrWithInfoCallback
-      >::value
+      rclcpp::function_traits::same_function<CallbackT, SharedPtrWithInfoCallback>::value
     >::type * = nullptr
   >
   void set(CallbackT callback)
@@ -101,10 +116,7 @@ public:
   template<
     typename CallbackT,
     typename std::enable_if<
-      rclcpp::function_traits::same_arguments<
-        CallbackT,
-        ConstSharedPtrCallback
-      >::value
+      rclcpp::function_traits::same_function<CallbackT, ConstSharedPtrCallback>::value
     >::type * = nullptr
   >
   void set(CallbackT callback)
@@ -115,10 +127,7 @@ public:
   template<
     typename CallbackT,
     typename std::enable_if<
-      rclcpp::function_traits::same_arguments<
-        CallbackT,
-        ConstSharedPtrWithInfoCallback
-      >::value
+      rclcpp::function_traits::same_function<CallbackT, ConstSharedPtrWithInfoCallback>::value
     >::type * = nullptr
   >
   void set(CallbackT callback)
@@ -129,10 +138,7 @@ public:
   template<
     typename CallbackT,
     typename std::enable_if<
-      rclcpp::function_traits::same_arguments<
-        CallbackT,
-        UniquePtrCallback
-      >::value
+      rclcpp::function_traits::same_function<CallbackT, UniquePtrCallback>::value
     >::type * = nullptr
   >
   void set(CallbackT callback)
@@ -143,10 +149,7 @@ public:
   template<
     typename CallbackT,
     typename std::enable_if<
-      rclcpp::function_traits::same_arguments<
-        CallbackT,
-        UniquePtrWithInfoCallback
-      >::value
+      rclcpp::function_traits::same_function<CallbackT, UniquePtrWithInfoCallback>::value
     >::type * = nullptr
   >
   void set(CallbackT callback)
@@ -154,38 +157,112 @@ public:
     unique_ptr_with_info_callback_ = callback;
   }
 
-  // TODO: Use ret to return sth.
-  void dispatch(
+  // Coroutine Callback
+  template<
+    typename CallbackT,
+    typename std::enable_if<
+      rclcpp::function_traits::same_function<CallbackT, CoSharedPtrCallback>::value
+    >::type * = nullptr
+  >
+  void set(CallbackT callback)
+  {
+    co_shared_ptr_callback_ = callback;
+  }
+
+  template<
+    typename CallbackT,
+    typename std::enable_if<
+      rclcpp::function_traits::same_function<CallbackT, CoSharedPtrWithInfoCallback>::value
+    >::type * = nullptr
+  >
+  void set(CallbackT callback)
+  {
+    co_shared_ptr_with_info_callback_ = callback;
+  }
+
+  template<
+    typename CallbackT,
+    typename std::enable_if<
+      rclcpp::function_traits::same_function<CallbackT, CoConstSharedPtrCallback>::value
+    >::type * = nullptr
+  >
+  void set(CallbackT callback)
+  {
+    co_const_shared_ptr_callback_ = callback;
+  }
+
+  template<
+    typename CallbackT,
+    typename std::enable_if<
+      rclcpp::function_traits::same_function<CallbackT, CoConstSharedPtrWithInfoCallback>::value
+    >::type * = nullptr
+  >
+  void set(CallbackT callback)
+  {
+    co_const_shared_ptr_with_info_callback_ = callback;
+  }
+
+  template<
+    typename CallbackT,
+    typename std::enable_if<
+      rclcpp::function_traits::same_function<CallbackT, CoUniquePtrCallback>::value
+    >::type * = nullptr
+  >
+  void set(CallbackT callback)
+  {
+    co_unique_ptr_callback_ = callback;
+  }
+
+  template<
+    typename CallbackT,
+    typename std::enable_if<
+      rclcpp::function_traits::same_function<CallbackT, CoUniquePtrWithInfoCallback>::value
+    >::type * = nullptr
+  >
+  void set(CallbackT callback)
+  {
+    co_unique_ptr_with_info_callback_ = callback;
+  }
+
+  // Nomal Callback
+  int dispatch(
     std::shared_ptr<MessageT> message, const rmw_message_info_t & message_info)
   {
     if (shared_ptr_callback_) {
       auto ret = shared_ptr_callback_(message);
+      return ret;
     } else if (shared_ptr_with_info_callback_) {
       auto ret = shared_ptr_with_info_callback_(message, message_info);
+      return ret;
     } else if (const_shared_ptr_callback_) {
       auto ret = const_shared_ptr_callback_(message);
+      return ret;
     } else if (const_shared_ptr_with_info_callback_) {
       auto ret = const_shared_ptr_with_info_callback_(message, message_info);
+      return ret;
     } else if (unique_ptr_callback_) {
       auto ptr = MessageAllocTraits::allocate(*message_allocator_.get(), 1);
       MessageAllocTraits::construct(*message_allocator_.get(), ptr, *message);
       auto ret = unique_ptr_callback_(MessageUniquePtr(ptr, message_deleter_));
+      return ret;
     } else if (unique_ptr_with_info_callback_) {
       auto ptr = MessageAllocTraits::allocate(*message_allocator_.get(), 1);
       MessageAllocTraits::construct(*message_allocator_.get(), ptr, *message);
       auto ret = unique_ptr_with_info_callback_(MessageUniquePtr(ptr, message_deleter_), message_info);
+      return ret;
     } else {
       throw std::runtime_error("unexpected message without any callback set");
     }
+    return 0;
   }
 
-  void dispatch_intra_process(
+  int dispatch_intra_process(
     ConstMessageSharedPtr message, const rmw_message_info_t & message_info)
   {
     if (const_shared_ptr_callback_) {
-      const_shared_ptr_callback_(message);
+      auto ret = const_shared_ptr_callback_(message);
     } else if (const_shared_ptr_with_info_callback_) {
-      const_shared_ptr_with_info_callback_(message, message_info);
+      auto ret = const_shared_ptr_with_info_callback_(message, message_info);
     } else {
       if (unique_ptr_callback_ || unique_ptr_with_info_callback_ ||
         shared_ptr_callback_ || shared_ptr_with_info_callback_)
@@ -196,32 +273,44 @@ public:
         throw std::runtime_error("unexpected message without any callback set");
       }
     }
+    return 0;
   }
 
-  void dispatch_intra_process(
+  int dispatch_intra_process(
     MessageUniquePtr message, const rmw_message_info_t & message_info)
   {
     if (shared_ptr_callback_) {
       typename std::shared_ptr<MessageT> shared_message = std::move(message);
-      shared_ptr_callback_(shared_message);
+      auto ret = shared_ptr_callback_(shared_message);
     } else if (shared_ptr_with_info_callback_) {
       typename std::shared_ptr<MessageT> shared_message = std::move(message);
-      shared_ptr_with_info_callback_(shared_message, message_info);
+      auto ret = shared_ptr_with_info_callback_(shared_message, message_info);
     } else if (unique_ptr_callback_) {
-      unique_ptr_callback_(std::move(message));
+      auto ret = unique_ptr_callback_(std::move(message));
     } else if (unique_ptr_with_info_callback_) {
-      unique_ptr_with_info_callback_(std::move(message), message_info);
+      auto ret = unique_ptr_with_info_callback_(std::move(message), message_info);
     } else if (const_shared_ptr_callback_ || const_shared_ptr_with_info_callback_) {
       throw std::runtime_error("unexpected dispatch_intra_process unique message call"
               " with const shared_ptr callback");
     } else {
       throw std::runtime_error("unexpected message without any callback set");
     }
+    return 0;
   }
+
+  // Coroutine Callback
+  // FIXME: error: return type ‘struct Task<int, NewThreadExecutor>’ is incomplete
+  // retTask co_dispatch(
+  //   std::shared_ptr<MessageT> message, const rmw_message_info_t & message_info) 
+  // {
+  //   // TODO: ...
+  //   co_return 0;
+  // }
 
   bool use_take_shared_method()
   {
-    return const_shared_ptr_callback_ || const_shared_ptr_with_info_callback_;
+    return   (   const_shared_ptr_callback_ ||    const_shared_ptr_with_info_callback_)
+          || (co_const_shared_ptr_callback_ || co_const_shared_ptr_with_info_callback_);
   }
 
 private:

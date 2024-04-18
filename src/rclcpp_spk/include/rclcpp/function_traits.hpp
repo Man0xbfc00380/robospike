@@ -18,6 +18,7 @@
 #include <functional>
 #include <memory>
 #include <tuple>
+#include <type_traits>
 
 namespace rclcpp
 {
@@ -161,6 +162,24 @@ struct same_arguments : std::is_same<
     typename function_traits<FunctorBT>::arguments
 >
 {};
+
+template<typename FunctorAT, typename FunctorBT>
+struct same_return : std::is_same<
+    typename function_traits<FunctorAT>::return_type,
+    typename function_traits<FunctorBT>::return_type
+>
+{};
+
+template<bool B1, bool B2>
+struct trait_and : std::integral_constant<bool, B1 && B2> {};
+
+template<typename FunctorAT, typename FunctorBT>
+struct same_function {
+    static constexpr bool value = trait_and<
+      same_arguments<FunctorAT, FunctorBT>::value,
+      same_return<FunctorAT, FunctorBT>::value
+    >::value;
+};
 
 }  // namespace function_traits
 

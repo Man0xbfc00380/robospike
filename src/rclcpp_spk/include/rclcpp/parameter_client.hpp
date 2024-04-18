@@ -170,6 +170,7 @@ public:
   ))
   {
     return rclcpp::create_subscription<rcl_interfaces::msg::ParameterEvent>(
+      false,
       node,
       "parameter_events",
       qos,

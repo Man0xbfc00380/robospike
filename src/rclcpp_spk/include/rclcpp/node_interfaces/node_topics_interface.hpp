@@ -64,6 +64,7 @@ public:
   virtual
   rclcpp::SubscriptionBase::SharedPtr
   create_subscription(
+    const bool & use_coroutine,
     const std::string & topic_name,
     const rclcpp::SubscriptionFactory & subscription_factory,
     const rcl_subscription_options_t & subscription_options,

@@ -40,6 +40,7 @@ template<
 typename std::shared_ptr<SubscriptionT>
 create_subscription(
   // create_subscription <1>
+  const bool & use_coroutine,
   rclcpp::node_interfaces::NodeTopicsInterface * node_topics,
   const std::string & topic_name,
   CallbackT && callback,
@@ -59,12 +60,14 @@ create_subscription(
 
   auto factory = rclcpp::create_subscription_factory
     <MessageT, CallbackT, AllocatorT, CallbackMessageT, SubscriptionT>(
+    use_coroutine,
     std::forward<CallbackT>(callback),
     event_callbacks,
     msg_mem_strat,
     allocator);
 
   auto sub = node_topics->create_subscription(
+    use_coroutine,
     topic_name,
     factory,
     subscription_options,
@@ -89,6 +92,7 @@ template<
   typename NodeT>
 typename std::shared_ptr<SubscriptionT>
 create_subscription(
+  const bool & use_coroutine,
   NodeT && node,
   const std::string & topic_name,
   const rclcpp::QoS & qos,
@@ -115,7 +119,7 @@ create_subscription(
   }
   auto factory = rclcpp::create_subscription_factory
     <MessageT, CallbackT, AllocatorT, CallbackMessageT, SubscriptionT>(
-    std::forward<CallbackT>(callback), options.event_callbacks, msg_mem_strat, allocator);
+      use_coroutine, std::forward<CallbackT>(callback), options.event_callbacks, msg_mem_strat, allocator);
 
   bool use_intra_process;
   switch (options.use_intra_process_comm) {
@@ -135,6 +139,7 @@ create_subscription(
 
   // TODO(wjwwood): convert all of the interfaces to use QoS and SubscriptionOptionsBase
   auto sub = node_topics->create_subscription(
+    use_coroutine,
     topic_name,
     factory,
     options.template to_rcl_subscription_options<MessageT>(qos),

@@ -113,6 +113,7 @@ template<
   typename SubscriptionT>
 std::shared_ptr<SubscriptionT>
 Node::create_subscription(
+  const bool & use_coroutine,
   const std::string & topic_name,
   const rclcpp::QoS & qos,
   CallbackT && callback,
@@ -122,6 +123,7 @@ Node::create_subscription(
   msg_mem_strat)
 {
   return rclcpp::create_subscription<MessageT>(
+    use_coroutine,
     *this,
     extend_name_with_sub_namespace(topic_name, this->get_sub_namespace()),
     qos,
@@ -137,6 +139,7 @@ template<
   typename SubscriptionT>
 std::shared_ptr<SubscriptionT>
 Node::create_subscription(
+  const bool & use_coroutine,
   const std::string & topic_name,
   CallbackT && callback,
   const rmw_qos_profile_t & qos_profile,
@@ -156,7 +159,7 @@ Node::create_subscription(
   sub_options.allocator = allocator;
 
   return this->create_subscription<MessageT, CallbackT, Alloc, SubscriptionT>(
-    topic_name, qos, std::forward<CallbackT>(callback), sub_options, msg_mem_strat);
+    use_coroutine, topic_name, qos, std::forward<CallbackT>(callback), sub_options, msg_mem_strat);
 }
 
 template<
@@ -166,6 +169,7 @@ template<
   typename SubscriptionT>
 std::shared_ptr<SubscriptionT>
 Node::create_subscription(
+  const bool & use_coroutine,
   const std::string & topic_name,
   CallbackT && callback,
   size_t qos_history_depth,
@@ -182,6 +186,7 @@ Node::create_subscription(
   sub_options.allocator = allocator;
 
   return this->create_subscription<MessageT, CallbackT, Alloc, SubscriptionT>(
+    use_coroutine,
     topic_name,
     rclcpp::QoS(rclcpp::KeepLast(qos_history_depth)),
     std::forward<CallbackT>(callback),

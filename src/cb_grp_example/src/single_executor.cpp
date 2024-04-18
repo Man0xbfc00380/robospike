@@ -118,7 +118,7 @@ public:
     IntermediateNode(const std::string node_name, const std::string sub_topic, const std::string pub_topic, int exe_time, bool end_flag) 
         : Node(node_name), count_(0), exe_time_(exe_time), end_flag_(end_flag)
     {                        
-        subscription_ = this->create_subscription<std_msgs::msg::String>(sub_topic, 1, std::bind(&IntermediateNode::callback, this, _1));
+        subscription_ = this->create_subscription<std_msgs::msg::String>(false, sub_topic, 1, std::bind(&IntermediateNode::callback, this, _1));
         if (pub_topic != "") publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
     }
 

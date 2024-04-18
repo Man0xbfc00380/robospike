@@ -143,7 +143,9 @@ public:
       return;
     }
     auto typed_message = std::static_pointer_cast<CallbackMessageT>(message);
-    any_callback_.dispatch(typed_message, message_info);
+
+    // TODO: Judge whether we need to use coroutine here
+    auto ret_callback = any_callback_.dispatch(typed_message, message_info);
   }
 
   /// Return the loaned message.
@@ -192,7 +194,8 @@ public:
         // but not in the first one.
         return;
       }
-      any_callback_.dispatch_intra_process(msg, message_info);
+      // TODO: Judge whether we need to use coroutine here
+      auto ret_callback = any_callback_.dispatch_intra_process(msg, message_info);
     } else {
       MessageUniquePtr msg;
       take_intra_process_message(
@@ -208,7 +211,8 @@ public:
         // but not in the first one.
         return;
       }
-      any_callback_.dispatch_intra_process(std::move(msg), message_info);
+      // TODO: Judge whether we need to use coroutine here
+      auto ret_callback = any_callback_.dispatch_intra_process(std::move(msg), message_info);
     }
   }
 
