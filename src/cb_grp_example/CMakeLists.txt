@@ -40,7 +40,7 @@ add_executable(distexe_node src/distr_executor.cpp)
 ament_target_dependencies(distexe_node rclcpp_spk std_srvs std_msgs)
 
 # coroutine example
-add_executable(chain src/chain.cpp)
-ament_target_dependencies(chain rclcpp_spk std_srvs std_msgs)
+add_executable(exe_nodelet src/executor_nodelet.cpp)
+ament_target_dependencies(exe_nodelet rclcpp_spk std_srvs std_msgs)
 
 ament_package()

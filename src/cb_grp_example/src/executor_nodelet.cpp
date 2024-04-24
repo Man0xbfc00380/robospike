@@ -27,6 +27,10 @@ using std::placeholders::_1;
 #define DUMMY_LOAD_ITER	1000
 #define THREAD_SIZE     3
 
+void run_exe(rclcpp::executors::ExecutorNodelet* exe) {
+    exe->spin();
+}
+
 timeval starting_time;
 int dummy_load_calib = 1;
 
@@ -226,36 +230,40 @@ int main(int argc, char* argv[])
     auto c2_r_cb_2 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback22", "c3", "", 100, true);
 
     // Create executors
-    int number_of_threads = 4;
-    int number_of_nodelet = 2;
-    rclcpp::executors::DistrThreadedExecutor exec(rclcpp::executor::ExecutorArgs(), number_of_threads, number_of_nodelet, true);
+    int number_of_threads = 2;
+    rclcpp::executors::ExecutorNodelet exec1(rclcpp::executor::ExecutorArgs(), number_of_threads, true);
+    rclcpp::executors::ExecutorNodelet exec2(rclcpp::executor::ExecutorArgs(), number_of_threads, true);
     
     std::queue<Task<int, RosCoExecutor> > task_queue;
     
     // Allocate callbacks to executors
-    exec.add_node(c1_timer);  // Timer_callback1
-    exec.add_node(c2_timer);  // Timer_callback2
+    exec1.add_node(c1_timer);  // Timer_callback1
+    exec1.add_node(c2_timer);  // Timer_callback2
 
-    exec.add_node(c1_r_cb_1); // Regular_callback11
-    exec.add_node(c1_r_cb_2); // Regular_callback12
-    exec.add_node(c1_r_cb_3); // Regular_callback13
-    exec.add_node(c2_r_cb_1); // Regular_callback21
-    exec.add_node(c2_r_cb_2); // Regular_callback22
+    exec2.add_node(c1_r_cb_1); // Regular_callback11
+    exec2.add_node(c1_r_cb_2); // Regular_callback12
+    exec2.add_node(c1_r_cb_3); // Regular_callback13
+    exec2.add_node(c2_r_cb_1); // Regular_callback21
+    exec2.add_node(c2_r_cb_2); // Regular_callback22
 
     // Record Starting Time:
     gettimeofday(&starting_time, NULL);
 
     // Spin lock
-    exec.spin();
+    auto th = std::thread(run_exe, &exec1);
+    run_exe(&exec2);
+    th.join();
+    // exec1.spin();
+    // exec2.spin();
 
     // Remove Extra-node
-    exec.remove_node(c1_timer);
-    exec.remove_node(c2_timer);
-    exec.remove_node(c1_r_cb_1);
-    exec.remove_node(c1_r_cb_2);
-    exec.remove_node(c1_r_cb_3);
-    exec.remove_node(c2_r_cb_1);
-    exec.remove_node(c2_r_cb_2);
+    exec1.remove_node(c1_timer);
+    exec1.remove_node(c2_timer);
+    exec1.remove_node(c1_r_cb_1);
+    exec2.remove_node(c1_r_cb_2);
+    exec2.remove_node(c1_r_cb_3);
+    exec2.remove_node(c2_r_cb_1);
+    exec1.remove_node(c2_r_cb_2);
 
     // Shutdown
     rclcpp::shutdown();

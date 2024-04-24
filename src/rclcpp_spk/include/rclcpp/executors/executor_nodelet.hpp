@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef RCLCPP__EXECUTORS__DISTR_THREADED_EXECUTOR_HPP_
-#define RCLCPP__EXECUTORS__DISTR_THREADED_EXECUTOR_HPP_
+#ifndef RCLCPP__EXECUTORS__EXECUTOR_NODELET_HPP_
+#define RCLCPP__EXECUTORS__EXECUTOR_NODELET_HPP_
 
 #include <memory>
 #include <mutex>
@@ -26,31 +26,51 @@
 #include "rclcpp/memory_strategies.hpp"
 #include "rclcpp/visibility_control.hpp"
 #include "cospike/coexecutor.hpp"
-#include "rclcpp/executors/executor_nodelet.hpp"
 
 namespace rclcpp
 {
 namespace executors
 {
 
-class DistrThreadedExecutor : public executor::Executor
+class ExecutorNodelet : public executor::Executor
 {
 public:
-  RCLCPP_SMART_PTR_DEFINITIONS(DistrThreadedExecutor)
+  RCLCPP_SMART_PTR_DEFINITIONS(ExecutorNodelet)
 
+  /// Constructor for ExecutorNodelet.
+  /**
+   * For the yield_before_execute option, when true std::this_thread::yield()
+   * will be called after acquiring work (as an AnyExecutable) and
+   * releasing the spinning lock, but before executing the work.
+   * This is useful for reproducing some bugs related to taking work more than
+   * once.
+   *
+   * \param args common arguments for all executors
+   * \param number_of_threads number of threads to have in the thread pool,
+   *   the default 0 will use the number of cpu cores found instead
+   * \param yield_before_execute if true std::this_thread::yield() is called
+   * \param timeout maximum time to wait
+   */
   RCLCPP_PUBLIC
-  DistrThreadedExecutor(
+  ExecutorNodelet(
     const executor::ExecutorArgs & args = executor::ExecutorArgs(),
     size_t number_of_threads = 0,
-    size_t number_of_codelet = 0,
     bool yield_before_execute = false);
 
   RCLCPP_PUBLIC
-  virtual ~DistrThreadedExecutor();
+  virtual ~ExecutorNodelet();
 
   RCLCPP_PUBLIC
   void
   spin();
+
+  RCLCPP_PUBLIC
+  void
+  co_spin();
+
+  RCLCPP_PUBLIC
+  void
+  co_run(size_t number_of_threads);
 
   RCLCPP_PUBLIC
   size_t
@@ -61,13 +81,8 @@ protected:
   void
   run(size_t this_thread_number);
 
-  RCLCPP_PUBLIC
-  void run_exe(rclcpp::executors::ExecutorNodelet* exe) {
-      exe->spin();
-  }
-
 private:
-  RCLCPP_DISABLE_COPY(DistrThreadedExecutor)
+  RCLCPP_DISABLE_COPY(ExecutorNodelet)
 
   std::mutex wait_mutex_;
   size_t number_of_threads_;

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "rclcpp/executors/distr_threaded_executor.hpp"
+#include "rclcpp/executors/executor_nodelet.hpp"
 
 #include <chrono>
 #include <functional>
@@ -24,12 +24,11 @@
 #include "rclcpp/utilities.hpp"
 #include "rclcpp/scope_exit.hpp"
 
-using rclcpp::executors::DistrThreadedExecutor;
+using rclcpp::executors::ExecutorNodelet;
 
-DistrThreadedExecutor::DistrThreadedExecutor(
+ExecutorNodelet::ExecutorNodelet(
   const rclcpp::executor::ExecutorArgs & args,
   size_t number_of_threads,
-  size_t number_of_codelet,
   bool yield_before_execute)
 : executor::Executor(args), yield_before_execute_(yield_before_execute)
 {
@@ -39,12 +38,12 @@ DistrThreadedExecutor::DistrThreadedExecutor(
   }
 }
 
-DistrThreadedExecutor::~DistrThreadedExecutor() {}
+ExecutorNodelet::~ExecutorNodelet() {}
 
 void
-DistrThreadedExecutor::spin()
+ExecutorNodelet::spin()
 {
-  printf("[DistrThreadedExecutor] spin()\n");
+  printf("[ExecutorNodelet] spin()\n");
   if (spinning.exchange(true)) {
     throw std::runtime_error("spin() called while already spinning");
   }
@@ -53,7 +52,7 @@ DistrThreadedExecutor::spin()
   {
     std::lock_guard<std::mutex> wait_lock(wait_mutex_);
     for (; thread_id < number_of_threads_ - 1; ++thread_id) {
-      auto func = std::bind(&DistrThreadedExecutor::run, this, thread_id);
+      auto func = std::bind(&ExecutorNodelet::run, this, thread_id);
       threads_.emplace_back(func);
     }
   }
@@ -63,16 +62,26 @@ DistrThreadedExecutor::spin()
   }
 }
 
+void
+ExecutorNodelet::co_spin()
+{
+  if (spinning.exchange(true)) {
+    throw std::runtime_error("spin() called while already spinning");
+  }
+  RCLCPP_SCOPE_EXIT(this->spinning.store(false); );
+  co_run(number_of_threads_);
+}
+
 size_t
-DistrThreadedExecutor::get_number_of_threads()
+ExecutorNodelet::get_number_of_threads()
 {
   return number_of_threads_;
 }
 
 void
-DistrThreadedExecutor::run(size_t)
+ExecutorNodelet::run(size_t)
 {
-  printf("[Hello RoboSpike] Use DistrThreadedExecutor\n");
+  printf("[Hello RoboSpike] Use ExecutorNodelet\n");
   
   while (rclcpp::ok(this->context_) && spinning.load()) {
     executor::AnyExecutable any_exec;
@@ -118,3 +127,50 @@ DistrThreadedExecutor::run(size_t)
   }
 }
 
+void
+ExecutorNodelet::co_run(size_t number_of_threads)
+{
+  // TODO: co_run (coroutine run)
+  // ^^^^^ First issue: 
+  // ^^^^^^^^^^ From pull the task to accept the task
+  while (rclcpp::ok(this->context_) && spinning.load()) {
+    executor::AnyExecutable any_exec;
+    {
+      std::lock_guard<std::mutex> wait_lock(wait_mutex_);
+      if (!rclcpp::ok(this->context_) || !spinning.load()) {
+        return;
+      }
+      if (!get_next_executable(any_exec)) {
+        continue;
+      }
+      if (any_exec.timer) {
+        // Guard against multiple threads getting the same timer.
+        if (scheduled_timers_.count(any_exec.timer) != 0) {
+          // Make sure that any_exec's callback group is reset before
+          // the lock is released.
+          if (any_exec.callback_group) {
+            any_exec.callback_group->can_be_taken_from().store(true);
+          }
+          continue;
+        }
+        scheduled_timers_.insert(any_exec.timer);
+      }
+    }
+    if (yield_before_execute_) {
+      std::this_thread::yield();
+    }
+
+    execute_any_executable(any_exec);
+
+    if (any_exec.timer) {
+      std::lock_guard<std::mutex> wait_lock(wait_mutex_);
+      auto it = scheduled_timers_.find(any_exec.timer);
+      if (it != scheduled_timers_.end()) {
+        scheduled_timers_.erase(it);
+      }
+    }
+    // Clear the callback_group to prevent the AnyExecutable destructor from
+    // resetting the callback group `can_be_taken_from`
+    any_exec.callback_group.reset();
+  }
+}

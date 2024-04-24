@@ -4,7 +4,7 @@ import numpy as np
 import re
 
 # Set Configs
-case_name = "dexe_co_dis" # Just change it
+case_name = "dexe2_co_en" # Just change it
 font_size = 18
 logdata = []
 BlueList = ['#92B4F4', '#7772CA', '#5E7CE2', '#C6CDFF', '#248BD6', '#0F6BAE']
