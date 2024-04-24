@@ -12,7 +12,7 @@
 #include "cospike/task.hpp"
 #include "cospike/result.hpp"
 
-#define retTask         Task<int, NewThreadExecutor>
+#define retTask         Task<int, RosCoExecutor>
 #define queueTaskRef    std::queue<retTask>&
 #define queueTaskPtr    std::queue<retTask>*
 

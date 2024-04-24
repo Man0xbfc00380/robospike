@@ -97,6 +97,11 @@ struct TaskPromise {
         }
     }
 
+    // init the executor
+    void promise_executor_init(void* ros_executer_ptr) {
+        executor.executor_init(ros_executer_ptr);
+    }
+
     // Indicate Deconstructor
     ~TaskPromise() {
         printf("[INFO] [PID: %d] [~TaskPromise]\n", gettid());
@@ -131,6 +136,10 @@ struct Task {
     ResultType get_result() {
         // --> TaskPromise.get_result();
         return handle.promise().get_result();
+    }
+
+    void task_executor_init(void* ros_executer_ptr) {
+        handle.promise().promise_executor_init(ros_executer_ptr);
     }
 
     // [async] Used to obtain results

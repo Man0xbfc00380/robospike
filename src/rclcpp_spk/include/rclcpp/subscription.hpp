@@ -137,7 +137,7 @@ public:
     return message_memory_strategy_->borrow_serialized_message();
   }
 
-  void handle_message(queueTaskPtr qPtr, std::shared_ptr<void> & message, const rmw_message_info_t & message_info)
+  void handle_message(queueTaskPtr qPtr, void* executor_ptr, std::shared_ptr<void> & message, const rmw_message_info_t & message_info)
   {
     if (matches_any_intra_process_publishers(&message_info.publisher_gid)) {
       // In this case, the message will be delivered via intra process and
@@ -147,7 +147,7 @@ public:
     auto typed_message = std::static_pointer_cast<CallbackMessageT>(message);
 
     if (this->use_coroutine_) {
-      any_callback_.co_dispatch(qPtr, typed_message, message_info);
+      any_callback_.co_dispatch(qPtr, executor_ptr, typed_message, message_info);
     } else {
       any_callback_.dispatch(typed_message, message_info);
     }
@@ -168,6 +168,7 @@ public:
 
   void handle_intra_process_message(
     queueTaskPtr qPtr,
+    void* executor_ptr,
     rcl_interfaces::msg::IntraProcessMessage & ipm,
     const rmw_message_info_t & message_info)
   {
@@ -201,7 +202,7 @@ public:
         return;
       }
       if (this->use_coroutine_) {
-        any_callback_.co_dispatch_intra_process(qPtr, msg, message_info);
+        any_callback_.co_dispatch_intra_process(qPtr, executor_ptr, msg, message_info);
       } else {
         any_callback_.dispatch_intra_process(msg, message_info);
       }
@@ -221,7 +222,7 @@ public:
         return;
       }
       if (this->use_coroutine_) {
-        any_callback_.co_dispatch_intra_process(qPtr, std::move(msg), message_info);
+        any_callback_.co_dispatch_intra_process(qPtr, executor_ptr, std::move(msg), message_info);
       } else {
         any_callback_.dispatch_intra_process(std::move(msg), message_info);
       }

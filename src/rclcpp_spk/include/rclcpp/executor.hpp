@@ -296,6 +296,9 @@ public:
   RCLCPP_PUBLIC
   static std::queue<retTask> task_queue;
 
+  RCLCPP_PUBLIC
+  std::queue<std::function<void()> > coroutine_queue_;
+
 protected:
   RCLCPP_PUBLIC
   void
@@ -314,11 +317,13 @@ protected:
   RCLCPP_PUBLIC
   static void
   execute_subscription(
+    void* executor_ptr,
     rclcpp::SubscriptionBase::SharedPtr subscription);
 
   RCLCPP_PUBLIC
   static void
   execute_intra_process_subscription(
+    void* executor_ptr,
     rclcpp::SubscriptionBase::SharedPtr subscription);
 
   RCLCPP_PUBLIC
@@ -344,6 +349,10 @@ protected:
   RCLCPP_PUBLIC
   rclcpp::callback_group::CallbackGroup::SharedPtr
   get_group_by_timer(rclcpp::TimerBase::SharedPtr timer);
+
+  RCLCPP_PUBLIC
+  void
+  get_run_rest_coroutine(AnyExecutable & any_exec);
 
   RCLCPP_PUBLIC
   void
@@ -391,4 +400,19 @@ private:
 }  // namespace executor
 }  // namespace rclcpp
 
+class RosCoExecutor : public AbstractExecutor {
+private:
+    rclcpp::executor::Executor* executer_ptr;
+public:
+    void executor_init(void* ros_executer_ptr) override {
+        this->executer_ptr = (rclcpp::executor::Executor*) ros_executer_ptr;
+        this->use_re_execute = true;
+    }
+    void execute(std::function<void()> &&func) override {
+        func();
+    }
+    void re_execute(std::function<void()> &&func) override {
+        this->executer_ptr->coroutine_queue_.push(func);
+    }
+};
 #endif  // RCLCPP__EXECUTOR_HPP_

@@ -297,10 +297,10 @@ Executor::execute_any_executable(AnyExecutable & any_exec)
     execute_timer(any_exec.timer);
   }
   if (any_exec.subscription) {
-    execute_subscription(any_exec.subscription);
+    execute_subscription((void*)this, any_exec.subscription);
   }
   if (any_exec.subscription_intra_process) {
-    execute_intra_process_subscription(any_exec.subscription_intra_process);
+    execute_intra_process_subscription((void*)this, any_exec.subscription_intra_process);
   }
   if (any_exec.service) {
     execute_service(any_exec.service);
@@ -322,6 +322,7 @@ Executor::execute_any_executable(AnyExecutable & any_exec)
 
 void
 Executor::execute_subscription(
+  void* executor_ptr,
   rclcpp::SubscriptionBase::SharedPtr subscription)
 {
   rmw_message_info_t message_info;
@@ -333,7 +334,7 @@ Executor::execute_subscription(
       serialized_msg.get(), &message_info, nullptr);
     if (RCL_RET_OK == ret) {
       auto void_serialized_msg = std::static_pointer_cast<void>(serialized_msg);
-      subscription->handle_message(&task_queue, void_serialized_msg, message_info); // NOTE: execute the callback
+      subscription->handle_message(&task_queue, executor_ptr, void_serialized_msg, message_info); // NOTE: execute the callback
     } else if (RCL_RET_SUBSCRIPTION_TAKE_FAILED != ret) {
       RCUTILS_LOG_ERROR_NAMED(
         "rclcpp",
@@ -348,7 +349,7 @@ Executor::execute_subscription(
       subscription->get_subscription_handle().get(),
       message.get(), &message_info, nullptr);
     if (RCL_RET_OK == ret) {
-      subscription->handle_message(&task_queue, message, message_info); // NOTE: execute the callback
+      subscription->handle_message(&task_queue, executor_ptr, message, message_info); // NOTE: execute the callback
     } else if (RCL_RET_SUBSCRIPTION_TAKE_FAILED != ret) {
       RCUTILS_LOG_ERROR_NAMED(
         "rclcpp",
@@ -362,6 +363,7 @@ Executor::execute_subscription(
 
 void
 Executor::execute_intra_process_subscription(
+  void* executor_ptr,
   rclcpp::SubscriptionBase::SharedPtr subscription)
 {
   rcl_interfaces::msg::IntraProcessMessage ipm;
@@ -374,7 +376,7 @@ Executor::execute_intra_process_subscription(
 
   if (status == RCL_RET_OK) {
     message_info.from_intra_process = true;
-    subscription->handle_intra_process_message(&task_queue, ipm, message_info);
+    subscription->handle_intra_process_message(&task_queue, executor_ptr, ipm, message_info);
   } else if (status != RCL_RET_SUBSCRIPTION_TAKE_FAILED) {
     RCUTILS_LOG_ERROR_NAMED(
       "rclcpp",
@@ -544,6 +546,16 @@ Executor::get_group_by_timer(rclcpp::TimerBase::SharedPtr timer)
 }
 
 void
+Executor::get_run_rest_coroutine(AnyExecutable & any_exec)
+{
+  if (!coroutine_queue_.empty()) {
+    auto func = coroutine_queue_.front();
+    coroutine_queue_.pop();
+    func();
+  }
+}
+
+void
 Executor::get_next_timer(AnyExecutable & any_exec)
 {
   for (auto & weak_node : weak_nodes_) {
@@ -572,6 +584,9 @@ Executor::get_next_timer(AnyExecutable & any_exec)
 bool
 Executor::get_next_ready_executable(AnyExecutable & any_executable)
 {
+  // (RoboSpike) First consider the rest_coroutine queue
+  get_run_rest_coroutine(any_executable);
+  
   // Check the timers to see if there are any that are ready, if so return
   get_next_timer(any_executable);
   if (any_executable.timer) {

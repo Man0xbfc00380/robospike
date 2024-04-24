@@ -36,7 +36,6 @@ DistrThreadedExecutor::DistrThreadedExecutor(
   if (number_of_threads_ == 0) {
     number_of_threads_ = 1;
   }
-  co_exector_.executor_init(number_of_threads_);
 }
 
 DistrThreadedExecutor::~DistrThreadedExecutor() {}
@@ -48,20 +47,16 @@ DistrThreadedExecutor::spin()
     throw std::runtime_error("spin() called while already spinning");
   }
   RCLCPP_SCOPE_EXIT(this->spinning.store(false); );
-  std::vector<std::thread> threads;
   size_t thread_id = 0;
   {
-    // TODO: the place where ROS2 Bind the execution thread
-    // ^^^^^ should be changed into the coroutine-based design
     std::lock_guard<std::mutex> wait_lock(wait_mutex_);
     for (; thread_id < number_of_threads_ - 1; ++thread_id) {
       auto func = std::bind(&DistrThreadedExecutor::run, this, thread_id);
-      threads.emplace_back(func);
+      threads_.emplace_back(func);
     }
   }
-
   run(thread_id);
-  for (auto & thread : threads) {
+  for (auto & thread : threads_) {
     thread.join();
   }
 }

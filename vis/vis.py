@@ -9,7 +9,7 @@ font_size = 18
 logdata = []
 BlueList = ['#92B4F4', '#7772CA', '#5E7CE2', '#C6CDFF', '#248BD6', '#0F6BAE']
 RedList  = ['#FFB3A7', '#8C4356', '#9D2933']
-vis_callback_only = True
+vis_callback_only = False
 
 # Load File
 fileHandler = open("./logs/" + case_name + ".log", "r")
@@ -56,12 +56,12 @@ for item in logdata:
     if item["end"] > 0:
         if vis_callback_only:
             # y = callback
-            axes.barh(y=item["name"], width=item["end"]-item["bgn"], left=item["bgn"], color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
+            axes.barh(y=item["name"], width=item["end"]-item["bgn"], left=item["bgn"], edgecolor='grey', color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
         else:
             # y = thread
-            axes[0].barh(y=item["thread"], width=item["end"]-item["bgn"], left=item["bgn"], color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
+            axes[0].barh(y=item["thread"] + '(' + item["name"] + ')', width=item["end"]-item["bgn"], left=item["bgn"], edgecolor='grey', color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
             # y = callback
-            axes[1].barh(y=item["name"], width=item["end"]-item["bgn"], left=item["bgn"], color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
+            axes[1].barh(y=item["name"], width=item["end"]-item["bgn"], left=item["bgn"], edgecolor='grey', color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
 
 # Save File
 plt.savefig("./figures/" + case_name + ".png")

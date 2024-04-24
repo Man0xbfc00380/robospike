@@ -18,19 +18,26 @@
 
 class AbstractExecutor {
 public:
+    bool use_re_execute;
+    virtual void executor_init(void* ros_executer_ptr) = 0;
     virtual void execute(std::function<void()> &&func) = 0;
+    virtual void re_execute(std::function<void()> &&func) = 0;
+    AbstractExecutor(){use_re_execute = false;}
 };
 
 class NoopExecutor : public AbstractExecutor {
 public:
+    void re_execute(std::function<void()> &&func) override {}
+    void executor_init(void* ros_executer_ptr) override {}
     void execute(std::function<void()> &&func) override {
         func();
-        // debug("[NoopExecutor] exeute end");
     }
 };
 
 class NewThreadExecutor : public AbstractExecutor {
 public:
+    void re_execute(std::function<void()> &&func) override {}
+    void executor_init(void* ros_executer_ptr) override {}
     void execute(std::function<void()> &&func) override {
         auto th = std::thread(func);
     #ifdef BLOCKING_THREAD
@@ -44,6 +51,8 @@ public:
 
 class AsyncExecutor : public AbstractExecutor {
 public:
+    void re_execute(std::function<void()> &&func) override {}
+    void executor_init(void* ros_executer_ptr) override {}
     void execute(std::function<void()> &&func) override {
         auto future = std::async(func);
         // [async] enforces blocking
@@ -85,6 +94,8 @@ public:
         shutdown(false);
         if (work_thread.joinable()) work_thread.join();
     }
+    void re_execute(std::function<void()> &&func) override {}
+    void executor_init(void* ros_executer_ptr) override {}
     void execute(std::function<void()> &&func) override {
         std::unique_lock lock(queue_lock);
         if (is_active.load(std::memory_order_relaxed)) {
@@ -103,14 +114,6 @@ public:
             lock.unlock();
         }
         queue_condition.notify_all();
-    }
-};
-
-class SharedLooperExecutor : public AbstractExecutor {
-public:
-    void execute(std::function<void()> &&func) override {
-        static LooperExecutor sharedLooperExecutor;
-        sharedLooperExecutor.execute(std::move(func));
     }
 };
 
@@ -177,6 +180,8 @@ public:
         std::uniform_int_distribution<int> distr(0, _thread_num - 1);
         return distr(eng);
     }
+    void re_execute(std::function<void()> &&func) override {}
+    void executor_init(void* ros_executer_ptr) override {}
     void execute(std::function<void()> &&func) override {
         int id = thread_select();
         std::unique_lock lock(queue_lock);
@@ -222,21 +227,29 @@ public:
  *        to initialize the ThreadPoolExecutor before using the execute()
  * 
  * Example:
- *          SharedThreadPoolExecutor stpExecutor;   // initialize SharedThreadPoolExecutor
- *          stpExecutor.executor_init(THREAD_SIZE); // setup the thread pool
- *          auto simpleTask = simple_task();        // call coroutine
+ *          SharedThreadPoolExecutor stpExecutor;           // initialize SharedThreadPoolExecutor
+ *          stpExecutor.executor_thread_init(THREAD_SIZE);  // setup the thread pool
+ *          auto simpleTask = simple_task();                // call coroutine
  */
 class SharedThreadPoolExecutor : public AbstractExecutor {
 public:
     static ThreadPoolExecutor sharedThreadPoolExecutor;
-    void executor_init(int thread_num) {
+    void executor_thread_init(int thread_num) {
         DEBUG printf("[stpExecutor executor_init]: %p\n", (void*) &sharedThreadPoolExecutor);
         sharedThreadPoolExecutor.executor_init(thread_num);
     }
+    void executor_init(void* ros_executer_ptr) override {}
     void execute(std::function<void()> &&func) override {
         DEBUG printf("[stpExecutor execute]: %p\n", (void*) &sharedThreadPoolExecutor);
         sharedThreadPoolExecutor.execute(std::move(func));
     }
+    void re_execute(std::function<void()> &&func) override {
+        DEBUG printf("[stpExecutor execute]: %p\n", (void*) &sharedThreadPoolExecutor);
+        sharedThreadPoolExecutor.re_execute(std::move(func));
+    }
 };
+
+// Just Define
+class RosCoExecutor;
 
 #endif

@@ -204,9 +204,11 @@ struct SleepAwaiter {
     void await_suspend(std::coroutine_handle<> handle) const {
         static Scheduler scheduler;
         scheduler.execute([this, handle]() {
-            _executor->execute([handle]() {
-                handle.resume();
-            });
+            if (_executor->use_re_execute) {
+                _executor->re_execute([handle]() { handle.resume(); });
+            } else {
+                _executor->execute([handle]() { handle.resume(); });
+            }
         }, _duration);
     }
     void await_resume() noexcept {

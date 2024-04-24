@@ -242,21 +242,13 @@ int main(int argc, char* argv[])
 {
     rclcpp::init(argc, argv);
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "PID: %ld run in ROS2.", gettid());
-    SharedThreadPoolExecutor stpExecutor;
-    stpExecutor.executor_init(THREAD_SIZE);
 
     printf("[CoSpike] Let Coroutine Run!\n");
     auto simpleTask = simple_task();
-    // debug("[CoSpike] main: line after simple_task()");
-
-    // Obatin the result in a sync way
-    // --> blocking avoids the main function 
-    //     ends before LooperExecutor
     try {
         auto i = simpleTask.get_result();
-        // debug("[CoSpike] Final simpleTask.get_result:", i);
     } catch (std::exception &e) {
-        // debug("[CoSpike] Error: ", e.what());
+        // ...
     }
 
     // Warm-up: dummy_load_calib
