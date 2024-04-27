@@ -4,7 +4,7 @@ import numpy as np
 import re
 
 # Set Configs
-case_name = "dexe2_th4_co_en" # Just change it
+case_name = "exp1/exp1_multicast_450_t16n4" # Just change it
 font_size = 18
 logdata = []
 BlueList = ['#92B4F4', '#7772CA', '#5E7CE2', '#C6CDFF', '#248BD6', '#0F6BAE']
@@ -34,7 +34,7 @@ for line in listOfLines:
             "end":-1
         }
         logdata.append(item)
-    else:
+    elif len(number) >= 2:
         # Match the item
         name = "Timer" + number[0] if is_timer else "Cb_" + number[0]
         time = float(number[-2]) + float(number[-1]) / 1000000
@@ -53,13 +53,13 @@ plt.xticks(fontsize=font_size)
 plt.yticks(fontsize=font_size)
 
 for item in logdata:
-    if item["end"] > 0:
+    if item["end"] > 0 and item["end"] < 10:
         if vis_callback_only:
             # y = callback
             axes.barh(y=item["name"], width=item["end"]-item["bgn"], left=item["bgn"], edgecolor='grey', color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
         else:
             # y = thread
-            axes[0].barh(y=item["thread"] + '(' + item["name"] + ')', width=item["end"]-item["bgn"], left=item["bgn"], edgecolor='grey', color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
+            axes[0].barh(y=item["thread"], width=item["end"]-item["bgn"], left=item["bgn"], edgecolor='grey', color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
             # y = callback
             axes[1].barh(y=item["name"], width=item["end"]-item["bgn"], left=item["bgn"], edgecolor='grey', color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
 

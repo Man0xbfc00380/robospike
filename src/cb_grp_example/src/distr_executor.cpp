@@ -50,7 +50,6 @@ Task<int, NewThreadExecutor> dummy_load_sleep(int load_ms, const char * name_str
     int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
     long tv_sec = duration_us / 1000000;
     long tv_usec = duration_us - tv_sec * 1000000;
-    RCLCPP_INFO(rclcpp::get_logger(name_str), "[PID: %ld] load before co_await [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
 
     // Wait for the machine
     // rclcpp::sleep_for(1500ms);
@@ -60,7 +59,6 @@ Task<int, NewThreadExecutor> dummy_load_sleep(int load_ms, const char * name_str
     duration_us = (ctime.tv_sec - starting_time.tv_sec) * 1000000 + (ctime.tv_usec - starting_time.tv_usec);
     tv_sec = duration_us / 1000000;
     tv_usec = duration_us - tv_sec * 1000000;
-    RCLCPP_INFO(rclcpp::get_logger(name_str), "[PID: %ld] load after co_await [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
     
     // Do sth. Further
     for (j = 0; j < dummy_load_calib * load_ms; j++)

@@ -88,7 +88,16 @@ ExecutorNodelet::run(size_t)
     executor::AnyExecutable any_exec;
     {
       // Use lock to serialize wait_set visiting
+      timeval ctime, ftime;
+      gettimeofday(&ctime, NULL);
       std::lock_guard<std::mutex> wait_lock(wait_mutex_);
+      gettimeofday(&ftime, NULL);
+      int duration_us = (ftime.tv_sec - ctime.tv_sec) * 1000000 + (ftime.tv_usec - ctime.tv_usec);
+      long tv_sec = duration_us / 1000000;
+      long tv_usec = duration_us - tv_sec * 1000000;
+      
+      if (tv_sec > 0 || tv_usec > 10000)
+      printf("[Blocking] [PID: %d] [s: %ld] [us: %ld]\n", gettid(), tv_sec, tv_usec);
       
       if (!rclcpp::ok(this->context_) || !spinning.load()) {
         return;
