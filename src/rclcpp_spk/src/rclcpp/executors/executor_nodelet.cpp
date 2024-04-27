@@ -38,12 +38,13 @@ ExecutorNodelet::ExecutorNodelet(
   }
 }
 
-ExecutorNodelet::~ExecutorNodelet() {}
+ExecutorNodelet::~ExecutorNodelet() {
+  printf("[~ExecutorNodelet]\n");
+}
 
 void
 ExecutorNodelet::spin()
 {
-  printf("[ExecutorNodelet] spin()\n");
   if (spinning.exchange(true)) {
     throw std::runtime_error("spin() called while already spinning");
   }
@@ -81,7 +82,7 @@ ExecutorNodelet::get_number_of_threads()
 void
 ExecutorNodelet::run(size_t)
 {
-  printf("[Hello RoboSpike] Use ExecutorNodelet\n");
+  printf("[Hello RoboSpike] [Thread %d] Use ExecutorNodelet\n", gettid());
   
   while (rclcpp::ok(this->context_) && spinning.load()) {
     executor::AnyExecutable any_exec;

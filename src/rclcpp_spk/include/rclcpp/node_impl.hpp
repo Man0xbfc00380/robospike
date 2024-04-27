@@ -71,6 +71,7 @@ Node::create_publisher(
   const rclcpp::QoS & qos,
   const PublisherOptionsWithAllocator<AllocatorT> & options)
 {
+  pub_names_.push_back(topic_name);
   return rclcpp::create_publisher<MessageT, AllocatorT, PublisherT>(
     *this,
     extend_name_with_sub_namespace(topic_name, this->get_sub_namespace()),
@@ -122,6 +123,7 @@ Node::create_subscription(
     typename rclcpp::subscription_traits::has_message_type<CallbackT>::type, AllocatorT>::SharedPtr
   msg_mem_strat)
 {
+  sub_names_.push_back(topic_name);
   return rclcpp::create_subscription<MessageT>(
     use_coroutine,
     *this,

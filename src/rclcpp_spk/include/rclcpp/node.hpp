@@ -1179,6 +1179,20 @@ public:
   bool
   assert_liveliness() const;
 
+  /// Get Publisher/Subcriber Nodes
+  RCLCPP_PUBLIC
+  std::vector<std::string> 
+  get_pub_names() {
+    return pub_names_;
+  }
+  
+  RCLCPP_PUBLIC
+  std::vector<std::string> 
+  get_sub_names() {
+    return sub_names_;
+  }
+  
+
 protected:
   /// Construct a sub-node, which will extend the namespace of all entities created with it.
   /**
@@ -1215,6 +1229,8 @@ private:
   const std::string effective_namespace_;
 
   bool use_coroutine_;
+  std::vector<std::string> pub_names_;
+  std::vector<std::string> sub_names_;
 };
 
 }  // namespace rclcpp

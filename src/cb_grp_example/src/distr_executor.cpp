@@ -216,14 +216,14 @@ int main(int argc, char* argv[])
     // Define graph: t1 -> [r11, r12, r13]
     // Define graph: c1 -> r21 -> r22
     // std::make_shared --> return the ptr & allocate the memory space on heap
-    auto c1_timer = std::make_shared<cb_chain_demo::StartNode>("Timer_callback1", "c1", 100, 2000, false);
-    auto c1_r_cb_1 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback11", "c1", "", 100, true);
-    auto c1_r_cb_2 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback12", "c1", "", 100, true);
-    auto c1_r_cb_3 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback13", "c1", "", 100, true);
+    auto c1_timer = std::make_shared<cb_chain_demo::StartNode>("Timer_callback1", "tc1", 100, 2000, false);
+    auto c1_r_cb_1 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback11", "tc1", "", 100, true);
+    auto c1_r_cb_2 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback12", "tc1", "", 100, true);
+    auto c1_r_cb_3 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback13", "tc1", "", 100, true);
 
-    auto c2_timer = std::make_shared<cb_chain_demo::StartNode>("Timer_callback2", "c2", 100, 3000, false);
-    auto c2_r_cb_1 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback21", "c2", "c3", 100, true);
-    auto c2_r_cb_2 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback22", "c3", "", 100, true);
+    auto c2_timer = std::make_shared<cb_chain_demo::StartNode>("Timer_callback2", "tc2", 100, 3000, false);
+    auto c2_r_cb_1 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback21", "tc2", "tc3", 100, true);
+    auto c2_r_cb_2 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback22", "tc3", "", 100, true);
 
     // Create executors
     int number_of_threads = 4;

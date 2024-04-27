@@ -168,15 +168,13 @@ private:
         RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
     }
 
-    int callback(const std_msgs::msg::String::SharedPtr msg) {
-
+    int callback(const std_msgs::msg::String::SharedPtr msg) 
+    {
         gettimeofday(&ftime, NULL);
 
         /* In-Node Blocking Style */
         auto dummy_task = dummy_load_sleep(exe_time_, this->name_.c_str());
-        // RCLCPP_INFO(this->get_logger(), "[PID: %ld] Execute Subcriber Callback (Before blocking)", gettid());
         auto i = dummy_task.get_result();
-        // RCLCPP_INFO(this->get_logger(), "[PID: %ld] Execute Subcriber Callback [%d] (After blocking)", gettid(), i);
 
         std::string name = this->get_name();
         auto message = std_msgs::msg::String();
@@ -190,14 +188,12 @@ private:
         return 1;
     }
 
-    Task<int, RosCoExecutor> co_callback(const std_msgs::msg::String::SharedPtr msg) {
-
+    Task<int, RosCoExecutor> co_callback(const std_msgs::msg::String::SharedPtr msg) 
+    {
         gettimeofday(&ftime, NULL);
 
         /* Non-Blocking Style */
-        // RCLCPP_INFO(this->get_logger(), "[PID: %ld] Execute Subcriber Callback (Before co_await)", gettid());
         co_await 1500ms;
-        // RCLCPP_INFO(this->get_logger(), "[PID: %ld] Execute Subcriber Callback (After co_await)", gettid());
 
         std::string name = this->get_name();
         auto message = std_msgs::msg::String();

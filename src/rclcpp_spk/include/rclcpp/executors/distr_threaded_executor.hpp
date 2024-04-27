@@ -28,12 +28,30 @@
 #include "cospike/coexecutor.hpp"
 #include "rclcpp/executors/executor_nodelet.hpp"
 
+struct node_item {
+  std::shared_ptr<rclcpp::Node> node_ptr;
+  bool notify;
+  int executor_id;
+  node_item(std::shared_ptr<rclcpp::Node> node_ptr, bool notify) {
+    this->node_ptr = node_ptr;
+    this->notify = notify;
+    this->executor_id = -1;
+  }
+  bool operator==(const node_item& other)
+	{
+		if (  this->node_ptr == other.node_ptr && 
+          this->notify   == other.notify  )
+      return true;
+		else return false;
+	}
+};
+
 namespace rclcpp
 {
 namespace executors
 {
 
-class DistrThreadedExecutor : public executor::Executor
+class DistrThreadedExecutor
 {
 public:
   RCLCPP_SMART_PTR_DEFINITIONS(DistrThreadedExecutor)
@@ -42,7 +60,7 @@ public:
   DistrThreadedExecutor(
     const executor::ExecutorArgs & args = executor::ExecutorArgs(),
     size_t number_of_threads = 0,
-    size_t number_of_codelet = 0,
+    size_t number_of_nodelet = 0,
     bool yield_before_execute = false);
 
   RCLCPP_PUBLIC
@@ -56,24 +74,37 @@ public:
   size_t
   get_number_of_threads();
 
-protected:
   RCLCPP_PUBLIC
-  void
-  run(size_t this_thread_number);
+  size_t
+  get_number_of_executors();
 
   RCLCPP_PUBLIC
-  void run_exe(rclcpp::executors::ExecutorNodelet* exe) {
-      exe->spin();
-  }
+  void
+  add_node(std::shared_ptr<rclcpp::Node> node_ptr, bool notify = true);
+
+  RCLCPP_PUBLIC
+  void
+  remove_node(std::shared_ptr<rclcpp::Node> node_ptr, bool notify = true);
+
+protected:
+
+  RCLCPP_PUBLIC
+  void run_exe(rclcpp::executors::ExecutorNodelet* exe);
+
+  RCLCPP_PUBLIC
+  void alloc_exe();
 
 private:
   RCLCPP_DISABLE_COPY(DistrThreadedExecutor)
 
-  std::mutex wait_mutex_;
   size_t number_of_threads_;
+  size_t number_of_nodelet_;
   bool yield_before_execute_;
-  std::vector<std::thread> threads_;
-  std::set<TimerBase::SharedPtr> scheduled_timers_;
+  std::vector<std::thread> exe_threads_;
+  std::vector<rclcpp::executors::ExecutorNodelet*> exe_nodelets_;
+  std::vector<node_item> node_list_;
+  std::vector<int> node_layer_list_;
+  std::map<std::shared_ptr<rclcpp::Node>, rclcpp::executors::ExecutorNodelet*> node_to_executor_map_;
 };
 
 }  // namespace executors
