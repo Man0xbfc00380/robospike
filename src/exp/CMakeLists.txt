@@ -26,8 +26,17 @@ find_package(std_srvs REQUIRED)
 find_package(std_msgs REQUIRED)
 
 # distributed executable
-add_executable(exp0_example src/exp0_example.cpp)
-ament_target_dependencies(exp0_example rclcpp_spk std_srvs std_msgs)
+add_executable(exp0_interexe src/exp0_interexe.cpp)
+ament_target_dependencies(exp0_interexe rclcpp_spk std_srvs std_msgs)
+
+add_executable(exp0_intraexe src/exp0_intraexe.cpp)
+ament_target_dependencies(exp0_intraexe rclcpp_spk std_srvs std_msgs)
+
+add_executable(exp0_co_interexe src/exp0_co_interexe.cpp)
+ament_target_dependencies(exp0_co_interexe rclcpp_spk std_srvs std_msgs)
+
+add_executable(exp0_co_intraexe src/exp0_co_intraexe.cpp)
+ament_target_dependencies(exp0_co_intraexe rclcpp_spk std_srvs std_msgs)
 
 add_executable(exp1_multicast src/exp1_multicast.cpp)
 ament_target_dependencies(exp1_multicast rclcpp_spk std_srvs std_msgs)

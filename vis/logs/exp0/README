@@ -1,0 +1,34 @@
+Normal Pressure Cases
+n1: [2] 1->1
+n2: [1;1] 1->1
+n3: [5] 1->7
+n4: [1;2;2] 1->7
+n5: [15] 1->7 (*3)
+n6: [3;6;6] 1->7 (*3)
+n7: [15] 1->10 (*3)
+n8: [3;6;6] 1->10 (*3)
+n9: [3;4;4;4] 1->10 (*3)
+n10: n9 rearrange allocation
+
+n =  1 latency avg 0.5538324 block sum 46.478031
+n =  2 latency avg 0.5540015500000007 block sum 0.0
+n =  3 latency avg 0.5537878000000004 block sum 107.61363099999998
+n =  4 latency avg 0.5537642499999997 block sum 45.760922
+n =  5 latency avg 0.5534412000000003 block sum 379.932276
+n =  6 latency avg 0.5538534499999996 block sum 318.966399
+n =  7 latency avg 0.5540008000000003 block sum 302.209104
+n =  8 latency avg 0.5529987500000001 block sum 255.445812
+n =  9 latency avg 0.5535384999999995 block sum 224.868724
+n =  10 latency avg 0.5531449999999998 block sum 219.899446
+
+
+High Pressure Cases
+f1: n7  + timer 0.6s period
+f2: n10 + timer 0.6s period
+f3: n7  + timer 0.6s period + coroutine
+f4: n10 + timer 0.6s period + coroutine
+
+n =  1 latency avg 1.393785569230769 block sum 2.783338
+n =  2 latency avg 6.5863096808510635 block sum 2.0203379999999997
+n =  3 latency avg 1.3308440781250002 block sum 3.236265
+n =  4 latency avg 1.0085636363636368 block sum 3.480304

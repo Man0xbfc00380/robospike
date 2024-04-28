@@ -30,6 +30,10 @@ using std::placeholders::_1;
 timeval starting_time;
 int dummy_load_calib = 1;
 
+void run_exe(rclcpp::executors::ExecutorNodelet* exe) {
+    exe->spin();
+}
+
 void dummy_load(int load_ms, const char * name_str) {
     int i, j;
     for (j = 0; j < dummy_load_calib * load_ms; j++)
@@ -38,7 +42,7 @@ void dummy_load(int load_ms, const char * name_str) {
     rclcpp::sleep_for(100ms);
 }
 
-Task<int, NewThreadExecutor> dummy_load_sleep(int load_ms, const char * name_str) {
+int dummy_load_sleep(int load_ms, const char * name_str) {
     int i, j;
     timeval ftime, ctime;
     // Do sth.
@@ -52,8 +56,7 @@ Task<int, NewThreadExecutor> dummy_load_sleep(int load_ms, const char * name_str
     long tv_usec = duration_us - tv_sec * 1000000;
 
     // Wait for the machine
-    // rclcpp::sleep_for(1500ms);
-    co_await 1500ms;
+    rclcpp::sleep_for(450ms);
 
     gettimeofday(&ctime, NULL);
     duration_us = (ctime.tv_sec - starting_time.tv_sec) * 1000000 + (ctime.tv_usec - starting_time.tv_usec);
@@ -64,7 +67,7 @@ Task<int, NewThreadExecutor> dummy_load_sleep(int load_ms, const char * name_str
     for (j = 0; j < dummy_load_calib * load_ms; j++)
         for (i = 0 ; i < DUMMY_LOAD_ITER; i++) 
             __asm__ volatile ("nop");
-    co_return 1;
+    return 1;
 }
 
 namespace cb_chain_demo
@@ -77,10 +80,7 @@ public:
     {
         publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
         name_ = node_name;
-        if (period_ == 10000)
-            timer_ = this->create_wall_timer(10000ms, std::bind(&StartNode::timer_callback, this));
-        else
-            timer_ = this->create_wall_timer( 2000ms, std::bind(&StartNode::timer_callback, this));
+        timer_ = this->create_wall_timer(600ms, std::bind(&StartNode::timer_callback, this));
     }
 
     rclcpp::TimerBase::SharedPtr timer_;
@@ -166,11 +166,7 @@ private:
 
         gettimeofday(&ftime, NULL);
 
-        /* In-Node Blocking Style */
-        auto dummy_task = dummy_load_sleep(exe_time_, this->name_.c_str());
-        // RCLCPP_INFO(this->get_logger(), "[PID: %ld] Execute Subcriber Callback (Before blocking)", gettid());
-        auto i = dummy_task.get_result();
-        // RCLCPP_INFO(this->get_logger(), "[PID: %ld] Execute Subcriber Callback [%d] (After blocking)", gettid(), i);
+        dummy_load_sleep(exe_time_, this->name_.c_str());
 
         std::string name = this->get_name();
         auto message = std_msgs::msg::String();
@@ -189,9 +185,7 @@ private:
         gettimeofday(&ftime, NULL);
 
         /* Non-Blocking Style */
-        // RCLCPP_INFO(this->get_logger(), "[PID: %ld] Execute Subcriber Callback (Before co_await)", gettid());
-        co_await 1500ms;
-        // RCLCPP_INFO(this->get_logger(), "[PID: %ld] Execute Subcriber Callback (After co_await)", gettid());
+        co_await 450ms;
 
         std::string name = this->get_name();
         auto message = std_msgs::msg::String();
@@ -214,46 +208,135 @@ int main(int argc, char* argv[])
     // Define graph: t1 -> [r11, r12, r13]
     // Define graph: c1 -> r21 -> r22
     // std::make_shared --> return the ptr & allocate the memory space on heap
-    auto c1_timer = std::make_shared<cb_chain_demo::StartNode>("Timer_callback1", "tc1", 100, 2000, false);
-    auto c1_r_cb_1 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback11", "tc1", "", 100, true);
-    auto c1_r_cb_2 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback12", "tc1", "", 100, true);
-    auto c1_r_cb_3 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback13", "tc1", "", 100, true);
 
-    auto c2_timer = std::make_shared<cb_chain_demo::StartNode>("Timer_callback2", "tc2", 100, 3000, false);
-    auto c2_r_cb_1 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback21", "tc2", "tc3", 100, true);
-    auto c2_r_cb_2 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback22", "tc3", "", 100, true);
+    // c1
+    auto c1_timer = std::make_shared<cb_chain_demo::StartNode>("Timer_callback1", "c1", 100, 2000, false);
+    auto c1_r_cb_1 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback11", "c1", "", 100, true);
+    auto c1_r_cb_2 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback12", "c1", "", 100, true);
+    auto c1_r_cb_3 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback13", "c1", "", 100, true);
+    auto c1_r_cb_4 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback14", "c1", "", 100, true);
+    auto c1_r_cb_5 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback15", "c1", "", 100, true);
+    auto c1_r_cb_6 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback16", "c1", "", 100, true);
+    auto c1_r_cb_7 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback17", "c1", "", 100, true);
+    auto c1_r_cb_8 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback18", "c1", "", 100, true);
+    auto c1_r_cb_9 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback19", "c1", "", 100, true);
+    auto c1_r_cb_a = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback1a", "c1", "", 100, true);
+
+    // c2
+    auto c2_timer = std::make_shared<cb_chain_demo::StartNode>("Timer_callback2", "c2", 100, 2000, false);
+    auto c2_r_cb_1 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback21", "c2", "", 100, true);
+    auto c2_r_cb_2 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback22", "c2", "", 100, true);
+    auto c2_r_cb_3 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback23", "c2", "", 100, true);
+    auto c2_r_cb_4 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback24", "c2", "", 100, true);
+    auto c2_r_cb_5 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback25", "c2", "", 100, true);
+    auto c2_r_cb_6 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback26", "c2", "", 100, true);
+    auto c2_r_cb_7 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback27", "c2", "", 100, true);
+    auto c2_r_cb_8 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback28", "c2", "", 100, true);
+    auto c2_r_cb_9 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback29", "c2", "", 100, true);
+    auto c2_r_cb_a = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback2a", "c2", "", 100, true);
+
+    // c3
+    auto c3_timer = std::make_shared<cb_chain_demo::StartNode>("Timer_callback3", "c3", 100, 2000, false);
+    auto c3_r_cb_1 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback31", "c3", "", 100, true);
+    auto c3_r_cb_2 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback32", "c3", "", 100, true);
+    auto c3_r_cb_3 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback33", "c3", "", 100, true);
+    auto c3_r_cb_4 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback34", "c3", "", 100, true);
+    auto c3_r_cb_5 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback35", "c3", "", 100, true);
+    auto c3_r_cb_6 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback36", "c3", "", 100, true);
+    auto c3_r_cb_7 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback37", "c3", "", 100, true);
+    auto c3_r_cb_8 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback38", "c3", "", 100, true);
+    auto c3_r_cb_9 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback39", "c3", "", 100, true);
+    auto c3_r_cb_a = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback3a", "c3", "", 100, true);
 
     // Create executors
-    int number_of_threads = 4;
-    int number_of_nodelet = 2;
-    rclcpp::executors::DistrThreadedExecutor exec(rclcpp::executor::ExecutorArgs(), number_of_threads, number_of_nodelet, true);
+    int number_of_threads = 15;
+    rclcpp::executors::ExecutorNodelet exec1(rclcpp::executor::ExecutorArgs(), number_of_threads, true);
     
     std::queue<Task<int, RosCoExecutor> > task_queue;
     
     // Allocate callbacks to executors
-    exec.add_node(c1_timer);  // Timer_callback1
-    exec.add_node(c2_timer);  // Timer_callback2
+    exec1.add_node(c1_timer);
+    exec1.add_node(c1_r_cb_1);
+    exec1.add_node(c1_r_cb_2);
+    exec1.add_node(c1_r_cb_3);
+    exec1.add_node(c1_r_cb_4);
+    exec1.add_node(c1_r_cb_5);
+    exec1.add_node(c1_r_cb_6);
+    exec1.add_node(c1_r_cb_7);
 
-    exec.add_node(c1_r_cb_1); // Regular_callback11
-    exec.add_node(c1_r_cb_2); // Regular_callback12
-    exec.add_node(c1_r_cb_3); // Regular_callback13
-    exec.add_node(c2_r_cb_1); // Regular_callback21
-    exec.add_node(c2_r_cb_2); // Regular_callback22
+    exec1.add_node(c2_timer);
+    exec1.add_node(c2_r_cb_1);
+    exec1.add_node(c2_r_cb_2);
+    exec1.add_node(c2_r_cb_3);
+    exec1.add_node(c2_r_cb_4);
+    exec1.add_node(c2_r_cb_5);
+    exec1.add_node(c2_r_cb_6);
+    exec1.add_node(c2_r_cb_7);
+
+    exec1.add_node(c3_timer);
+    exec1.add_node(c3_r_cb_1);
+    exec1.add_node(c3_r_cb_2);
+    exec1.add_node(c3_r_cb_3);
+    exec1.add_node(c3_r_cb_4);
+    exec1.add_node(c3_r_cb_5);
+    exec1.add_node(c3_r_cb_6);
+    exec1.add_node(c3_r_cb_7);
+
+    exec1.add_node(c1_r_cb_8);
+    exec1.add_node(c1_r_cb_9);
+    exec1.add_node(c1_r_cb_a);
+    exec1.add_node(c2_r_cb_8);
+    exec1.add_node(c2_r_cb_9);
+    exec1.add_node(c2_r_cb_a);
+    exec1.add_node(c3_r_cb_8);
+    exec1.add_node(c3_r_cb_9);
+    exec1.add_node(c3_r_cb_a);
 
     // Record Starting Time:
     gettimeofday(&starting_time, NULL);
 
     // Spin lock
-    exec.spin();
+    exec1.spin();
 
     // Remove Extra-node
-    exec.remove_node(c1_timer);
-    exec.remove_node(c2_timer);
-    exec.remove_node(c1_r_cb_1);
-    exec.remove_node(c1_r_cb_2);
-    exec.remove_node(c1_r_cb_3);
-    exec.remove_node(c2_r_cb_1);
-    exec.remove_node(c2_r_cb_2);
+
+    exec1.remove_node(c1_timer);
+    exec1.remove_node(c1_r_cb_1);
+    exec1.remove_node(c1_r_cb_2);
+    exec1.remove_node(c1_r_cb_3);
+    exec1.remove_node(c1_r_cb_4);
+    exec1.remove_node(c1_r_cb_5);
+    exec1.remove_node(c1_r_cb_6);
+    exec1.remove_node(c1_r_cb_7);
+
+    exec1.remove_node(c2_timer);
+    exec1.remove_node(c2_r_cb_1);
+    exec1.remove_node(c2_r_cb_2);
+    exec1.remove_node(c2_r_cb_3);
+    exec1.remove_node(c2_r_cb_4);
+    exec1.remove_node(c2_r_cb_5);
+    exec1.remove_node(c2_r_cb_6);
+    exec1.remove_node(c2_r_cb_7);
+
+    exec1.remove_node(c3_timer);
+    exec1.remove_node(c3_r_cb_1);
+    exec1.remove_node(c3_r_cb_2);
+    exec1.remove_node(c3_r_cb_3);
+    exec1.remove_node(c3_r_cb_4);
+    exec1.remove_node(c3_r_cb_5);
+    exec1.remove_node(c3_r_cb_6);
+    exec1.remove_node(c3_r_cb_7);
+
+    // More subs
+    exec1.remove_node(c1_r_cb_8);
+    exec1.remove_node(c1_r_cb_9);
+    exec1.remove_node(c1_r_cb_a);
+    exec1.remove_node(c2_r_cb_8);
+    exec1.remove_node(c2_r_cb_9);
+    exec1.remove_node(c2_r_cb_a);
+    exec1.remove_node(c3_r_cb_8);
+    exec1.remove_node(c3_r_cb_9);
+    exec1.remove_node(c3_r_cb_a);
 
     // Shutdown
     rclcpp::shutdown();

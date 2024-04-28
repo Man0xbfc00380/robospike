@@ -4,10 +4,10 @@ import numpy as np
 import re
 
 # Set Configs
-case_name = "exp1/exp1_multicast_450_t16n4" # Just change it
+case_name = "exp0/exp0_co_inter" # Just change it
 font_size = 18
 logdata = []
-BlueList = ['#92B4F4', '#7772CA', '#5E7CE2', '#C6CDFF', '#248BD6', '#0F6BAE']
+BlueList = ['#92B4F4', '#7772CA', '#5E7CE2', '#C6CDFF', '#248BD6', '#0F6BAE', '#92B4F4', '#7772CA', '#5E7CE2', '#C6CDFF', '#248BD6', '#0F6BAE']
 RedList  = ['#FFB3A7', '#8C4356', '#9D2933']
 vis_callback_only = False
 
