@@ -140,9 +140,6 @@ ExecutorNodelet::run(size_t)
 void
 ExecutorNodelet::co_run(size_t number_of_threads)
 {
-  // TODO: co_run (coroutine run)
-  // ^^^^^ First issue: 
-  // ^^^^^^^^^^ From pull the task to accept the task
   while (rclcpp::ok(this->context_) && spinning.load()) {
     executor::AnyExecutable any_exec;
     {

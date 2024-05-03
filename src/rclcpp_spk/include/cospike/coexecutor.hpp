@@ -173,8 +173,6 @@ public:
         shutdown_all(false);
     }
     int thread_select() {
-        // TODO: More strategies can be defined here
-        //      (Defualt) Random generator
         std::random_device rd;
         std::default_random_engine eng(rd());
         std::uniform_int_distribution<int> distr(0, _thread_num - 1);

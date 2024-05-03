@@ -4,3 +4,6 @@
 [submodule "3rdparty/ros2-picas"]
 	path = 3rdparty/ros2-picas
 	url = https://github.com/rtenlab/ros2-picas
+[submodule "3rdparty/comp"]
+	path = 3rdparty/comp
+	url = https://gitee.com/lhy_giytee/ComP.git
