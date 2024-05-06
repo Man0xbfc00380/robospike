@@ -92,6 +92,7 @@ public:
     memory_strategy = message_memory_strategy::MessageMemoryStrategy<CallbackMessageT,
     Alloc>::create_default())
   : SubscriptionBase(
+      use_coroutine,
       node_handle,
       type_support_handle,
       topic_name,
@@ -147,7 +148,7 @@ public:
     auto typed_message = std::static_pointer_cast<CallbackMessageT>(message);
 
     if (this->use_coroutine_) {
-      any_callback_.co_dispatch(qPtr, executor_ptr, typed_message, message_info);
+      any_callback_.co_dispatch(qPtr, executor_ptr, (void*)this, typed_message, message_info);
     } else {
       any_callback_.dispatch(typed_message, message_info);
     }
@@ -202,7 +203,7 @@ public:
         return;
       }
       if (this->use_coroutine_) {
-        any_callback_.co_dispatch_intra_process(qPtr, executor_ptr, msg, message_info);
+        any_callback_.co_dispatch_intra_process(qPtr, executor_ptr, (void*)this, msg, message_info);
       } else {
         any_callback_.dispatch_intra_process(msg, message_info);
       }
@@ -222,7 +223,7 @@ public:
         return;
       }
       if (this->use_coroutine_) {
-        any_callback_.co_dispatch_intra_process(qPtr, executor_ptr, std::move(msg), message_info);
+        any_callback_.co_dispatch_intra_process(qPtr, executor_ptr, (void*)this, std::move(msg), message_info);
       } else {
         any_callback_.dispatch_intra_process(std::move(msg), message_info);
       }

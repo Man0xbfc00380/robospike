@@ -1,0 +1,1548 @@
+[Hello RoboSpike] [Thread 303263] Use ExecutorNodelet
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 0] [us: 593833]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 0] [us: 694999]
+[Round: 0] co_callback start
+[INFO] [Regular_callback11]: [Round: 0] All [us: 182874] Await [us: 0] Sync [us: 182789]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 3] [us: 259053]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 3] [us: 359562]
+[Round: 1] co_callback start
+[INFO] [Regular_callback11]: [Round: 1] All [us: 184525] Await [us: 0] Sync [us: 184455]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 5] [us: 97849]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 5] [us: 198249]
+[Round: 2] co_callback start
+[INFO] [Regular_callback11]: [Round: 2] All [us: 175854] Await [us: 0] Sync [us: 175779]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 6] [us: 976673]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 7] [us: 77071]
+[Round: 3] co_callback start
+[INFO] [Regular_callback11]: [Round: 3] All [us: 176384] Await [us: 0] Sync [us: 176307]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 8] [us: 650027]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 8] [us: 750464]
+[Round: 4] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 9] [us: 974052]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 10] [us: 74441]
+[INFO] [Regular_callback11]: [Round: 4] [Base: 179909] [Score: 527] All [us: 179370] Await [us: 179832] Sync [us: 12]
+[INFO] [Regular_callback11]: [Round: 4] [Best Score: -10000] Await [us: 0]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 10] [us: 325828]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 10] [us: 426227]
+[Round: 5] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 11] [us: 727112]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 11] [us: 827549]
+[INFO] [Regular_callback11]: [Round: 5] [Base: 179909] [Score: -17028] All [us: 177070] Await [us: 157353] Sync [us: 19867]
+[INFO] [Regular_callback11]: [Round: 5] [Best Score: -10000] Await [us: 0]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 12] [us: 132708]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 12] [us: 233098]
+[Round: 6] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 13] [us: 518626]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 13] [us: 619040]
+[INFO] [Regular_callback11]: [Round: 6] [Base: 179909] [Score: -10590] All [us: 178861] Await [us: 167286] Sync [us: 11638]
+[INFO] [Regular_callback11]: [Round: 6] [Best Score: -10000] Await [us: 0]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 13] [us: 869542]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 13] [us: 969936]
+[Round: 7] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 15] [us: 264872]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 15] [us: 365310]
+[INFO] [Regular_callback11]: [Round: 7] [Base: 179909] [Score: -1352] All [us: 177249] Await [us: 173105] Sync [us: 4012]
+[INFO] [Regular_callback11]: [Round: 7] [Best Score: -10000] Await [us: 0]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 15] [us: 613852]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 15] [us: 714246]
+[Round: 8] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 17] [us: 5693]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 17] [us: 106083]
+[INFO] [Regular_callback11]: [Round: 8] [Base: 179909] [Score: -1686] All [us: 177400] Await [us: 173112] Sync [us: 4195]
+[INFO] [Regular_callback11]: [Round: 8] [Best Score: -1352] Await [us: 173105]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 17] [us: 393451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 17] [us: 493841]
+[Round: 9] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 18] [us: 712688]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 18] [us: 813112]
+[INFO] [Regular_callback11]: [Round: 9] [Base: 179909] [Score: -3592] All [us: 177848] Await [us: 173108] Sync [us: 5653]
+[INFO] [Regular_callback11]: [Round: 9] [Best Score: -1352] Await [us: 173105]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 19] [us: 193456]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 19] [us: 293873]
+[Round: 10] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 20] [us: 577156]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 20] [us: 677545]
+[INFO] [Regular_callback11]: [Round: 10] [Base: 179909] [Score: -4919] All [us: 179020] Await [us: 173112] Sync [us: 5808]
+[INFO] [Regular_callback11]: [Round: 10] [Best Score: -1352] Await [us: 173105]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 20] [us: 993453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 21] [us: 93850]
+[Round: 11] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 22] [us: 308079]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 22] [us: 408468]
+[INFO] [Regular_callback11]: [Round: 11] [Base: 179909] [Score: -1994] All [us: 177553] Await [us: 173109] Sync [us: 4350]
+[INFO] [Regular_callback11]: [Round: 11] [Best Score: -1352] Await [us: 173105]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 22] [us: 793457]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 22] [us: 893856]
+[Round: 12] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 24] [us: 180748]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 24] [us: 281179]
+[INFO] [Regular_callback11]: [Round: 12] [Base: 179909] [Score: -1917] All [us: 177517] Await [us: 173106] Sync [us: 4309]
+[INFO] [Regular_callback11]: [Round: 12] [Best Score: -1352] Await [us: 173105]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 24] [us: 593451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 24] [us: 693843]
+[Round: 13] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 25] [us: 909874]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 26] [us: 10251]
+[INFO] [Regular_callback11]: [Round: 13] [Base: 179909] [Score: -4039] All [us: 178590] Await [us: 173107] Sync [us: 5358]
+[INFO] [Regular_callback11]: [Round: 13] [Best Score: -1352] Await [us: 173105]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 26] [us: 393451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 26] [us: 493841]
+[Round: 14] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 27] [us: 772210]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 27] [us: 872651]
+[INFO] [Regular_callback11]: [Round: 14] [Base: 179909] [Score: -3239] All [us: 178175] Await [us: 173109] Sync [us: 4973]
+[INFO] [Regular_callback11]: [Round: 14] [Best Score: -1352] Await [us: 173105]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 28] [us: 193451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 28] [us: 293842]
+[Round: 15] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 29] [us: 508517]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 29] [us: 608905]
+[INFO] [Regular_callback11]: [Round: 15] [Base: 179909] [Score: -2677] All [us: 177895] Await [us: 173111] Sync [us: 4691]
+[INFO] [Regular_callback11]: [Round: 15] [Best Score: -1352] Await [us: 173105]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 29] [us: 993451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 30] [us: 93842]
+[Round: 16] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 31] [us: 454674]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 31] [us: 555216]
+[INFO] [Regular_callback11]: [Round: 16] [Base: 179909] [Score: -4133] All [us: 178127] Await [us: 173106] Sync [us: 5915]
+[INFO] [Regular_callback11]: [Round: 16] [Best Score: -1352] Await [us: 173105]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 31] [us: 825022]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 31] [us: 925494]
+[Round: 17] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 33] [us: 407604]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 33] [us: 508074]
+[INFO] [Regular_callback11]: [Round: 17] [Base: 179909] [Score: -4909] All [us: 179012] Await [us: 173111] Sync [us: 5806]
+[INFO] [Regular_callback11]: [Round: 17] [Best Score: -1352] Await [us: 173105]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 33] [us: 778874]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 33] [us: 879357]
+[Round: 18] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 35] [us: 147490]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 35] [us: 247878]
+[INFO] [Regular_callback11]: [Round: 18] [Base: 179909] [Score: -4022] All [us: 178569] Await [us: 173111] Sync [us: 5362]
+[INFO] [Regular_callback11]: [Round: 18] [Best Score: -1352] Await [us: 173105]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 35] [us: 496995]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 35] [us: 597386]
+[Round: 19] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 36] [us: 868816]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 36] [us: 969263]
+[INFO] [Regular_callback11]: [Round: 19] [Base: 179909] [Score: -3313] All [us: 178252] Await [us: 173111] Sync [us: 4970]
+[INFO] [Regular_callback11]: [Round: 19] [Best Score: -1352] Await [us: 173105]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 37] [us: 218875]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 37] [us: 319263]
+[Round: 20] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 38] [us: 541077]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 38] [us: 641509]
+[INFO] [Regular_callback11]: [Round: 20] [Base: 179909] [Score: 9] All [us: 176546] Await [us: 173114] Sync [us: 3354]
+[INFO] [Regular_callback11]: [Round: 20] [Best Score: -1352] Await [us: 173105]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 38] [us: 993458]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 39] [us: 93855]
+[Round: 21] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 40] [us: 314534]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 40] [us: 414924]
+[INFO] [Regular_callback11]: [Round: 21] [Base: 179909] [Score: -353] All [us: 176733] Await [us: 173119] Sync [us: 3529]
+[INFO] [Regular_callback11]: [Round: 21] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 40] [us: 793453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 40] [us: 893884]
+[Round: 22] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 42] [us: 167053]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 42] [us: 267452]
+[INFO] [Regular_callback11]: [Round: 22] [Base: 179909] [Score: -2520] All [us: 177816] Await [us: 173115] Sync [us: 4613]
+[INFO] [Regular_callback11]: [Round: 22] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 42] [us: 593453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 42] [us: 693844]
+[Round: 23] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 43] [us: 908862]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 44] [us: 9252]
+[INFO] [Regular_callback11]: [Round: 23] [Base: 179909] [Score: -1548] All [us: 177327] Await [us: 173121] Sync [us: 4130]
+[INFO] [Regular_callback11]: [Round: 23] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 44] [us: 393537]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 44] [us: 494652]
+[Round: 24] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 45] [us: 721014]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 45] [us: 821404]
+[INFO] [Regular_callback11]: [Round: 24] [Base: 179909] [Score: -848] All [us: 176979] Await [us: 173117] Sync [us: 3778]
+[INFO] [Regular_callback11]: [Round: 24] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 46] [us: 193451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 46] [us: 293882]
+[Round: 25] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 47] [us: 509356]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 47] [us: 609734]
+[INFO] [Regular_callback11]: [Round: 25] [Base: 179909] [Score: -2392] All [us: 177751] Await [us: 173116] Sync [us: 4550]
+[INFO] [Regular_callback11]: [Round: 25] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 47] [us: 993455]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 48] [us: 93852]
+[Round: 26] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 49] [us: 307691]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 49] [us: 408113]
+[INFO] [Regular_callback11]: [Round: 26] [Base: 179909] [Score: -1624] All [us: 177369] Await [us: 173120] Sync [us: 4164]
+[INFO] [Regular_callback11]: [Round: 26] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 49] [us: 793452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 49] [us: 893842]
+[Round: 27] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 51] [us: 160232]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 51] [us: 260616]
+[INFO] [Regular_callback11]: [Round: 27] [Base: 179909] [Score: -1021] All [us: 177058] Await [us: 173120] Sync [us: 3872]
+[INFO] [Regular_callback11]: [Round: 27] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 51] [us: 593450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 51] [us: 693840]
+[Round: 28] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 52] [us: 910098]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 53] [us: 10488]
+[INFO] [Regular_callback11]: [Round: 28] [Base: 179909] [Score: -973] All [us: 177036] Await [us: 173119] Sync [us: 3846]
+[INFO] [Regular_callback11]: [Round: 28] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 53] [us: 393452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 53] [us: 493846]
+[Round: 29] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 54] [us: 754076]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 54] [us: 854465]
+[INFO] [Regular_callback11]: [Round: 29] [Base: 179909] [Score: -873] All [us: 176983] Await [us: 173118] Sync [us: 3799]
+[INFO] [Regular_callback11]: [Round: 29] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 55] [us: 193453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 55] [us: 293848]
+[Round: 30] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 56] [us: 514566]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 56] [us: 614955]
+[INFO] [Regular_callback11]: [Round: 30] [Base: 179909] [Score: -659] All [us: 176878] Await [us: 173115] Sync [us: 3690]
+[INFO] [Regular_callback11]: [Round: 30] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 56] [us: 993450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 57] [us: 93841]
+[Round: 31] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 58] [us: 308274]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 58] [us: 408664]
+[INFO] [Regular_callback11]: [Round: 31] [Base: 179909] [Score: -696] All [us: 176912] Await [us: 173119] Sync [us: 3693]
+[INFO] [Regular_callback11]: [Round: 31] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 58] [us: 793451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 58] [us: 893843]
+[Round: 32] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 60] [us: 119016]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 60] [us: 219440]
+[INFO] [Regular_callback11]: [Round: 32] [Base: 179909] [Score: -1428] All [us: 177263] Await [us: 173116] Sync [us: 4074]
+[INFO] [Regular_callback11]: [Round: 32] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 60] [us: 593451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 60] [us: 693843]
+[Round: 33] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 61] [us: 966706]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 62] [us: 67116]
+[INFO] [Regular_callback11]: [Round: 33] [Base: 179909] [Score: -978] All [us: 177052] Await [us: 173114] Sync [us: 3835]
+[INFO] [Regular_callback11]: [Round: 33] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 62] [us: 393452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 62] [us: 493844]
+[Round: 34] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 63] [us: 715131]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 63] [us: 815546]
+[INFO] [Regular_callback11]: [Round: 34] [Base: 179909] [Score: -1909] All [us: 177503] Await [us: 173119] Sync [us: 4315]
+[INFO] [Regular_callback11]: [Round: 34] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 64] [us: 193452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 64] [us: 293841]
+[Round: 35] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 65] [us: 508525]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 65] [us: 608914]
+[INFO] [Regular_callback11]: [Round: 35] [Base: 179909] [Score: -1203] All [us: 177160] Await [us: 173123] Sync [us: 3952]
+[INFO] [Regular_callback11]: [Round: 35] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 65] [us: 993452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 66] [us: 93842]
+[Round: 36] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 67] [us: 306705]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 67] [us: 407127]
+[INFO] [Regular_callback11]: [Round: 36] [Base: 179909] [Score: -969] All [us: 177042] Await [us: 173117] Sync [us: 3836]
+[INFO] [Regular_callback11]: [Round: 36] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 67] [us: 793452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 67] [us: 893844]
+[Round: 37] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 69] [us: 112275]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 69] [us: 212664]
+[INFO] [Regular_callback11]: [Round: 37] [Base: 179909] [Score: -2162] All [us: 177637] Await [us: 173117] Sync [us: 4434]
+[INFO] [Regular_callback11]: [Round: 37] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 69] [us: 593452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 69] [us: 693876]
+[Round: 38] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 70] [us: 910965]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 71] [us: 11348]
+[INFO] [Regular_callback11]: [Round: 38] [Base: 179909] [Score: -892] All [us: 177008] Await [us: 173120] Sync [us: 3793]
+[INFO] [Regular_callback11]: [Round: 38] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 71] [us: 393453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 71] [us: 493847]
+[Round: 39] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 72] [us: 723989]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 72] [us: 824366]
+[INFO] [Regular_callback11]: [Round: 39] [Base: 179909] [Score: -1089] All [us: 177097] Await [us: 173114] Sync [us: 3901]
+[INFO] [Regular_callback11]: [Round: 39] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 73] [us: 193452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 73] [us: 293867]
+[Round: 40] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 74] [us: 518354]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 74] [us: 618808]
+[INFO] [Regular_callback11]: [Round: 40] [Base: 179909] [Score: -2943] All [us: 178032] Await [us: 173122] Sync [us: 4820]
+[INFO] [Regular_callback11]: [Round: 40] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 74] [us: 993452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 75] [us: 93842]
+[Round: 41] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 76] [us: 318554]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 76] [us: 418945]
+[INFO] [Regular_callback11]: [Round: 41] [Base: 179909] [Score: -1909] All [us: 177504] Await [us: 173119] Sync [us: 4314]
+[INFO] [Regular_callback11]: [Round: 41] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 76] [us: 793454]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 76] [us: 893844]
+[Round: 42] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 78] [us: 118981]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 78] [us: 219373]
+[INFO] [Regular_callback11]: [Round: 42] [Base: 179909] [Score: -2663] All [us: 177879] Await [us: 173121] Sync [us: 4693]
+[INFO] [Regular_callback11]: [Round: 42] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 78] [us: 593452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 78] [us: 693842]
+[Round: 43] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 79] [us: 958318]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 80] [us: 58707]
+[INFO] [Regular_callback11]: [Round: 43] [Base: 179909] [Score: -3656] All [us: 178381] Await [us: 173114] Sync [us: 5184]
+[INFO] [Regular_callback11]: [Round: 43] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 80] [us: 393456]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 80] [us: 493848]
+[Round: 44] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 81] [us: 707637]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 81] [us: 808026]
+[INFO] [Regular_callback11]: [Round: 44] [Base: 179909] [Score: -1372] All [us: 177234] Await [us: 173121] Sync [us: 4047]
+[INFO] [Regular_callback11]: [Round: 44] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 82] [us: 193453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 82] [us: 293851]
+[Round: 45] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 83] [us: 516541]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 83] [us: 616926]
+[INFO] [Regular_callback11]: [Round: 45] [Base: 179909] [Score: -2810] All [us: 177965] Await [us: 173117] Sync [us: 4754]
+[INFO] [Regular_callback11]: [Round: 45] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 83] [us: 993452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 84] [us: 93846]
+[Round: 46] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 85] [us: 315235]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 85] [us: 415628]
+[INFO] [Regular_callback11]: [Round: 46] [Base: 179909] [Score: -3860] All [us: 178488] Await [us: 173120] Sync [us: 5281]
+[INFO] [Regular_callback11]: [Round: 46] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 85] [us: 793452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 85] [us: 893843]
+[Round: 47] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 87] [us: 107989]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 87] [us: 208366]
+[INFO] [Regular_callback11]: [Round: 47] [Base: 179909] [Score: -1743] All [us: 177420] Await [us: 173122] Sync [us: 4232]
+[INFO] [Regular_callback11]: [Round: 47] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 87] [us: 593453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 87] [us: 693845]
+[Round: 48] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 88] [us: 908287]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 89] [us: 8666]
+[INFO] [Regular_callback11]: [Round: 48] [Base: 179909] [Score: -1591] All [us: 177342] Await [us: 173123] Sync [us: 4158]
+[INFO] [Regular_callback11]: [Round: 48] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 89] [us: 393451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 89] [us: 493836]
+[Round: 49] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 90] [us: 767433]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 90] [us: 867828]
+[INFO] [Regular_callback11]: [Round: 49] [Base: 179909] [Score: -1501] All [us: 177312] Await [us: 173117] Sync [us: 4098]
+[INFO] [Regular_callback11]: [Round: 49] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 91] [us: 193453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 91] [us: 293842]
+[Round: 50] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 92] [us: 510170]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 92] [us: 610558]
+[INFO] [Regular_callback11]: [Round: 50] [Base: 179909] [Score: -2097] All [us: 177601] Await [us: 173120] Sync [us: 4405]
+[INFO] [Regular_callback11]: [Round: 50] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 92] [us: 993451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 93] [us: 93846]
+[Round: 51] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 94] [us: 308684]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 94] [us: 409071]
+[INFO] [Regular_callback11]: [Round: 51] [Base: 179909] [Score: -2412] All [us: 177775] Await [us: 173115] Sync [us: 4546]
+[INFO] [Regular_callback11]: [Round: 51] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 94] [us: 793451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 94] [us: 893841]
+[Round: 52] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 96] [us: 179716]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 96] [us: 280101]
+[INFO] [Regular_callback11]: [Round: 52] [Base: 179909] [Score: -1292] All [us: 177205] Await [us: 173114] Sync [us: 3996]
+[INFO] [Regular_callback11]: [Round: 52] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 96] [us: 593452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 96] [us: 693834]
+[Round: 53] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 97] [us: 911045]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 98] [us: 11440]
+[INFO] [Regular_callback11]: [Round: 53] [Base: 179909] [Score: -2644] All [us: 177887] Await [us: 173123] Sync [us: 4666]
+[INFO] [Regular_callback11]: [Round: 53] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 98] [us: 393451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 98] [us: 493854]
+[Round: 54] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 99] [us: 717619]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 99] [us: 817998]
+[INFO] [Regular_callback11]: [Round: 54] [Base: 179909] [Score: -718] All [us: 176913] Await [us: 173122] Sync [us: 3714]
+[INFO] [Regular_callback11]: [Round: 54] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 100] [us: 193451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 100] [us: 293847]
+[Round: 55] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 101] [us: 574502]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 101] [us: 674891]
+[INFO] [Regular_callback11]: [Round: 55] [Base: 179909] [Score: -1688] All [us: 177397] Await [us: 173117] Sync [us: 4200]
+[INFO] [Regular_callback11]: [Round: 55] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 101] [us: 993450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 102] [us: 93841]
+[Round: 56] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 103] [us: 319625]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 103] [us: 420059]
+[INFO] [Regular_callback11]: [Round: 56] [Base: 179909] [Score: -1111] All [us: 177107] Await [us: 173116] Sync [us: 3913]
+[INFO] [Regular_callback11]: [Round: 56] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 103] [us: 793452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 103] [us: 893842]
+[Round: 57] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 105] [us: 112807]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 105] [us: 213201]
+[INFO] [Regular_callback11]: [Round: 57] [Base: 179909] [Score: -4703] All [us: 178901] Await [us: 173120] Sync [us: 5711]
+[INFO] [Regular_callback11]: [Round: 57] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 105] [us: 593451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 105] [us: 693832]
+[Round: 58] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 106] [us: 907627]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 107] [us: 8066]
+[INFO] [Regular_callback11]: [Round: 58] [Base: 179909] [Score: -5834] All [us: 179464] Await [us: 173123] Sync [us: 6279]
+[INFO] [Regular_callback11]: [Round: 58] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 107] [us: 393457]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 107] [us: 493855]
+[Round: 59] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 108] [us: 709376]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 108] [us: 809765]
+[INFO] [Regular_callback11]: [Round: 59] [Base: 179909] [Score: -4538] All [us: 178827] Await [us: 173123] Sync [us: 5620]
+[INFO] [Regular_callback11]: [Round: 59] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 109] [us: 193454]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 109] [us: 293849]
+[Round: 60] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 110] [us: 512688]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 110] [us: 613076]
+[INFO] [Regular_callback11]: [Round: 60] [Base: 179909] [Score: -3356] All [us: 178227] Await [us: 173115] Sync [us: 5038]
+[INFO] [Regular_callback11]: [Round: 60] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 110] [us: 993452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 111] [us: 93877]
+[Round: 61] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 112] [us: 340852]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 112] [us: 441273]
+[INFO] [Regular_callback11]: [Round: 61] [Base: 179909] [Score: -3773] All [us: 178432] Await [us: 173116] Sync [us: 5250]
+[INFO] [Regular_callback11]: [Round: 61] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 112] [us: 793456]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 112] [us: 893878]
+[Round: 62] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 114] [us: 176657]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 114] [us: 277069]
+[INFO] [Regular_callback11]: [Round: 62] [Base: 179909] [Score: -2789] All [us: 177950] Await [us: 173119] Sync [us: 4748]
+[INFO] [Regular_callback11]: [Round: 62] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 114] [us: 593451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 114] [us: 693830]
+[Round: 63] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 115] [us: 913714]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 116] [us: 14136]
+[INFO] [Regular_callback11]: [Round: 63] [Base: 179909] [Score: -3089] All [us: 178099] Await [us: 173119] Sync [us: 4899]
+[INFO] [Regular_callback11]: [Round: 63] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 116] [us: 393452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 116] [us: 493884]
+[Round: 64] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 117] [us: 715495]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 117] [us: 815883]
+[INFO] [Regular_callback11]: [Round: 64] [Base: 179909] [Score: -3857] All [us: 178476] Await [us: 173118] Sync [us: 5290]
+[INFO] [Regular_callback11]: [Round: 64] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 118] [us: 193452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 118] [us: 293840]
+[Round: 65] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 120] [us: 45738]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 120] [us: 146128]
+[INFO] [Regular_callback11]: [Round: 65] [Base: 179909] [Score: -12284] All [us: 182691] Await [us: 173116] Sync [us: 9502]
+[INFO] [Regular_callback11]: [Round: 65] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 120] [us: 593453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 120] [us: 693834]
+[Round: 66] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 121] [us: 908900]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 122] [us: 9337]
+[INFO] [Regular_callback11]: [Round: 66] [Base: 179909] [Score: -3620] All [us: 178370] Await [us: 173120] Sync [us: 5159]
+[INFO] [Regular_callback11]: [Round: 66] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 122] [us: 393450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 122] [us: 493841]
+[Round: 67] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 123] [us: 717505]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 123] [us: 817893]
+[INFO] [Regular_callback11]: [Round: 67] [Base: 179909] [Score: -4796] All [us: 178964] Await [us: 173123] Sync [us: 5741]
+[INFO] [Regular_callback11]: [Round: 67] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 124] [us: 193452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 124] [us: 293844]
+[Round: 68] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 125] [us: 513287]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 125] [us: 613657]
+[INFO] [Regular_callback11]: [Round: 68] [Base: 179909] [Score: -2884] All [us: 178008] Await [us: 173119] Sync [us: 4785]
+[INFO] [Regular_callback11]: [Round: 68] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 125] [us: 993455]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 126] [us: 93846]
+[Round: 69] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 127] [us: 310733]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 127] [us: 411122]
+[INFO] [Regular_callback11]: [Round: 69] [Base: 179909] [Score: -2710] All [us: 177905] Await [us: 173116] Sync [us: 4714]
+[INFO] [Regular_callback11]: [Round: 69] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 127] [us: 793455]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 127] [us: 893847]
+[Round: 70] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 129] [us: 111076]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 129] [us: 211478]
+[INFO] [Regular_callback11]: [Round: 70] [Base: 179909] [Score: -3018] All [us: 178071] Await [us: 173114] Sync [us: 4856]
+[INFO] [Regular_callback11]: [Round: 70] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 129] [us: 593454]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 129] [us: 693879]
+[Round: 71] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 130] [us: 910044]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 131] [us: 10465]
+[INFO] [Regular_callback11]: [Round: 71] [Base: 179909] [Score: -2672] All [us: 177885] Await [us: 173120] Sync [us: 4696]
+[INFO] [Regular_callback11]: [Round: 71] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 131] [us: 393450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 131] [us: 493845]
+[Round: 72] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 132] [us: 720255]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 132] [us: 820643]
+[INFO] [Regular_callback11]: [Round: 72] [Base: 179909] [Score: -4539] All [us: 178830] Await [us: 173122] Sync [us: 5618]
+[INFO] [Regular_callback11]: [Round: 72] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 133] [us: 193452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 133] [us: 293842]
+[Round: 73] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 134] [us: 517584]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 134] [us: 617975]
+[INFO] [Regular_callback11]: [Round: 73] [Base: 179909] [Score: -4943] All [us: 179021] Await [us: 173123] Sync [us: 5831]
+[INFO] [Regular_callback11]: [Round: 73] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 134] [us: 993453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 135] [us: 93884]
+[Round: 74] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 136] [us: 317135]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 136] [us: 417523]
+[INFO] [Regular_callback11]: [Round: 74] [Base: 179909] [Score: -4124] All [us: 178616] Await [us: 173120] Sync [us: 5417]
+[INFO] [Regular_callback11]: [Round: 74] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 136] [us: 793453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 136] [us: 893844]
+[Round: 75] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 138] [us: 136153]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 138] [us: 236575]
+[INFO] [Regular_callback11]: [Round: 75] [Base: 179909] [Score: -4369] All [us: 178737] Await [us: 173121] Sync [us: 5541]
+[INFO] [Regular_callback11]: [Round: 75] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 138] [us: 593451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 138] [us: 693844]
+[Round: 76] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 139] [us: 918650]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 140] [us: 19039]
+[INFO] [Regular_callback11]: [Round: 76] [Base: 179909] [Score: -6018] All [us: 179065] Await [us: 173116] Sync [us: 6862]
+[INFO] [Regular_callback11]: [Round: 76] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 140] [us: 393451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 140] [us: 493843]
+[Round: 77] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 141] [us: 711857]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 141] [us: 812256]
+[INFO] [Regular_callback11]: [Round: 77] [Base: 179909] [Score: -4150] All [us: 178653] Await [us: 173116] Sync [us: 5406]
+[INFO] [Regular_callback11]: [Round: 77] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 142] [us: 193452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 142] [us: 293850]
+[Round: 78] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 143] [us: 516370]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 143] [us: 616758]
+[INFO] [Regular_callback11]: [Round: 78] [Base: 179909] [Score: -4344] All [us: 178749] Await [us: 173122] Sync [us: 5504]
+[INFO] [Regular_callback11]: [Round: 78] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 143] [us: 993452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 144] [us: 93843]
+[Round: 79] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 145] [us: 309781]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 145] [us: 410171]
+[INFO] [Regular_callback11]: [Round: 79] [Base: 179909] [Score: -4010] All [us: 178628] Await [us: 173117] Sync [us: 5291]
+[INFO] [Regular_callback11]: [Round: 79] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 145] [us: 793460]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 145] [us: 893859]
+[Round: 80] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 147] [us: 105663]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 147] [us: 206057]
+[INFO] [Regular_callback11]: [Round: 80] [Base: 179909] [Score: -3944] All [us: 178096] Await [us: 173121] Sync [us: 5757]
+[INFO] [Regular_callback11]: [Round: 80] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 147] [us: 593451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 147] [us: 693835]
+[Round: 81] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 148] [us: 909228]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 149] [us: 9618]
+[INFO] [Regular_callback11]: [Round: 81] [Base: 179909] [Score: -3634] All [us: 178424] Await [us: 173118] Sync [us: 5119]
+[INFO] [Regular_callback11]: [Round: 81] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 149] [us: 393452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 149] [us: 493892]
+[Round: 82] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 150] [us: 716897]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 150] [us: 817286]
+[INFO] [Regular_callback11]: [Round: 82] [Base: 179909] [Score: -4854] All [us: 179057] Await [us: 173118] Sync [us: 5706]
+[INFO] [Regular_callback11]: [Round: 82] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 151] [us: 193452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 151] [us: 293844]
+[Round: 83] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 152] [us: 525202]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 152] [us: 625639]
+[INFO] [Regular_callback11]: [Round: 83] [Base: 179909] [Score: -2780] All [us: 178020] Await [us: 173123] Sync [us: 4669]
+[INFO] [Regular_callback11]: [Round: 83] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 152] [us: 993453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 153] [us: 93853]
+[Round: 84] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 154] [us: 309706]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 154] [us: 410096]
+[INFO] [Regular_callback11]: [Round: 84] [Base: 179909] [Score: -4004] All [us: 178581] Await [us: 173118] Sync [us: 5332]
+[INFO] [Regular_callback11]: [Round: 84] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 154] [us: 793450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 154] [us: 893839]
+[Round: 85] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 156] [us: 168864]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 156] [us: 269258]
+[INFO] [Regular_callback11]: [Round: 85] [Base: 179909] [Score: -5691] All [us: 179479] Await [us: 173118] Sync [us: 6121]
+[INFO] [Regular_callback11]: [Round: 85] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 156] [us: 593454]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 156] [us: 693846]
+[Round: 86] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 157] [us: 911845]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 158] [us: 12232]
+[INFO] [Regular_callback11]: [Round: 86] [Base: 179909] [Score: -4389] All [us: 178773] Await [us: 173118] Sync [us: 5525]
+[INFO] [Regular_callback11]: [Round: 86] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 158] [us: 393452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 158] [us: 493844]
+[Round: 87] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 159] [us: 710206]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 159] [us: 810594]
+[INFO] [Regular_callback11]: [Round: 87] [Base: 179909] [Score: -4528] All [us: 178819] Await [us: 173122] Sync [us: 5618]
+[INFO] [Regular_callback11]: [Round: 87] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 160] [us: 193453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 160] [us: 293845]
+[Round: 88] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 161] [us: 509806]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 161] [us: 610193]
+[INFO] [Regular_callback11]: [Round: 88] [Base: 179909] [Score: -5256] All [us: 179179] Await [us: 173115] Sync [us: 5986]
+[INFO] [Regular_callback11]: [Round: 88] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 161] [us: 993452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 162] [us: 93843]
+[Round: 89] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 163] [us: 309450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 163] [us: 409839]
+[INFO] [Regular_callback11]: [Round: 89] [Base: 179909] [Score: -4269] All [us: 178759] Await [us: 173120] Sync [us: 5419]
+[INFO] [Regular_callback11]: [Round: 89] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 163] [us: 793452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 163] [us: 893840]
+[Round: 90] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 165] [us: 110448]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 165] [us: 210841]
+[INFO] [Regular_callback11]: [Round: 90] [Base: 179909] [Score: -4595] All [us: 178853] Await [us: 173121] Sync [us: 5651]
+[INFO] [Regular_callback11]: [Round: 90] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 165] [us: 593462]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 165] [us: 693862]
+[Round: 91] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 166] [us: 906560]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 167] [us: 6950]
+[INFO] [Regular_callback11]: [Round: 91] [Base: 179909] [Score: -4865] All [us: 178987] Await [us: 173118] Sync [us: 5787]
+[INFO] [Regular_callback11]: [Round: 91] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 167] [us: 393452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 167] [us: 493885]
+[Round: 92] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 168] [us: 715364]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 168] [us: 815744]
+[INFO] [Regular_callback11]: [Round: 92] [Base: 179909] [Score: -3534] All [us: 178337] Await [us: 173114] Sync [us: 5106]
+[INFO] [Regular_callback11]: [Round: 92] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 169] [us: 193452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 169] [us: 293885]
+[Round: 93] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 170] [us: 514799]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 170] [us: 615197]
+[INFO] [Regular_callback11]: [Round: 93] [Base: 179909] [Score: -3726] All [us: 178429] Await [us: 173118] Sync [us: 5206]
+[INFO] [Regular_callback11]: [Round: 93] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 170] [us: 993450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 171] [us: 93840]
+[Round: 94] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 172] [us: 309234]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 172] [us: 409625]
+[INFO] [Regular_callback11]: [Round: 94] [Base: 179909] [Score: -5858] All [us: 179552] Await [us: 173115] Sync [us: 6215]
+[INFO] [Regular_callback11]: [Round: 94] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 172] [us: 793450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 172] [us: 893865]
+[Round: 95] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 174] [us: 113430]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 174] [us: 213821]
+[INFO] [Regular_callback11]: [Round: 95] [Base: 179909] [Score: -3769] All [us: 178496] Await [us: 173121] Sync [us: 5182]
+[INFO] [Regular_callback11]: [Round: 95] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 174] [us: 593451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 174] [us: 693840]
+[Round: 96] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 175] [us: 907159]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 176] [us: 7552]
+[INFO] [Regular_callback11]: [Round: 96] [Base: 179909] [Score: -4973] All [us: 179062] Await [us: 173122] Sync [us: 5820]
+[INFO] [Regular_callback11]: [Round: 96] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 176] [us: 393452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 176] [us: 493842]
+[Round: 97] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 177] [us: 765533]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 177] [us: 865935]
+[INFO] [Regular_callback11]: [Round: 97] [Base: 179909] [Score: -5685] All [us: 179475] Await [us: 173122] Sync [us: 6119]
+[INFO] [Regular_callback11]: [Round: 97] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 178] [us: 193452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 178] [us: 293843]
+[Round: 98] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 179] [us: 520898]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 179] [us: 621288]
+[INFO] [Regular_callback11]: [Round: 98] [Base: 179909] [Score: -3790] All [us: 178464] Await [us: 173120] Sync [us: 5235]
+[INFO] [Regular_callback11]: [Round: 98] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 179] [us: 993451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 180] [us: 93840]
+[Round: 99] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 181] [us: 310519]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 181] [us: 410909]
+[INFO] [Regular_callback11]: [Round: 99] [Base: 179909] [Score: -3878] All [us: 178579] Await [us: 173120] Sync [us: 5208]
+[INFO] [Regular_callback11]: [Round: 99] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 181] [us: 793450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 181] [us: 893841]
+[Round: 100] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 183] [us: 113339]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 183] [us: 213729]
+[INFO] [Regular_callback11]: [Round: 100] [Base: 179909] [Score: -3931] All [us: 178518] Await [us: 173114] Sync [us: 5322]
+[INFO] [Regular_callback11]: [Round: 100] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 183] [us: 593452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 183] [us: 693842]
+[Round: 101] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 184] [us: 904275]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 185] [us: 4663]
+[INFO] [Regular_callback11]: [Round: 101] [Base: 179909] [Score: -4652] All [us: 178937] Await [us: 173122] Sync [us: 5624]
+[INFO] [Regular_callback11]: [Round: 101] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 185] [us: 393452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 185] [us: 493844]
+[Round: 102] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 186] [us: 708883]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 186] [us: 809271]
+[INFO] [Regular_callback11]: [Round: 102] [Base: 179909] [Score: -3500] All [us: 178379] Await [us: 173116] Sync [us: 5030]
+[INFO] [Regular_callback11]: [Round: 102] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 187] [us: 193451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 187] [us: 293843]
+[Round: 103] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 188] [us: 504635]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 188] [us: 605023]
+[INFO] [Regular_callback11]: [Round: 103] [Base: 179909] [Score: -6941] All [us: 179597] Await [us: 173114] Sync [us: 7253]
+[INFO] [Regular_callback11]: [Round: 103] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 188] [us: 993453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 189] [us: 93836]
+[Round: 104] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 190] [us: 305023]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 190] [us: 405411]
+[INFO] [Regular_callback11]: [Round: 104] [Base: 179909] [Score: -4689] All [us: 178938] Await [us: 173121] Sync [us: 5660]
+[INFO] [Regular_callback11]: [Round: 104] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 190] [us: 793454]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 190] [us: 893835]
+[Round: 105] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 192] [us: 105821]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 192] [us: 206214]
+[INFO] [Regular_callback11]: [Round: 105] [Base: 179909] [Score: -4011] All [us: 178629] Await [us: 173122] Sync [us: 5291]
+[INFO] [Regular_callback11]: [Round: 105] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 192] [us: 593452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 192] [us: 693843]
+[Round: 106] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 193] [us: 910226]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 194] [us: 10617]
+[INFO] [Regular_callback11]: [Round: 106] [Base: 179909] [Score: -3179] All [us: 178194] Await [us: 173122] Sync [us: 4894]
+[INFO] [Regular_callback11]: [Round: 106] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 194] [us: 393452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 194] [us: 493843]
+[Round: 107] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 196] [us: 247072]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 196] [us: 347463]
+[INFO] [Regular_callback11]: [Round: 107] [Base: 179909] [Score: -18269] All [us: 185746] Await [us: 173115] Sync [us: 12432]
+[INFO] [Regular_callback11]: [Round: 107] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 196] [us: 793453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 196] [us: 893850]
+[Round: 108] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 198] [us: 120750]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 198] [us: 221139]
+[INFO] [Regular_callback11]: [Round: 108] [Base: 179909] [Score: 540] All [us: 179356] Await [us: 179331] Sync [us: 13]
+[INFO] [Regular_callback11]: [Round: 108] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 198] [us: 593452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 198] [us: 693841]
+[Round: 109] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 199] [us: 909666]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 200] [us: 10056]
+[INFO] [Regular_callback11]: [Round: 109] [Base: 179909] [Score: -21229] All [us: 178189] Await [us: 156915] Sync [us: 22949]
+[INFO] [Regular_callback11]: [Round: 109] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 200] [us: 393452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 200] [us: 493845]
+[Round: 110] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 201] [us: 711702]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 201] [us: 812093]
+[INFO] [Regular_callback11]: [Round: 110] [Base: 179909] [Score: -10336] All [us: 179273] Await [us: 168389] Sync [us: 10972]
+[INFO] [Regular_callback11]: [Round: 110] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 202] [us: 193456]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 202] [us: 293853]
+[Round: 111] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 203] [us: 521149]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 203] [us: 621547]
+[INFO] [Regular_callback11]: [Round: 111] [Base: 179909] [Score: -5141] All [us: 179217] Await [us: 173116] Sync [us: 5833]
+[INFO] [Regular_callback11]: [Round: 111] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 203] [us: 993453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 204] [us: 93843]
+[Round: 112] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 205] [us: 310369]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 205] [us: 410761]
+[INFO] [Regular_callback11]: [Round: 112] [Base: 179909] [Score: -3586] All [us: 178430] Await [us: 173120] Sync [us: 5065]
+[INFO] [Regular_callback11]: [Round: 112] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 205] [us: 793451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 205] [us: 893832]
+[Round: 113] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 207] [us: 111875]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 207] [us: 212265]
+[INFO] [Regular_callback11]: [Round: 113] [Base: 179909] [Score: -5688] All [us: 179417] Await [us: 173119] Sync [us: 6180]
+[INFO] [Regular_callback11]: [Round: 113] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 207] [us: 593451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 207] [us: 693841]
+[Round: 114] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 208] [us: 908636]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 209] [us: 9025]
+[INFO] [Regular_callback11]: [Round: 114] [Base: 179909] [Score: -4038] All [us: 178145] Await [us: 173116] Sync [us: 5802]
+[INFO] [Regular_callback11]: [Round: 114] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 209] [us: 393451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 209] [us: 493838]
+[Round: 115] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 210] [us: 709813]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 210] [us: 810203]
+[INFO] [Regular_callback11]: [Round: 115] [Base: 179909] [Score: -4116] All [us: 178700] Await [us: 173114] Sync [us: 5325]
+[INFO] [Regular_callback11]: [Round: 115] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 211] [us: 193450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 211] [us: 293883]
+[Round: 116] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 212] [us: 516612]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 212] [us: 617001]
+[INFO] [Regular_callback11]: [Round: 116] [Base: 179909] [Score: -4715] All [us: 178936] Await [us: 173115] Sync [us: 5688]
+[INFO] [Regular_callback11]: [Round: 116] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 212] [us: 993451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 213] [us: 93842]
+[Round: 117] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 214] [us: 306925]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 214] [us: 407320]
+[INFO] [Regular_callback11]: [Round: 117] [Base: 179909] [Score: -3163] All [us: 178203] Await [us: 173117] Sync [us: 4869]
+[INFO] [Regular_callback11]: [Round: 117] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 214] [us: 793453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 214] [us: 893833]
+[Round: 118] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 216] [us: 111606]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 216] [us: 212004]
+[INFO] [Regular_callback11]: [Round: 118] [Base: 179909] [Score: -6242] All [us: 179237] Await [us: 173120] Sync [us: 6914]
+[INFO] [Regular_callback11]: [Round: 118] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 216] [us: 593453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 216] [us: 693847]
+[Round: 119] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 217] [us: 973836]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 218] [us: 74225]
+[INFO] [Regular_callback11]: [Round: 119] [Base: 179909] [Score: -4459] All [us: 178835] Await [us: 173120] Sync [us: 5533]
+[INFO] [Regular_callback11]: [Round: 119] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 218] [us: 393451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 218] [us: 493839]
+[Round: 120] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 219] [us: 711020]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 219] [us: 811413]
+[INFO] [Regular_callback11]: [Round: 120] [Base: 179909] [Score: -4287] All [us: 178781] Await [us: 173122] Sync [us: 5415]
+[INFO] [Regular_callback11]: [Round: 120] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 220] [us: 193450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 220] [us: 293846]
+[Round: 121] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 221] [us: 516104]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 221] [us: 616542]
+[INFO] [Regular_callback11]: [Round: 121] [Base: 179909] [Score: -4810] All [us: 178972] Await [us: 173120] Sync [us: 5747]
+[INFO] [Regular_callback11]: [Round: 121] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 221] [us: 993450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 222] [us: 93841]
+[Round: 122] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 223] [us: 319658]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 223] [us: 420047]
+[INFO] [Regular_callback11]: [Round: 122] [Base: 179909] [Score: -4094] All [us: 178138] Await [us: 173121] Sync [us: 5865]
+[INFO] [Regular_callback11]: [Round: 122] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 223] [us: 793452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 223] [us: 893840]
+[Round: 123] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 225] [us: 110628]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 225] [us: 211017]
+[INFO] [Regular_callback11]: [Round: 123] [Base: 179909] [Score: -5178] All [us: 178711] Await [us: 173120] Sync [us: 6376]
+[INFO] [Regular_callback11]: [Round: 123] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 225] [us: 593451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 225] [us: 693842]
+[Round: 124] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 226] [us: 910013]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 227] [us: 10401]
+[INFO] [Regular_callback11]: [Round: 124] [Base: 179909] [Score: -4851] All [us: 179062] Await [us: 173120] Sync [us: 5698]
+[INFO] [Regular_callback11]: [Round: 124] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 227] [us: 393452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 227] [us: 493843]
+[Round: 125] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 228] [us: 709641]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 228] [us: 810029]
+[INFO] [Regular_callback11]: [Round: 125] [Base: 179909] [Score: -5371] All [us: 178811] Await [us: 173117] Sync [us: 6469]
+[INFO] [Regular_callback11]: [Round: 125] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 229] [us: 193451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 229] [us: 293842]
+[Round: 126] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 230] [us: 510774]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 230] [us: 611165]
+[INFO] [Regular_callback11]: [Round: 126] [Base: 179909] [Score: -4599] All [us: 178924] Await [us: 173120] Sync [us: 5584]
+[INFO] [Regular_callback11]: [Round: 126] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 230] [us: 993451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 231] [us: 93840]
+[Round: 127] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 232] [us: 369926]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 232] [us: 470315]
+[INFO] [Regular_callback11]: [Round: 127] [Base: 179909] [Score: -5955] All [us: 179602] Await [us: 173116] Sync [us: 6262]
+[INFO] [Regular_callback11]: [Round: 127] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 232] [us: 793453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 232] [us: 893841]
+[Round: 128] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 234] [us: 109099]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 234] [us: 209488]
+[INFO] [Regular_callback11]: [Round: 128] [Base: 179909] [Score: -4836] All [us: 179039] Await [us: 173118] Sync [us: 5706]
+[INFO] [Regular_callback11]: [Round: 128] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 234] [us: 593453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 234] [us: 693843]
+[Round: 129] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 235] [us: 906286]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 236] [us: 6721]
+[INFO] [Regular_callback11]: [Round: 129] [Base: 179909] [Score: -4451] All [us: 178847] Await [us: 173117] Sync [us: 5513]
+[INFO] [Regular_callback11]: [Round: 129] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 236] [us: 393454]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 236] [us: 493842]
+[Round: 130] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 237] [us: 707108]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 237] [us: 807500]
+[INFO] [Regular_callback11]: [Round: 130] [Base: 179909] [Score: -4712] All [us: 178930] Await [us: 173117] Sync [us: 5691]
+[INFO] [Regular_callback11]: [Round: 130] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 238] [us: 193451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 238] [us: 293886]
+[Round: 131] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 239] [us: 513534]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 239] [us: 613970]
+[INFO] [Regular_callback11]: [Round: 131] [Base: 179909] [Score: -4017] All [us: 178133] Await [us: 173116] Sync [us: 5793]
+[INFO] [Regular_callback11]: [Round: 131] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 239] [us: 993451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 240] [us: 93878]
+[Round: 132] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 241] [us: 314306]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 241] [us: 414695]
+[INFO] [Regular_callback11]: [Round: 132] [Base: 179909] [Score: -2644] All [us: 177935] Await [us: 173116] Sync [us: 4618]
+[INFO] [Regular_callback11]: [Round: 132] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 241] [us: 793452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 241] [us: 893831]
+[Round: 133] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 243] [us: 105801]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 243] [us: 206190]
+[INFO] [Regular_callback11]: [Round: 133] [Base: 179909] [Score: -4819] All [us: 179051] Await [us: 173123] Sync [us: 5677]
+[INFO] [Regular_callback11]: [Round: 133] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 243] [us: 593451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 243] [us: 693850]
+[Round: 134] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 244] [us: 909692]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 245] [us: 10083]
+[INFO] [Regular_callback11]: [Round: 134] [Base: 179909] [Score: -4059] All [us: 178587] Await [us: 173119] Sync [us: 5381]
+[INFO] [Regular_callback11]: [Round: 134] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 245] [us: 393452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 245] [us: 493870]
+[Round: 135] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 246] [us: 711746]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 246] [us: 812135]
+[INFO] [Regular_callback11]: [Round: 135] [Base: 179909] [Score: -3525] All [us: 178384] Await [us: 173114] Sync [us: 5050]
+[INFO] [Regular_callback11]: [Round: 135] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 247] [us: 193451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 247] [us: 293839]
+[Round: 136] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 248] [us: 509474]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 248] [us: 609866]
+[INFO] [Regular_callback11]: [Round: 136] [Base: 179909] [Score: -3858] All [us: 178505] Await [us: 173115] Sync [us: 5262]
+[INFO] [Regular_callback11]: [Round: 136] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 248] [us: 993452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 249] [us: 93842]
+[Round: 137] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 250] [us: 311039]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 250] [us: 411425]
+[INFO] [Regular_callback11]: [Round: 137] [Base: 179909] [Score: -3060] All [us: 178129] Await [us: 173119] Sync [us: 4840]
+[INFO] [Regular_callback11]: [Round: 137] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 250] [us: 793455]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 250] [us: 893846]
+[Round: 138] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 252] [us: 109345]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 252] [us: 209736]
+[INFO] [Regular_callback11]: [Round: 138] [Base: 179909] [Score: -3414] All [us: 178338] Await [us: 173114] Sync [us: 4985]
+[INFO] [Regular_callback11]: [Round: 138] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 252] [us: 593451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 252] [us: 693843]
+[Round: 139] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 253] [us: 908817]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 254] [us: 9204]
+[INFO] [Regular_callback11]: [Round: 139] [Base: 179909] [Score: -3726] All [us: 178488] Await [us: 173115] Sync [us: 5147]
+[INFO] [Regular_callback11]: [Round: 139] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 254] [us: 393451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 254] [us: 493844]
+[Round: 140] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 255] [us: 709364]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 255] [us: 809804]
+[INFO] [Regular_callback11]: [Round: 140] [Base: 179909] [Score: -2863] All [us: 178062] Await [us: 173119] Sync [us: 4710]
+[INFO] [Regular_callback11]: [Round: 140] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 256] [us: 193451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 256] [us: 293840]
+[Round: 141] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 257] [us: 509942]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 257] [us: 610372]
+[INFO] [Regular_callback11]: [Round: 141] [Base: 179909] [Score: -4617] All [us: 178953] Await [us: 173115] Sync [us: 5573]
+[INFO] [Regular_callback11]: [Round: 141] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 257] [us: 993453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 258] [us: 93844]
+[Round: 142] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 259] [us: 316736]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 259] [us: 417123]
+[INFO] [Regular_callback11]: [Round: 142] [Base: 179909] [Score: -4545] All [us: 178880] Await [us: 173119] Sync [us: 5574]
+[INFO] [Regular_callback11]: [Round: 142] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 259] [us: 793453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 259] [us: 893843]
+[Round: 143] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 261] [us: 111292]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 261] [us: 211680]
+[INFO] [Regular_callback11]: [Round: 143] [Base: 179909] [Score: -5222] All [us: 179226] Await [us: 173115] Sync [us: 5905]
+[INFO] [Regular_callback11]: [Round: 143] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 261] [us: 593452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 261] [us: 693843]
+[Round: 144] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 262] [us: 910075]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 263] [us: 10464]
+[INFO] [Regular_callback11]: [Round: 144] [Base: 179909] [Score: -5198] All [us: 179238] Await [us: 173122] Sync [us: 5869]
+[INFO] [Regular_callback11]: [Round: 144] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 263] [us: 393482]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 263] [us: 493889]
+[Round: 145] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 264] [us: 711110]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 264] [us: 811510]
+[INFO] [Regular_callback11]: [Round: 145] [Base: 179909] [Score: -3786] All [us: 178538] Await [us: 173121] Sync [us: 5157]
+[INFO] [Regular_callback11]: [Round: 145] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 265] [us: 193454]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 265] [us: 293844]
+[Round: 146] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 266] [us: 510794]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 266] [us: 611189]
+[INFO] [Regular_callback11]: [Round: 146] [Base: 179909] [Score: -3588] All [us: 178373] Await [us: 173118] Sync [us: 5124]
+[INFO] [Regular_callback11]: [Round: 146] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 266] [us: 993453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 267] [us: 93842]
+[Round: 147] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 268] [us: 309510]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 268] [us: 409898]
+[INFO] [Regular_callback11]: [Round: 147] [Base: 179909] [Score: -5579] All [us: 179432] Await [us: 173114] Sync [us: 6056]
+[INFO] [Regular_callback11]: [Round: 147] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 268] [us: 793453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 268] [us: 893844]
+[Round: 148] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 270] [us: 111468]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 270] [us: 211856]
+[INFO] [Regular_callback11]: [Round: 148] [Base: 179909] [Score: -4541] All [us: 178916] Await [us: 173117] Sync [us: 5534]
+[INFO] [Regular_callback11]: [Round: 148] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 270] [us: 593454]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 270] [us: 693845]
+[Round: 149] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 271] [us: 918226]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 272] [us: 18615]
+[INFO] [Regular_callback11]: [Round: 149] [Base: 179909] [Score: -5412] All [us: 179267] Await [us: 173116] Sync [us: 6054]
+[INFO] [Regular_callback11]: [Round: 149] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 272] [us: 393451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 272] [us: 493840]
+[Round: 150] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 273] [us: 710409]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 273] [us: 810798]
+[INFO] [Regular_callback11]: [Round: 150] [Base: 179909] [Score: -4025] All [us: 178583] Await [us: 173120] Sync [us: 5351]
+[INFO] [Regular_callback11]: [Round: 150] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 274] [us: 193453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 274] [us: 293843]
+[Round: 151] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 275] [us: 509243]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 275] [us: 609634]
+[INFO] [Regular_callback11]: [Round: 151] [Base: 179909] [Score: -4096] All [us: 178634] Await [us: 173115] Sync [us: 5371]
+[INFO] [Regular_callback11]: [Round: 151] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 275] [us: 993451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 276] [us: 93830]
+[Round: 152] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 277] [us: 310178]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 277] [us: 410568]
+[INFO] [Regular_callback11]: [Round: 152] [Base: 179909] [Score: -4136] All [us: 178693] Await [us: 173115] Sync [us: 5352]
+[INFO] [Regular_callback11]: [Round: 152] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 277] [us: 793452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 277] [us: 893844]
+[Round: 153] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 279] [us: 107262]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 279] [us: 207645]
+[INFO] [Regular_callback11]: [Round: 153] [Base: 179909] [Score: -3720] All [us: 178480] Await [us: 173119] Sync [us: 5149]
+[INFO] [Regular_callback11]: [Round: 153] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 279] [us: 593451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 279] [us: 693842]
+[Round: 154] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 280] [us: 967563]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 281] [us: 67970]
+[INFO] [Regular_callback11]: [Round: 154] [Base: 179909] [Score: -5554] All [us: 179391] Await [us: 173123] Sync [us: 6072]
+[INFO] [Regular_callback11]: [Round: 154] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 281] [us: 393451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 281] [us: 493841]
+[Round: 155] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 282] [us: 708113]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 282] [us: 808502]
+[INFO] [Regular_callback11]: [Round: 155] [Base: 179909] [Score: -5302] All [us: 179263] Await [us: 173121] Sync [us: 5948]
+[INFO] [Regular_callback11]: [Round: 155] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 283] [us: 193450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 283] [us: 293839]
+[Round: 156] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 284] [us: 508883]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 284] [us: 609315]
+[INFO] [Regular_callback11]: [Round: 156] [Base: 179909] [Score: -4267] All [us: 178772] Await [us: 173122] Sync [us: 5404]
+[INFO] [Regular_callback11]: [Round: 156] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 284] [us: 993450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 285] [us: 93829]
+[Round: 157] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 286] [us: 309714]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 286] [us: 410100]
+[INFO] [Regular_callback11]: [Round: 157] [Base: 179909] [Score: -5819] All [us: 179508] Await [us: 173119] Sync [us: 6220]
+[INFO] [Regular_callback11]: [Round: 157] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 286] [us: 793451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 286] [us: 893841]
+[Round: 158] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 288] [us: 108716]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 288] [us: 209133]
+[INFO] [Regular_callback11]: [Round: 158] [Base: 179909] [Score: -4452] All [us: 178848] Await [us: 173115] Sync [us: 5513]
+[INFO] [Regular_callback11]: [Round: 158] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 288] [us: 593450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 288] [us: 693874]
+[Round: 159] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 289] [us: 919050]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 290] [us: 19441]
+[INFO] [Regular_callback11]: [Round: 159] [Base: 179909] [Score: -5789] All [us: 179483] Await [us: 173118] Sync [us: 6215]
+[INFO] [Regular_callback11]: [Round: 159] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 290] [us: 393450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 290] [us: 493841]
+[Round: 160] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 291] [us: 711196]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 291] [us: 811638]
+[INFO] [Regular_callback11]: [Round: 160] [Base: 179909] [Score: -5143] All [us: 179197] Await [us: 173115] Sync [us: 5855]
+[INFO] [Regular_callback11]: [Round: 160] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 292] [us: 193452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 292] [us: 293888]
+[Round: 161] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 293] [us: 516631]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 293] [us: 617019]
+[INFO] [Regular_callback11]: [Round: 161] [Base: 179909] [Score: -3217] All [us: 178181] Await [us: 173118] Sync [us: 4945]
+[INFO] [Regular_callback11]: [Round: 161] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 293] [us: 993449]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 294] [us: 93838]
+[Round: 162] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 295] [us: 307695]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 295] [us: 408085]
+[INFO] [Regular_callback11]: [Round: 162] [Base: 179909] [Score: -4269] All [us: 178751] Await [us: 173123] Sync [us: 5427]
+[INFO] [Regular_callback11]: [Round: 162] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 295] [us: 793452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 295] [us: 893831]
+[Round: 163] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 297] [us: 116292]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 297] [us: 216724]
+[INFO] [Regular_callback11]: [Round: 163] [Base: 179909] [Score: -3776] All [us: 178470] Await [us: 173117] Sync [us: 5215]
+[INFO] [Regular_callback11]: [Round: 163] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 297] [us: 593456]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 297] [us: 693906]
+[Round: 164] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 298] [us: 917286]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 299] [us: 17675]
+[INFO] [Regular_callback11]: [Round: 164] [Base: 179909] [Score: -5647] All [us: 179386] Await [us: 173117] Sync [us: 6170]
+[INFO] [Regular_callback11]: [Round: 164] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 299] [us: 393453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 299] [us: 493843]
+[Round: 165] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 300] [us: 709016]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 300] [us: 809423]
+[INFO] [Regular_callback11]: [Round: 165] [Base: 179909] [Score: -4713] All [us: 178984] Await [us: 173118] Sync [us: 5638]
+[INFO] [Regular_callback11]: [Round: 165] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 301] [us: 193451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 301] [us: 293882]
+[Round: 166] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 302] [us: 508992]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 302] [us: 609377]
+[INFO] [Regular_callback11]: [Round: 166] [Base: 179909] [Score: -5866] All [us: 179555] Await [us: 173119] Sync [us: 6220]
+[INFO] [Regular_callback11]: [Round: 166] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 302] [us: 993453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 303] [us: 93843]
+[Round: 167] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 304] [us: 320031]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 304] [us: 420419]
+[INFO] [Regular_callback11]: [Round: 167] [Base: 179909] [Score: -4903] All [us: 179072] Await [us: 173120] Sync [us: 5740]
+[INFO] [Regular_callback11]: [Round: 167] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 304] [us: 793454]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 304] [us: 893844]
+[Round: 168] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 306] [us: 110636]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 306] [us: 211027]
+[INFO] [Regular_callback11]: [Round: 168] [Base: 179909] [Score: -5202] All [us: 179172] Await [us: 173115] Sync [us: 5939]
+[INFO] [Regular_callback11]: [Round: 168] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 306] [us: 593452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 306] [us: 693842]
+[Round: 169] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 307] [us: 909215]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 308] [us: 9604]
+[INFO] [Regular_callback11]: [Round: 169] [Base: 179909] [Score: -5403] All [us: 179324] Await [us: 173119] Sync [us: 5988]
+[INFO] [Regular_callback11]: [Round: 169] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 308] [us: 393450]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 308] [us: 493840]
+[Round: 170] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 309] [us: 709727]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 309] [us: 810118]
+[INFO] [Regular_callback11]: [Round: 170] [Base: 179909] [Score: -4380] All [us: 178821] Await [us: 173123] Sync [us: 5468]
+[INFO] [Regular_callback11]: [Round: 170] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 310] [us: 193453]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 310] [us: 293845]
+[Round: 171] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 311] [us: 512379]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 311] [us: 612768]
+[INFO] [Regular_callback11]: [Round: 171] [Base: 179909] [Score: -3329] All [us: 178239] Await [us: 173121] Sync [us: 4999]
+[INFO] [Regular_callback11]: [Round: 171] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 311] [us: 993452]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 312] [us: 93841]
+[Round: 172] co_callback start
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 313] [us: 310239]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 313] [us: 410630]
+[INFO] [Regular_callback11]: [Round: 172] [Base: 179909] [Score: -3218] All [us: 178230] Await [us: 173121] Sync [us: 4897]
+[INFO] [Regular_callback11]: [Round: 172] [Best Score: 9] Await [us: 173114]
+[  -  ] timer_callback start
+[INFO] [Timer_callback1]: [PID: 303263] [Bgn] [s: 313] [us: 793451]
+[INFO] [Timer_callback1]: [PID: 303263] [End] [s: 313] [us: 893841]
+[Round: 173] co_callback start
+[INFO] [rclcpp]: signal_handler(signal_value=2)
+[~ExecutorNodelet]

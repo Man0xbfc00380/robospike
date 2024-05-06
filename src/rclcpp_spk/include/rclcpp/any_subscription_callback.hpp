@@ -291,35 +291,36 @@ public:
 
   // Coroutine Callback
   void co_dispatch(
-    queueTaskPtr qPtr, void* executor_ptr, std::shared_ptr<MessageT> message, const rmw_message_info_t & message_info) 
+    queueTaskPtr qPtr, void* executor_ptr, void* sub_ptr,
+    std::shared_ptr<MessageT> message, const rmw_message_info_t & message_info) 
   {
     if (co_shared_ptr_callback_) {
       auto ret = co_shared_ptr_callback_(message);
-      ret.task_executor_init(executor_ptr);
+      ret.task_executor_init(executor_ptr, sub_ptr);
       (*qPtr).push(std::move(ret));
     } else if (co_shared_ptr_with_info_callback_) {
       auto ret = co_shared_ptr_with_info_callback_(message, message_info);
-      ret.task_executor_init(executor_ptr);
+      ret.task_executor_init(executor_ptr, sub_ptr);
       (*qPtr).push(std::move(ret));
     } else if (co_const_shared_ptr_callback_) {
       auto ret = co_const_shared_ptr_callback_(message);
-      ret.task_executor_init(executor_ptr);
+      ret.task_executor_init(executor_ptr, sub_ptr);
       (*qPtr).push(std::move(ret));
     } else if (co_const_shared_ptr_with_info_callback_) {
       auto ret = co_const_shared_ptr_with_info_callback_(message, message_info);
-      ret.task_executor_init(executor_ptr);
+      ret.task_executor_init(executor_ptr, sub_ptr);
       (*qPtr).push(std::move(ret));
     } else if (co_unique_ptr_callback_) {
       auto ptr = MessageAllocTraits::allocate(*message_allocator_.get(), 1);
       MessageAllocTraits::construct(*message_allocator_.get(), ptr, *message);
       auto ret = co_unique_ptr_callback_(MessageUniquePtr(ptr, message_deleter_));
-      ret.task_executor_init(executor_ptr);
+      ret.task_executor_init(executor_ptr, sub_ptr);
       (*qPtr).push(std::move(ret));
     } else if (co_unique_ptr_with_info_callback_) {
       auto ptr = MessageAllocTraits::allocate(*message_allocator_.get(), 1);
       MessageAllocTraits::construct(*message_allocator_.get(), ptr, *message);
       auto ret = co_unique_ptr_with_info_callback_(MessageUniquePtr(ptr, message_deleter_), message_info);
-      ret.task_executor_init(executor_ptr);
+      ret.task_executor_init(executor_ptr, sub_ptr);
       (*qPtr).push(std::move(ret));
     } else {
       throw std::runtime_error("unexpected message without any callback set");
@@ -327,15 +328,16 @@ public:
   }
 
   void co_dispatch_intra_process(
-    queueTaskPtr qPtr, void* executor_ptr, ConstMessageSharedPtr message, const rmw_message_info_t & message_info)
+    queueTaskPtr qPtr, void* executor_ptr, void* sub_ptr,
+    ConstMessageSharedPtr message, const rmw_message_info_t & message_info)
   {
     if (co_const_shared_ptr_callback_) {
       auto ret = co_const_shared_ptr_callback_(message);
-      ret.task_executor_init(executor_ptr);
+      ret.task_executor_init(executor_ptr, sub_ptr);
       (*qPtr).push(std::move(ret));
     } else if (co_const_shared_ptr_with_info_callback_) {
       auto ret = co_const_shared_ptr_with_info_callback_(message, message_info);
-      ret.task_executor_init(executor_ptr);
+      ret.task_executor_init(executor_ptr, sub_ptr);
       (*qPtr).push(std::move(ret));
     } else {
       if (co_unique_ptr_callback_ || co_unique_ptr_with_info_callback_ ||
@@ -350,25 +352,26 @@ public:
   }
 
   void co_dispatch_intra_process(
-    queueTaskPtr qPtr, void* executor_ptr, MessageUniquePtr message, const rmw_message_info_t & message_info)
+    queueTaskPtr qPtr, void* executor_ptr, void* sub_ptr,
+    MessageUniquePtr message, const rmw_message_info_t & message_info)
   {
     if (co_shared_ptr_callback_) {
       typename std::shared_ptr<MessageT> shared_message = std::move(message);
       auto ret = co_shared_ptr_callback_(shared_message);
-      ret.task_executor_init(executor_ptr);
+      ret.task_executor_init(executor_ptr, sub_ptr);
       (*qPtr).push(std::move(ret));
     } else if (co_shared_ptr_with_info_callback_) {
       typename std::shared_ptr<MessageT> shared_message = std::move(message);
       auto ret = co_shared_ptr_with_info_callback_(shared_message, message_info);
-      ret.task_executor_init(executor_ptr);
+      ret.task_executor_init(executor_ptr, sub_ptr);
       (*qPtr).push(std::move(ret));
     } else if (co_unique_ptr_callback_) {
       auto ret = co_unique_ptr_callback_(std::move(message));
-      ret.task_executor_init(executor_ptr);
+      ret.task_executor_init(executor_ptr, sub_ptr);
       (*qPtr).push(std::move(ret));
     } else if (co_unique_ptr_with_info_callback_) {
       auto ret = co_unique_ptr_with_info_callback_(std::move(message), message_info);
-      ret.task_executor_init(executor_ptr);
+      ret.task_executor_init(executor_ptr, sub_ptr);
       (*qPtr).push(std::move(ret));
     } else if (co_const_shared_ptr_callback_ || co_const_shared_ptr_with_info_callback_) {
       throw std::runtime_error("unexpected dispatch_intra_process unique message call"

@@ -30,6 +30,7 @@
 using rclcpp::SubscriptionBase;
 
 SubscriptionBase::SubscriptionBase(
+  bool use_coroutine,
   std::shared_ptr<rcl_node_t> node_handle,
   const rosidl_message_type_support_t & type_support_handle,
   const std::string & topic_name,
@@ -41,6 +42,7 @@ SubscriptionBase::SubscriptionBase(
   type_support_(type_support_handle),
   is_serialized_(is_serialized)
 {
+  this->use_coroutine_base = use_coroutine;
   auto custom_deletor = [node_handle](rcl_subscription_t * rcl_subs)
     {
       if (rcl_subscription_fini(rcl_subs, node_handle.get()) != RCL_RET_OK) {

@@ -66,6 +66,8 @@ public:
 
   virtual void
   get_next_subscription(
+    std::list<void*> & suspend_coroutine_list,
+    std::mutex* suspend_coroutine_list_mutex,
     rclcpp::executor::AnyExecutable & any_exec,
     const WeakNodeList & weak_nodes) = 0;
 

@@ -4,10 +4,10 @@ import numpy as np
 import re
 
 # Set Configs
-case_name = "exp0/exp0_co_inter" # Just change it
+case_name = "exp2/gpu_pgo_3" # Just change it
 font_size = 18
 logdata = []
-BlueList = ['#92B4F4', '#7772CA', '#5E7CE2', '#C6CDFF', '#248BD6', '#0F6BAE', '#92B4F4', '#7772CA', '#5E7CE2', '#C6CDFF', '#248BD6', '#0F6BAE']
+BlueList = ['#9D2933', '#92B4F4', '#7772CA', '#5E7CE2', '#C6CDFF', '#248BD6', '#0F6BAE']
 RedList  = ['#FFB3A7', '#8C4356', '#9D2933']
 vis_callback_only = False
 
@@ -21,6 +21,7 @@ for line in listOfLines:
     number = re.findall("\d+", line)
     bgn_bool = True if len(re.findall("Bgn", line)) > 0 else False
     is_timer = True if len(re.findall("Timer_callback", line)) > 0 else False
+    is_next =  True if len(re.findall("[*]", line)) > 0 else False
     if bgn_bool:
         # Create the item
         name = "Timer" + number[0] if is_timer else "Cb_" + number[0]
@@ -31,7 +32,8 @@ for line in listOfLines:
             "color": color_mark,
             "thread":number[-3],
             "bgn":time,
-            "end":-1
+            "end":-1,
+            "star": is_next
         }
         logdata.append(item)
     elif len(number) >= 2:
@@ -53,15 +55,15 @@ plt.xticks(fontsize=font_size)
 plt.yticks(fontsize=font_size)
 
 for item in logdata:
-    if item["end"] > 0 and item["end"] < 10:
+    if item["end"] > 0 and item["end"] < 60:
         if vis_callback_only:
             # y = callback
             axes.barh(y=item["name"], width=item["end"]-item["bgn"], left=item["bgn"], edgecolor='grey', color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
         else:
             # y = thread
-            axes[0].barh(y=item["thread"], width=item["end"]-item["bgn"], left=item["bgn"], edgecolor='grey', color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
+            axes[0].barh(y=item["thread"], width=item["end"]-item["bgn"], left=item["bgn"], edgecolor='grey', color='y' if item["star"] else (BlueList[item["color"]] if item["color"] >= 0 else 'grey'))
             # y = callback
-            axes[1].barh(y=item["name"], width=item["end"]-item["bgn"], left=item["bgn"], edgecolor='grey', color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])
+            axes[1].barh(y=item["name"], width=item["end"]-item["bgn"], left=item["bgn"], edgecolor='grey', color=BlueList[item["color"]] if item["color"] >= 0 else 'grey')
 
 # Save File
-plt.savefig("./figures/" + case_name + ".png")
+plt.savefig("./figures/" + case_name + "_thread.png")

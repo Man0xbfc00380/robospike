@@ -65,6 +65,7 @@ public:
    */
   RCLCPP_PUBLIC
   SubscriptionBase(
+    bool use_coroutine,
     std::shared_ptr<rcl_node_t> node_handle,
     const rosidl_message_type_support_t & type_support_handle,
     const std::string & topic_name,
@@ -153,6 +154,8 @@ public:
     uint64_t intra_process_subscription_id,
     IntraProcessManagerWeakPtr weak_ipm,
     const rcl_subscription_options_t & intra_process_options);
+
+  bool use_coroutine_base;
 
 protected:
   template<typename EventCallbackT>

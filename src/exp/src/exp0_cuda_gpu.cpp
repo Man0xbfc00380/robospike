@@ -73,7 +73,7 @@ public:
     {
         publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
         name_ = node_name;
-        timer_ = this->create_wall_timer(600ms, std::bind(&StartNode::timer_callback, this));
+        timer_ = this->create_wall_timer(3600ms, std::bind(&StartNode::timer_callback, this));
     }
 
     rclcpp::TimerBase::SharedPtr timer_;
@@ -101,6 +101,7 @@ private:
 
     void timer_callback()
     {
+        printf("[  -  ] timer_callback start\n");
         gettimeofday(&ftime, NULL);
 
         dummy_load(100, this->name_.c_str());
@@ -130,6 +131,9 @@ public:
         
         if (pub_topic != "") publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
         this->name_ = node_name;
+
+        this->gpu_record_ = 0;
+        this->gpu_execution_time_us_ = 0;
     }
 
     rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
@@ -144,8 +148,8 @@ private:
     double latency;
     bool end_flag_;
 
-    // TODO: Use to record GPU execution time
-    timeval gpu_time_;
+    int gpu_record_;
+    long gpu_execution_time_us_;
 
     void show_time(timeval ftime, timeval ctime) 
     {
@@ -185,6 +189,8 @@ private:
 
     Task<int, RosCoExecutor> co_callback(const std_msgs::msg::String::SharedPtr msg) {
 
+        printf("[Round: %ld] co_callback start\n", this->gpu_record_);
+
         /* Non-Blocking Style */
         // co_await 450ms;        
         int N = 200000000;
@@ -194,7 +200,7 @@ private:
         //^^^^^ GPU Run It
         int* h_a = new int[N];
         for (int i = 0; i < N; i++) {
-            h_a[i] = i;
+            h_a[i] = i + this->gpu_execution_time_us_;
         }
 
         int* d_a; int device = 5;
@@ -209,29 +215,56 @@ private:
         cudaStreamCreate(&stream1);
 
         timeval kerftime, kerctime;
-
-        gettimeofday(&kerftime, NULL);
-        kernelCpp(h_a, N, threadsPerBlock, blocksPerGrid, d_a, stream1);
-        gettimeofday(&kerctime, NULL);
-
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld]", gettid());
         gettimeofday(&ftime, NULL);
-        cudaStreamSynchronize(stream1);
-        gettimeofday(&ctime, NULL);
+        kernelCpp(h_a, N, threadsPerBlock, blocksPerGrid, d_a, stream1);
 
-        duration_us = (kerctime.tv_sec - kerftime.tv_sec) * 1000000 + (kerctime.tv_usec - kerftime.tv_usec);
-        tv_sec = duration_us / 1000000;
-        tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [kernelGPU] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        if (this->gpu_record_ < 4) {
+            // Record Phase
+            gettimeofday(&kerftime, NULL);
+            cudaStreamSynchronize(stream1);
+            gettimeofday(&kerctime, NULL);
+            
+            duration_us = (kerctime.tv_sec  - kerftime.tv_sec ) * 1000000 + 
+                          (kerctime.tv_usec - kerftime.tv_usec);
+            if (gpu_record_ == 3) {
+                this->gpu_execution_time_us_ = (this->gpu_execution_time_us_ + duration_us) >> 2;
+            } else {
+                this->gpu_execution_time_us_ += duration_us;
+            }
+        } else {
+            // Pending Phase
+            timeval start;
+            gettimeofday(&start, NULL);
+            printf("[co_callback] before (co_await 200ms) s: %d us: %d\n",start.tv_sec, start.tv_usec);
+            // co_await std::chrono::duration<int, std::chrono::milliseconds::period>(this->gpu_execution_time_us_/1000);
+            co_await 200ms;
 
+            gettimeofday(&start, NULL);
+            printf("[co_callback] after (co_await 200ms) s: %d us: %d\n",start.tv_sec, start.tv_usec);
+
+
+            gettimeofday(&kerftime, NULL);
+            cudaStreamSynchronize(stream1);
+            gettimeofday(&kerctime, NULL);
+            duration_us = (kerctime.tv_sec - kerftime.tv_sec) * 1000000 + (kerctime.tv_usec - kerftime.tv_usec);
+            tv_sec = duration_us / 1000000;
+            tv_usec = duration_us - tv_sec * 1000000;
+        }
+        long all_duration_us = (kerctime.tv_sec - ftime.tv_sec) * 1000000 + (kerctime.tv_usec - ftime.tv_usec);
+
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld <%d>] All [us: %ld] Await [ms: %ld] Sync [us: %ld]", gettid(), 
+                    this->gpu_record_, all_duration_us, this->gpu_execution_time_us_/1000, duration_us);
+        
         cudaMemcpyAsync(h_a, d_a, N * sizeof(int), cudaMemcpyDeviceToHost, stream1);
+        printf("[Res %p] [PID: %ld] %d %d %d\n", (void*)h_a, gettid(), h_a[0], h_a[1], h_a[2]);
         cudaStreamDestroy(stream1);
-        duration_us = (ctime.tv_sec - ftime.tv_sec) * 1000000 + (ctime.tv_usec - ftime.tv_usec);
-        tv_sec = duration_us / 1000000;
-        tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [cudaStreamSynchronize] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
 
         delete[] h_a;
         cudaFree(d_a);
+
+        this->gpu_record_ += 1;
+        if (this->gpu_record_ == 8) exit(0);
 
         std::string name = this->get_name();
         auto message = std_msgs::msg::String();
@@ -253,7 +286,7 @@ int main(int argc, char* argv[])
     auto c1_r_cbk = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback11", "c1", "", 100, true);
     
     // Create executors
-    int number_of_threads = 2;
+    int number_of_threads = 1;
     rclcpp::executors::ExecutorNodelet exec1(rclcpp::executor::ExecutorArgs(), number_of_threads, true);
     
     std::queue<Task<int, RosCoExecutor> > task_queue;

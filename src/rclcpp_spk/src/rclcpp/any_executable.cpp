@@ -23,7 +23,8 @@ AnyExecutable::AnyExecutable()
   service(nullptr),
   client(nullptr),
   callback_group(nullptr),
-  node_base(nullptr)
+  node_base(nullptr),
+  coroutine_ptr(nullptr)
 {}
 
 AnyExecutable::~AnyExecutable()

@@ -264,6 +264,8 @@ public:
 
   virtual void
   get_next_subscription(
+    std::list<void*> & suspend_coroutine_list,
+    std::mutex* suspend_coroutine_list_mutex,
     executor::AnyExecutable & any_exec,
     const WeakNodeList & weak_nodes)
   {
@@ -271,6 +273,19 @@ public:
     while (it != subscription_handles_.end()) {
       auto subscription = get_subscription_by_handle(*it, weak_nodes);
       if (subscription) {
+        // Checkout the suspending coroutines
+        bool flag = false;
+        std::unique_lock co_lock(*suspend_coroutine_list_mutex);
+        for (auto suspend_coroutine :suspend_coroutine_list) {
+          if (suspend_coroutine == (void*)subscription.get()) {
+            flag = true; break;
+          }
+        }
+        co_lock.unlock();
+        if (flag) {
+          ++it;
+          continue;
+        }
         // Figure out if this is for intra-process or not.
         bool is_intra_process = false;
         if (subscription->get_intra_process_subscription_handle()) {

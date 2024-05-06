@@ -25,10 +25,11 @@
 #include <mutex>
 #include <string>
 #include <vector>
+#include <sys/time.h>
+#include <utility>
 
 #include "rcl/guard_condition.h"
 #include "rcl/wait.h"
-
 #include "rclcpp/contexts/default_context.hpp"
 #include "rclcpp/memory_strategies.hpp"
 #include "rclcpp/memory_strategy.hpp"
@@ -296,8 +297,35 @@ public:
   RCLCPP_PUBLIC
   static std::queue<retTask> task_queue;
 
+  /// The resumed callback
   RCLCPP_PUBLIC
   std::queue<std::function<void()> > coroutine_queue_;
+
+  /// Mutex for coroutine_queue_
+  RCLCPP_PUBLIC
+  std::mutex coroutine_queue_mutex_;
+
+  /// Has suspending coroutine
+  RCLCPP_PUBLIC
+  std::vector<bool> has_ready_coroutine_vec_;
+
+  /// Has record the suspend <thread_id, coroutine_id>
+  /// thread_id: use to leave at leat one thread to get the re_execute of coroutine
+  /// coroutine_id: use to match the coroutine and pop the queue
+  RCLCPP_PUBLIC
+  std::queue<std::pair<int, int>> free_thread_pid_queue_;
+
+  /// Mutex for both has_ready_coroutine_vec_ & free_thread_pid_queue_
+  RCLCPP_PUBLIC
+  std::mutex co_vec_mutex_;
+
+  /// Suspending Coroutine List
+  RCLCPP_PUBLIC
+  std::list<void*> suspend_coroutine_list_;
+
+  /// Mutex for suspend_coroutine_list_
+  RCLCPP_PUBLIC
+  std::mutex suspend_coroutine_list_mutex_;
 
 protected:
   RCLCPP_PUBLIC
@@ -343,6 +371,10 @@ protected:
   wait_for_work(std::chrono::nanoseconds timeout = std::chrono::nanoseconds(-1));
 
   RCLCPP_PUBLIC
+  void
+  wait_free_wfk(std::chrono::nanoseconds timeout = std::chrono::nanoseconds(-1));
+
+  RCLCPP_PUBLIC
   rclcpp::node_interfaces::NodeBaseInterface::SharedPtr
   get_node_by_group(rclcpp::callback_group::CallbackGroup::SharedPtr group);
 
@@ -352,7 +384,7 @@ protected:
 
   RCLCPP_PUBLIC
   void
-  get_run_rest_coroutine(AnyExecutable & any_exec);
+  get_rest_coroutine(AnyExecutable & any_exec);
 
   RCLCPP_PUBLIC
   void
@@ -400,6 +432,165 @@ private:
 }  // namespace executor
 }  // namespace rclcpp
 
+template<typename ResultType, typename ExecutorType>
+struct TaskPromise {
+    // (MUST) initial_suspend & final_suspend & get_return_object
+    // --> standard design
+    DispatchAwaiter initial_suspend() { 
+        return DispatchAwaiter{&executor}; 
+    }
+    std::suspend_always final_suspend() noexcept { return {}; }
+    Task<ResultType, ExecutorType> get_return_object() {
+        return Task{ std::coroutine_handle<TaskPromise>::from_promise(*this) };
+    }
+
+    // (MUST) use await_transform to obtain the await <expr>
+    // --> specify "TaskAwaiter" to handle --> await <coroutine>
+    template<typename _ResultType, typename _ExecutorType>
+    TaskAwaiter<_ResultType, _ExecutorType> await_transform(Task<_ResultType, _ExecutorType> &&task) {
+        return TaskAwaiter<_ResultType, _ExecutorType>(&executor, std::move(task));
+    }
+    // --> specify "SleepAwaiter" to handle --> await <time>
+    template<typename _Rep, typename _Period>
+    SleepAwaiter await_transform(std::chrono::duration<_Rep, _Period> &&duration) {
+        return SleepAwaiter(&executor, std::chrono::duration_cast<std::chrono::milliseconds>(duration).count());
+    }
+    // --> general awaiter to handle --> await <AwaiterImpl>
+    template<typename AwaiterImpl>
+    requires AwaiterImplRestriction<AwaiterImpl, typename AwaiterImpl::ResultType>
+    AwaiterImpl await_transform(AwaiterImpl awaiter) {
+        awaiter.install_executor(&executor);
+        return awaiter;
+    }
+
+    // (MUST) process exception
+    void unhandled_exception() {
+        std::lock_guard lock(completion_lock);
+        result = Result<ResultType>(std::current_exception());
+        completion.notify_all();
+        notify_callbacks();
+    }
+
+    // (MUST) return value for supporting "co_return"
+    void return_value(ResultType value) {
+        has_returned = true;
+        std::unique_lock lock(completion_lock);
+        result = Result<ResultType>(std::move(value));
+        completion.notify_all();
+        lock.unlock();
+        
+        std::unique_lock exe_lock(executer_ptr_lock);
+        if (this->executer_ptr) {
+          // Erase coroutine sub addr in suspend_coroutine_list_
+          std::unique_lock co_list_lock(executer_ptr->suspend_coroutine_list_mutex_);
+          for (auto it = executer_ptr->suspend_coroutine_list_.begin(); it != executer_ptr->suspend_coroutine_list_.end(); it++) {
+            if (this->sub_node_ptr == *it) {
+              auto tmp = it++;
+			        executer_ptr->suspend_coroutine_list_.erase(tmp);
+            }
+          }
+          co_list_lock.unlock();
+          
+          // Set has_ready_coroutine_vec_ [False]
+          std::unique_lock vec_lock(executer_ptr->co_vec_mutex_);
+          executer_ptr->has_ready_coroutine_vec_[has_ready_coroutine_vec_id_] = false;
+          vec_lock.unlock();
+        }
+        exe_lock.unlock();
+
+        notify_callbacks();
+    }
+
+    // Pass the private result out
+    ResultType get_result() {
+        std::unique_lock lock(completion_lock);
+        if (!result.has_value()) {
+            // blocking for result
+            completion.wait(lock);
+        }
+        // give result or throw on exception
+        return result->get_or_throw();
+    }
+
+    // Execute the func if value is obtained
+    void on_completed(std::function<void(Result<ResultType>)> &&func) {
+        std::unique_lock lock(completion_lock);
+        if (result.has_value()) {
+            auto value = result.value();
+            lock.unlock();
+            func(value); // --> handle is resumed here, should not do any thing after that
+        } else {
+            completion_callbacks.push_back(func);
+        }
+    }
+
+    // init the executor
+    void promise_executor_init(void* ros_executer_ptr, void* sub_ptr) {
+        // Promise link to ROS Executor
+        std::unique_lock lock(executer_ptr_lock);
+        executer_ptr = (rclcpp::executor::Executor*) ros_executer_ptr;
+        if (executer_ptr && !has_returned) {
+          std::unique_lock vec_lock(executer_ptr->co_vec_mutex_);
+          has_ready_coroutine_vec_id_ = executer_ptr->has_ready_coroutine_vec_.size();
+          executer_ptr->free_thread_pid_queue_.push(std::pair<int, int>((int)gettid(), has_ready_coroutine_vec_id_));
+          executer_ptr->has_ready_coroutine_vec_.push_back(true);
+          vec_lock.unlock();
+        }
+        lock.unlock();
+        this->sub_node_ptr = sub_ptr;
+
+        // If the coroutine ends, also erase the suspend_coroutine_list_
+        if (executer_ptr && has_returned) {
+          std::unique_lock co_list_lock(executer_ptr->suspend_coroutine_list_mutex_);
+          for (auto it = executer_ptr->suspend_coroutine_list_.begin(); it != executer_ptr->suspend_coroutine_list_.end(); it++) {
+            if (this->sub_node_ptr == *it) {
+              auto tmp = it++;
+			        executer_ptr->suspend_coroutine_list_.erase(tmp);
+            }
+          }
+          co_list_lock.unlock();
+        }
+        
+        // Coroutine Executor link to ROS Executor 
+        executor.executor_init(ros_executer_ptr); 
+    }
+
+    // Indicate Constructor
+    TaskPromise() { 
+      has_returned = false;
+      executer_ptr = NULL;
+      has_ready_coroutine_vec_id_ = -1;
+    }
+
+    // Indicate Deconstructor
+    ~TaskPromise() {}
+
+private:
+    std::optional<Result<ResultType>> result;
+    std::mutex completion_lock;
+    std::condition_variable completion;
+    std::list<std::function<void(Result<ResultType>)>> completion_callbacks;
+    ExecutorType executor;
+    void* sub_node_ptr;
+    
+    // Point to the ROS2 executor
+    std::mutex executer_ptr_lock;
+    rclcpp::executor::Executor* executer_ptr;
+    bool has_returned;
+    int has_ready_coroutine_vec_id_;
+
+    void notify_callbacks() {
+        auto value = result.value();
+        for (auto &callback : completion_callbacks) {
+            // Hint: NoopExecutor & AsyncExecutor will block here,
+            //       in that deadlock may occur if this promise is
+            //       deconstructed in the callback!
+            callback(value);
+        }
+        completion_callbacks.clear();
+    }
+};
+
 class RosCoExecutor : public AbstractExecutor {
 private:
     rclcpp::executor::Executor* executer_ptr;
@@ -412,6 +603,7 @@ public:
         func();
     }
     void re_execute(std::function<void()> &&func) override {
+        std::lock_guard<std::mutex> lock(this->executer_ptr->coroutine_queue_mutex_);
         this->executer_ptr->coroutine_queue_.push(func);
     }
 };

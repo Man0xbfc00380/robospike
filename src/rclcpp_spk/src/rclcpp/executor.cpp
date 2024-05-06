@@ -293,6 +293,9 @@ Executor::execute_any_executable(AnyExecutable & any_exec)
   if (!spinning.load()) {
     return;
   }
+  if (any_exec.coroutine_ptr) {
+    (*any_exec.coroutine_ptr)();
+  }
   if (any_exec.timer) {
     execute_timer(any_exec.timer);
   }
@@ -311,8 +314,10 @@ Executor::execute_any_executable(AnyExecutable & any_exec)
   if (any_exec.waitable) {
     any_exec.waitable->execute();
   }
-  // Reset the callback_group, regardless of type
-  any_exec.callback_group->can_be_taken_from().store(true);
+  if (any_exec.callback_group) {
+    // Reset the callback_group, regardless of type
+    any_exec.callback_group->can_be_taken_from().store(true);
+  }
   // Wake the wait, because it may need to be recalculated or work that
   // was previously blocked is now available.
   if (rcl_trigger_guard_condition(&interrupt_guard_condition_) != RCL_RET_OK) {
@@ -436,6 +441,63 @@ Executor::execute_client(
 }
 
 void
+Executor::wait_free_wfk(std::chrono::nanoseconds timeout)
+{
+  // locked critical section
+  {
+    std::unique_lock<std::mutex> lock(memory_strategy_mutex_);
+
+    // Collect the subscriptions and timers to be waited on
+    memory_strategy_->clear_handles();
+    bool has_invalid_weak_nodes = memory_strategy_->collect_entities(weak_nodes_);
+
+    // Clean up any invalid nodes, if they were detected
+    if (has_invalid_weak_nodes) {
+      auto node_it = weak_nodes_.begin();
+      auto gc_it = guard_conditions_.begin();
+      while (node_it != weak_nodes_.end()) {
+        if (node_it->expired()) {
+          node_it = weak_nodes_.erase(node_it);
+          memory_strategy_->remove_guard_condition(*gc_it);
+          gc_it = guard_conditions_.erase(gc_it);
+        } else {
+          ++node_it;
+          ++gc_it;
+        }
+      }
+    }
+    
+    // clear wait set
+    if (rcl_wait_set_clear(&wait_set_) != RCL_RET_OK) {
+      throw std::runtime_error("Couldn't clear wait set");
+    }
+
+    // Mini Delay
+    using namespace std::chrono_literals;
+    rclcpp::sleep_for(3ms);
+
+    // The size of waitables are accounted for in size of the other entities
+    rcl_ret_t ret = rcl_wait_set_resize(
+      &wait_set_, memory_strategy_->number_of_ready_subscriptions(),
+      memory_strategy_->number_of_guard_conditions(), memory_strategy_->number_of_ready_timers(),
+      memory_strategy_->number_of_ready_clients(), memory_strategy_->number_of_ready_services(),
+      memory_strategy_->number_of_ready_events());
+    if (RCL_RET_OK != ret) {
+      throw std::runtime_error(
+              std::string("Couldn't resize the wait set : ") + rcl_get_error_string().str);
+    }
+
+    if (!memory_strategy_->add_handles_to_wait_set(&wait_set_)) {
+      throw std::runtime_error("Couldn't fill wait set");
+    }
+  }
+
+  // check the null handles in the wait set and remove them from the handles in memory strategy
+  // for callback-based entities
+  memory_strategy_->remove_null_handles(&wait_set_);
+}
+
+void
 Executor::wait_for_work(std::chrono::nanoseconds timeout)
 {
   // locked critical section
@@ -483,9 +545,9 @@ Executor::wait_for_work(std::chrono::nanoseconds timeout)
     }
   }
 
-  // exception handling
+  // exception handling    
   rcl_ret_t status =
-    rcl_wait(&wait_set_, std::chrono::duration_cast<std::chrono::nanoseconds>(timeout).count());
+    rcl_wait(&wait_set_, std::chrono::duration_cast<std::chrono::nanoseconds>(timeout).count());  
   if (status == RCL_RET_WAIT_SET_EMPTY) {
     RCUTILS_LOG_WARN_NAMED(
       "rclcpp",
@@ -546,12 +608,12 @@ Executor::get_group_by_timer(rclcpp::TimerBase::SharedPtr timer)
 }
 
 void
-Executor::get_run_rest_coroutine(AnyExecutable & any_exec)
+Executor::get_rest_coroutine(AnyExecutable & any_exec)
 {
+  std::lock_guard<std::mutex> lock(coroutine_queue_mutex_);
   if (!coroutine_queue_.empty()) {
-    auto func = coroutine_queue_.front();
+    any_exec.coroutine_ptr = &coroutine_queue_.front();
     coroutine_queue_.pop();
-    func();
   }
 }
 
@@ -584,17 +646,30 @@ Executor::get_next_timer(AnyExecutable & any_exec)
 bool
 Executor::get_next_ready_executable(AnyExecutable & any_executable)
 {
-  // (RoboSpike) First consider the rest_coroutine queue
-  get_run_rest_coroutine(any_executable);
-  
+  // (RoboSpike) First consider the rest_coroutine queue           
+  get_rest_coroutine(any_executable);
+  if (any_executable.coroutine_ptr) {
+    return true;
+  }
   // Check the timers to see if there are any that are ready, if so return
   get_next_timer(any_executable);
   if (any_executable.timer) {
     return true;
   }
   // Check the subscriptions to see if there are any that are ready
-  memory_strategy_->get_next_subscription(any_executable, weak_nodes_);
+  memory_strategy_->get_next_subscription(suspend_coroutine_list_, &suspend_coroutine_list_mutex_, 
+                                          any_executable, weak_nodes_);
   if (any_executable.subscription || any_executable.subscription_intra_process) {
+    
+    // Register coroutine subscription
+    if (any_executable.subscription && any_executable.subscription->use_coroutine_base) {
+      std::lock_guard co_list_lock(suspend_coroutine_list_mutex_);
+      suspend_coroutine_list_.push_back((void*)any_executable.subscription.get());
+    }
+    if (any_executable.subscription_intra_process && any_executable.subscription_intra_process->use_coroutine_base) {
+      std::lock_guard co_list_lock(suspend_coroutine_list_mutex_);
+      suspend_coroutine_list_.push_back((void*)any_executable.subscription_intra_process.get());
+    }
     return true;
   }
   // Check the services to see if there are any that are ready
@@ -623,15 +698,42 @@ Executor::get_next_executable(AnyExecutable & any_executable, std::chrono::nanos
   // Check to see if there are any subscriptions or timers needing service
   success = get_next_ready_executable(any_executable);
   // If there are none
+
   if (!success) {
-    // Wait for subscriptions or timers to work on
-    wait_for_work(timeout); // interact with the rmw
-    if (!spinning.load()) {
-      return false;
+    
+    timeval ftime, ctime;
+    gettimeofday(&ftime, NULL);
+
+    std::unique_lock vec_lock(this->co_vec_mutex_);
+    if (!this->free_thread_pid_queue_.empty() && 
+        this->free_thread_pid_queue_.front().first == (int)gettid()) {
+      if (has_ready_coroutine_vec_[this->free_thread_pid_queue_.front().second]) {
+        wait_free_wfk(timeout);
+        if (!spinning.load()) {
+          return false;
+        }
+        // Try again
+        success = get_next_ready_executable(any_executable);
+      } else {
+        this->free_thread_pid_queue_.pop();
+      }
+      vec_lock.unlock();
+    } else {
+      wait_for_work(timeout);
+      if (!spinning.load()) {
+        return false;
+      }
+      // Try again
+      success = get_next_ready_executable(any_executable);
     }
-    // Try again
-    success = get_next_ready_executable(any_executable);
+
+    // gettimeofday(&ctime, NULL);
+    // int duration_us = (ctime.tv_sec - ftime.tv_sec) * 1000000 + (ctime.tv_usec - ftime.tv_usec);
+    // long tv_sec = duration_us / 1000000;
+    // long tv_usec = duration_us - tv_sec * 1000000;
+    // printf("[get_next_executable] [PID: %ld] [Duration] [s: %ld] [us: %ld]\n", gettid(), tv_sec, tv_usec);
   }
+  
   // At this point any_exec should be valid with either a valid subscription
   // or a valid timer, or it should be a null shared_ptr
   if (success) {
