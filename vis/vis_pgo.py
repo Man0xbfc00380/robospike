@@ -4,9 +4,9 @@ import numpy as np
 import re
 
 # Set Configs
-pgo_case_name = "exp2/gpu_pgo_4"
+pgo_case_name = "exp2/gpu_pgo_10min"
 
-nmax = 3
+nmax = 1
 font_size = 28
 logdata = []
 BlueList = ['#92B4F4', '#7772CA', '#5E7CE2', '#C6CDFF', '#248BD6', '#0F6BAE']
@@ -20,7 +20,6 @@ latency_data=[]
 eval_data=[]
 
 for i in range(nmax):
-    
     # Process Raw Data
     fileHandler = open("./logs/" + pgo_case_name + ".log", "r")
     listOfLines = fileHandler.readlines()
@@ -39,14 +38,15 @@ for i in range(nmax):
 fig, axes = plt.subplots(1, 1, figsize=(10,8))
 iters=list(range(len(sync_data)))
 
+print(iters)
 plt.plot(iters, await_data, color=BlueList[0], label="Await Time", linewidth=3.5)
 plt.plot(iters, latency_data, color=BlueList[1], label="Latency", linewidth=3.5)
 plt.plot(iters, sync_data, color=RedList[1], label="Sync Overhead", linewidth=3.5)
-plt.plot(iters, eval_data, color=RedList[0], label="Eval Function", linewidth=3.5)
+# plt.plot(iters, eval_data, color=RedList[0], label="Eval Function", linewidth=3.5)
 
 plt.grid()
 
-# plt.legend(fontsize=font_size-2)
+plt.legend(fontsize=font_size-2)
 
 plt.xticks(fontsize=font_size)
 plt.yticks(fontsize=font_size)
