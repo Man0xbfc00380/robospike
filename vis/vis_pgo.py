@@ -4,8 +4,8 @@ import numpy as np
 import re
 
 # Set Configs
-pgo_case_name = "exp2/gpu_pgo_10min"
-
+pgo_case_name = "co_t_mexe_f"  + "_2"#+ "_auto_f" + "_half"
+targ = "11"
 nmax = 1
 font_size = 28
 logdata = []
@@ -18,15 +18,17 @@ sync_data=[]
 await_data=[]
 latency_data=[]
 eval_data=[]
+base_data = 0
 
 for i in range(nmax):
     # Process Raw Data
-    fileHandler = open("./logs/" + pgo_case_name + ".log", "r")
+    fileHandler = open("./logs/exp1/" + pgo_case_name + ".log", "r")
     listOfLines = fileHandler.readlines()
     fileHandler.close()
     for line in listOfLines:
+        is_11 = True if len(re.findall("Regular_callback" + targ, line)) > 0 else False
         number = re.findall("\d+", line)
-        if len(re.findall("Base:", line)) > 0:
+        if len(re.findall("Base:", line)) > 0 and is_11:
             sync_data.append(float(number[-1]))
             await_data.append(float(number[-2]))
             latency_data.append(float(number[-3]))
@@ -39,16 +41,19 @@ fig, axes = plt.subplots(1, 1, figsize=(10,8))
 iters=list(range(len(sync_data)))
 
 print(iters)
-plt.plot(iters, await_data, color=BlueList[0], label="Await Time", linewidth=3.5)
-plt.plot(iters, latency_data, color=BlueList[1], label="Latency", linewidth=3.5)
-plt.plot(iters, sync_data, color=RedList[1], label="Sync Overhead", linewidth=3.5)
-# plt.plot(iters, eval_data, color=RedList[0], label="Eval Function", linewidth=3.5)
+
+plt.plot(iters, sync_data, color=BlueList[1], label="$T_{sync}$", linewidth=3.5)
+plt.plot(iters, latency_data, color=RedList[1], label="$T_{all}$", linewidth=3.5)
+plt.plot(iters, await_data, color=BlueList[0], label="$T_{await}$", linewidth=3.5)
+plt.fill_between(iters, await_data, color=BlueList[0], alpha=0.3)
 
 plt.grid()
 
-plt.legend(fontsize=font_size-2)
+plt.legend(fontsize=18)
 
 plt.xticks(fontsize=font_size)
 plt.yticks(fontsize=font_size)
 # Save File
-plt.savefig("./figures/" + pgo_case_name + ".png", bbox_inches='tight')
+plt.savefig("./figures/ana/" + pgo_case_name + "_" + targ + ".png", bbox_inches='tight')
+
+print(pgo_case_name, np.sum(latency_data),  ((float)(np.sum(await_data) / np.sum(latency_data))))

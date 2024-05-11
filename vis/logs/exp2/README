@@ -1,5 +1,0 @@
-Normal Pressure Cases
-n1: [2] 1->1
-n2: [5] 1-> 1 GPU + 6 CPU (Co[+] Before OPT)
-n3: [5] 1-> 1 GPU + 6 CPU (Co[-])
-n4: [5] 1-> 1 GPU + 6 CPU (Co[+] After OPT)

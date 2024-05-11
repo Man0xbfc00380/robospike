@@ -545,6 +545,7 @@ struct TaskPromise {
           for (auto it = executer_ptr->suspend_coroutine_list_.begin(); it != executer_ptr->suspend_coroutine_list_.end(); it++) {
             if (this->sub_node_ptr == *it) {
               auto tmp = it++;
+              printf("[get_next_ready_executable] Erase <%p>\n", (void*)(*tmp));
 			        executer_ptr->suspend_coroutine_list_.erase(tmp);
             }
           }

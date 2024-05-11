@@ -4,7 +4,7 @@ import numpy as np
 import re
 
 # Set Configs
-case_name = "exp2/gpu_pgo_3" # Just change it
+case_name = "exp1/co_f_mexe_f_light" # Just change it
 font_size = 18
 logdata = []
 BlueList = ['#9D2933', '#92B4F4', '#7772CA', '#5E7CE2', '#C6CDFF', '#248BD6', '#0F6BAE']
@@ -55,7 +55,7 @@ plt.xticks(fontsize=font_size)
 plt.yticks(fontsize=font_size)
 
 for item in logdata:
-    if item["end"] > 0 and item["end"] < 60:
+    if item["end"] > 0 and item["end"] < 50:
         if vis_callback_only:
             # y = callback
             axes.barh(y=item["name"], width=item["end"]-item["bgn"], left=item["bgn"], edgecolor='grey', color=BlueList[item["color"]] if item["color"] >= 0 else RedList[-1 * item["color"]])

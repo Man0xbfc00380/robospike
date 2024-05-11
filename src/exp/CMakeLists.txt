@@ -27,29 +27,37 @@ find_package(rclcpp_spk REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(std_msgs REQUIRED)
 
-# distributed executable
-add_executable(exp0_interexe src/exp0_interexe.cpp)
-ament_target_dependencies(exp0_interexe rclcpp_spk std_srvs std_msgs)
+# ----------------------- Pre-experiments -----------------------
+# add_executable(exp0_interexe src/exp0_interexe.cpp)
+# ament_target_dependencies(exp0_interexe rclcpp_spk std_srvs std_msgs)
+# add_executable(exp0_intraexe src/exp0_intraexe.cpp)
+# ament_target_dependencies(exp0_intraexe rclcpp_spk std_srvs std_msgs)
+# add_executable(exp0_co_interexe src/exp0_co_interexe.cpp)
+# ament_target_dependencies(exp0_co_interexe rclcpp_spk std_srvs std_msgs)
+# add_executable(exp0_co_intraexe src/exp0_co_intraexe.cpp)
+# ament_target_dependencies(exp0_co_intraexe rclcpp_spk std_srvs std_msgs)
+# add_executable(exp0_multicast src/exp0_multicast.cpp)
+# ament_target_dependencies(exp0_multicast rclcpp_spk std_srvs std_msgs)
+# add_executable(exp0_cuda_cpu src/exp0_cuda_cpu.cpp)
+# ament_target_dependencies(exp0_cuda_cpu rclcpp_spk std_srvs std_msgs)
+# cuda_add_executable(exp0_cuda_gpu src/exp0_cuda_gpu.cpp src/exp0_cuda.cu)
+# ament_target_dependencies(exp0_cuda_gpu rclcpp_spk std_srvs std_msgs)
 
-add_executable(exp0_intraexe src/exp0_intraexe.cpp)
-ament_target_dependencies(exp0_intraexe rclcpp_spk std_srvs std_msgs)
+# ------------------------- Experiments -------------------------
 
-add_executable(exp0_co_interexe src/exp0_co_interexe.cpp)
-ament_target_dependencies(exp0_co_interexe rclcpp_spk std_srvs std_msgs)
+# Combination of coroutine & multi-executor
+# GPU-PGO Final Result
+# WCET Calculation
+# Utilization
+cuda_add_executable(exp1_co_multiexe src/exp1_co_multiexe.cpp src/exp2_gpu_pgo.cu)
+ament_target_dependencies(exp1_co_multiexe rclcpp_spk std_srvs std_msgs)
 
-add_executable(exp0_co_intraexe src/exp0_co_intraexe.cpp)
-ament_target_dependencies(exp0_co_intraexe rclcpp_spk std_srvs std_msgs)
-
-add_executable(exp1_multicast src/exp1_multicast.cpp)
-ament_target_dependencies(exp1_multicast rclcpp_spk std_srvs std_msgs)
-
-add_executable(exp0_cuda_cpu src/exp0_cuda_cpu.cpp)
-ament_target_dependencies(exp0_cuda_cpu rclcpp_spk std_srvs std_msgs)
-
-cuda_add_executable(exp0_cuda_gpu src/exp0_cuda_gpu.cpp src/exp0_cuda.cu)
-ament_target_dependencies(exp0_cuda_gpu rclcpp_spk std_srvs std_msgs)
-
+# PGO Variation
 cuda_add_executable(exp2_gpu_pgo src/exp2_gpu_pgo.cpp src/exp2_gpu_pgo.cu)
 ament_target_dependencies(exp2_gpu_pgo rclcpp_spk std_srvs std_msgs)
+
+# Multiple Executor
+cuda_add_executable(exp6_co_multiexe src/exp6_co_multiexe.cpp src/exp2_gpu_pgo.cu)
+ament_target_dependencies(exp6_co_multiexe rclcpp_spk std_srvs std_msgs)
 
 ament_package()

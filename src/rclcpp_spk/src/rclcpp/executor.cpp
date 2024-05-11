@@ -612,6 +612,7 @@ Executor::get_rest_coroutine(AnyExecutable & any_exec)
 {
   std::lock_guard<std::mutex> lock(coroutine_queue_mutex_);
   if (!coroutine_queue_.empty()) {
+    printf("[get_rest_coroutine] Length [%d]\n", coroutine_queue_.size());
     any_exec.coroutine_ptr = &coroutine_queue_.front();
     coroutine_queue_.pop();
   }
@@ -663,10 +664,12 @@ Executor::get_next_ready_executable(AnyExecutable & any_executable)
     
     // Register coroutine subscription
     if (any_executable.subscription && any_executable.subscription->use_coroutine_base) {
+      printf("[get_next_ready_executable(inter)] Push <%p>\n", (void*)any_executable.subscription.get());
       std::lock_guard co_list_lock(suspend_coroutine_list_mutex_);
       suspend_coroutine_list_.push_back((void*)any_executable.subscription.get());
     }
     if (any_executable.subscription_intra_process && any_executable.subscription_intra_process->use_coroutine_base) {
+      printf("[get_next_ready_executable(intra)] Push <%p>\n", (void*)any_executable.subscription_intra_process.get());
       std::lock_guard co_list_lock(suspend_coroutine_list_mutex_);
       suspend_coroutine_list_.push_back((void*)any_executable.subscription_intra_process.get());
     }

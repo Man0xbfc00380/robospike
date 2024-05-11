@@ -32,3 +32,9 @@ n =  1 latency avg 1.393785569230769 block sum 2.783338
 n =  2 latency avg 6.5863096808510635 block sum 2.0203379999999997
 n =  3 latency avg 1.3308440781250002 block sum 3.236265
 n =  4 latency avg 1.0085636363636368 block sum 3.480304
+
+Normal Pressure Cases
+n1: [2] 1->1
+n2: [5] 1-> 1 GPU + 6 CPU (Co[+] Before OPT)
+n3: [5] 1-> 1 GPU + 6 CPU (Co[-])
+n4: [5] 1-> 1 GPU + 6 CPU (Co[+] After OPT)
