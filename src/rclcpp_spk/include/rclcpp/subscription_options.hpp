@@ -48,7 +48,7 @@ struct SubscriptionOptionsWithAllocator : public SubscriptionOptionsBase
   /// Optional custom allocator.
   std::shared_ptr<Allocator> allocator = nullptr;
 
-  SubscriptionOptionsWithAllocator<Allocator>() {}
+  explicit SubscriptionOptionsWithAllocator<Allocator>(){}
 
   /// Constructor using base class as input.
   explicit SubscriptionOptionsWithAllocator(

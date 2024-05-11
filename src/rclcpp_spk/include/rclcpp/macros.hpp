@@ -24,8 +24,9 @@
  * Use in the private section of the class.
  */
 #define RCLCPP_DISABLE_COPY(...) \
-  __VA_ARGS__(const __VA_ARGS__ &) = delete; \
   __VA_ARGS__ & operator=(const __VA_ARGS__ &) = delete;
+  // __VA_ARGS__(const __VA_ARGS__ &) = delete; \
+  
 
 /**
  * Defines aliases and static functions for using the Class with smart pointers.
