@@ -613,6 +613,11 @@ Executor::get_rest_coroutine(AnyExecutable & any_exec)
   std::lock_guard<std::mutex> lock(coroutine_queue_mutex_);
   if (!coroutine_queue_.empty()) {
     printf("[get_rest_coroutine] Length [%d]\n", coroutine_queue_.size());
+    timeval allftime;
+    gettimeofday(&allftime, NULL);
+    printf("[coroutine_queue] [PID: %ld] Pop <%p> [s: %ld] [us: %ld]\n", gettid(), 
+                                                              (void*)&coroutine_queue_.front(), 
+                                                              allftime.tv_sec, allftime.tv_usec);
     any_exec.coroutine_ptr = &coroutine_queue_.front();
     coroutine_queue_.pop();
   }

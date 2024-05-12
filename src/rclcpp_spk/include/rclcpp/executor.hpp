@@ -606,6 +606,12 @@ public:
     void re_execute(std::function<void()> &&func) override {
         std::lock_guard<std::mutex> lock(this->executer_ptr->coroutine_queue_mutex_);
         this->executer_ptr->coroutine_queue_.push(func);
+
+        timeval allftime;
+        gettimeofday(&allftime, NULL);
+        printf("[coroutine_queue] [PID: %ld] Push <%p> [s: %ld] [us: %ld]\n",  gettid(),
+                                                                  (void*)&executer_ptr->coroutine_queue_.front(),  
+                                                                  allftime.tv_sec, allftime.tv_usec);
     }
 };
 #endif  // RCLCPP__EXECUTOR_HPP_

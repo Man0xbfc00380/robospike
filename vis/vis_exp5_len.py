@@ -4,7 +4,7 @@ import numpy as np
 import re
 
 # Set Configs
-pgo_case_name = "co_t_mexe_f_utilize"
+pgo_case_name = "co_t_mexe_f_wcet"
 nmax = 1
 font_size = 28
 logdata = []
@@ -14,7 +14,7 @@ vis_callback_only = False
 
 # Load File
 sync_data=[]
-coroutine_len = []
+coroutine_len = [0,0,0]
 base_data = 0
 
 for i in range(nmax):
@@ -25,18 +25,24 @@ for i in range(nmax):
     for line in listOfLines:
         number = re.findall("\d+", line)
         if len(re.findall("get_rest_coroutine", line)) > 0:
-            coroutine_len.append(float(number[-1]))
+            coroutine_len[int(number[-1]) - 1] += 1
 
-fig, axes = plt.subplots(1, 1, figsize=(10,8))
-iters=list(range(len(coroutine_len)))
+fig, axes = plt.subplots(1, 1, figsize=(5,8))
+sum = (coroutine_len[0]+coroutine_len[1]+coroutine_len[2])
+coroutine_len[0] = coroutine_len[0] / sum
+coroutine_len[1] = coroutine_len[1] / sum
+coroutine_len[2] = coroutine_len[2] / sum
 
-plt.plot(iters, coroutine_len, color=BlueList[2], label="$coroutine\_queue$ length", linewidth=3.5)
+bar1 = axes.bar([1,2,3], coroutine_len, edgecolor='black', color=BlueList[0])
+
+for i in range(3):
+    plt.text(i+1, coroutine_len[i], '{:.3f}'.format(coroutine_len[i]), va="bottom", ha="center", fontsize=font_size)
 
 plt.grid()
-
-plt.legend(fontsize=18)
-
+axes.spines['top'].set_visible(False)
+axes.spines['right'].set_visible(False)
 plt.xticks(fontsize=font_size)
 plt.yticks(fontsize=font_size)
+plt.ylabel("$coroutine\_queue$ length", fontsize=font_size)
 # Save File
 plt.savefig("./figures/ana/exp5_len.png", bbox_inches='tight')
