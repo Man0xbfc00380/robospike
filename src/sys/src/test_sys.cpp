@@ -135,6 +135,7 @@ std_msgs::msg::Float32MultiArray get_frames_color_depth(rs2::pipeline pipe, rs2:
     for (size_t i=0; i<640*480; ++i) {
         array_data.data[i+640*480] = static_cast<float> (*(color_ptr+i));
     }
+    array_data.layout.dim.resize(3);
     array_data.layout.dim[0].label = "height";
     array_data.layout.dim[0].size = 480;
     array_data.layout.dim[0].stride = 640*2;
