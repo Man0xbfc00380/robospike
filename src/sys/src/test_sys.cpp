@@ -63,6 +63,9 @@ using std::placeholders::_1;
 timeval starting_time;
 int dummy_load_calib = 1;
 
+bool no_coroutine = true;
+bool use_pgo = true;
+
 void run_exe(rclcpp::executors::ExecutorNodelet* exe) {
     exe->spin();
 }
@@ -89,7 +92,7 @@ int dummy_load_sleep(int load_ms, const char * name_str) {
     long tv_usec = duration_us - tv_sec * 1000000;
 
     // Wait for the machine
-    rclcpp::sleep_for(450ms);
+    rclcpp::sleep_for(100ms);
 
     gettimeofday(&ctime, NULL);
     duration_us = (ctime.tv_sec - starting_time.tv_sec) * 1000000 + (ctime.tv_usec - starting_time.tv_usec);
@@ -290,7 +293,7 @@ public:
     {
         publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
         name_ = node_name;
-        timer_ = this->create_wall_timer(600ms, std::bind(&StartNode::timer_callback, this));
+        timer_ = this->create_wall_timer(40ms, std::bind(&StartNode::timer_callback, this));
     }
 
     rclcpp::TimerBase::SharedPtr timer_;
@@ -303,17 +306,22 @@ private:
     timeval ctime, ftime, create_timer, latency_time;
     bool end_flag_;
 
-    void show_time(timeval ftime, timeval ctime) 
-    {
+    void show_time(timeval ftime, timeval ctime, bool final = false) {
         int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
         long tv_sec = duration_us / 1000000;
         long tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        if (final)
+            RCLCPP_INFO(this->get_logger(), "[*] [PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        else
+            RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
 
         duration_us = (ctime.tv_sec - starting_time.tv_sec) * 1000000 + (ctime.tv_usec - starting_time.tv_usec);
         tv_sec = duration_us / 1000000;
         tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        if (final)
+            RCLCPP_INFO(this->get_logger(), "[*] [PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        else
+            RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
     }
 
     void timer_callback()
@@ -366,17 +374,22 @@ private:
     rs2::pipeline* pipeline_;
     rs2::align* align_to_;
 
-    void show_time(timeval ftime, timeval ctime) 
-    {
+    void show_time(timeval ftime, timeval ctime, bool final = false) {
         int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
         long tv_sec = duration_us / 1000000;
         long tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        if (final)
+            RCLCPP_INFO(this->get_logger(), "[*] [PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        else
+            RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
 
         duration_us = (ctime.tv_sec - starting_time.tv_sec) * 1000000 + (ctime.tv_usec - starting_time.tv_usec);
         tv_sec = duration_us / 1000000;
         tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        if (final)
+            RCLCPP_INFO(this->get_logger(), "[*] [PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        else
+            RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
     }
 
     int callback(const std_msgs::msg::String::SharedPtr msg) {
@@ -391,8 +404,7 @@ private:
         gettimeofday(&ctime, NULL);
 
         if (publisher_) publisher_->publish(message);
-        show_time(ftime, ctime);
-
+        show_time(ftime, ctime, true);
         return 1;
     }
 };
@@ -402,15 +414,27 @@ class YoloNode : public rclcpp::Node
 public:
     YoloNode(const std::string node_name, const std::string sub_topic, const std::string pub_topic, int exe_time, bool end_flag) 
         : Node(node_name), count_(0), exe_time_(exe_time), end_flag_(end_flag)
-    {                        
-        subscription_ = this->create_subscription<std_msgs::msg::Float32MultiArray>(false, sub_topic, 1, std::bind(&YoloNode::callback, this, std::placeholders::_1));
+    {
+        if (no_coroutine) {
+            subscription_ = this->create_subscription<std_msgs::msg::Float32MultiArray>(false, sub_topic, 1, std::bind(&YoloNode::callback, this, std::placeholders::_1));
+        } else {
+            subscription_ = this->create_subscription<std_msgs::msg::Float32MultiArray>(true, sub_topic, 1, std::bind(&YoloNode::co_callback, this, std::placeholders::_1));
+        }                  
+        // subscription_ = this->create_subscription<std_msgs::msg::Float32MultiArray>(false, sub_topic, 1, std::bind(&YoloNode::callback, this, std::placeholders::_1));
         
         if (pub_topic != "") publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
         this->name_ = node_name;
-    }
 
+        this->gpu_record_ = 0;
+        this->gpu_await_time_us_ = 0;
+        this->gpu_base_latency_us_ = 0;
+        this->gpu_best_await_time_us_ = 0;
+        this->gpu_best_eval_num_ = -100000;
+        srand((unsigned)time(NULL));
+    }
     rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
     rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr subscription_;
+
 private:
     std::string name_;
     size_t count_;
@@ -419,37 +443,271 @@ private:
     double latency;
     bool end_flag_;
 
-    void show_time(timeval ftime, timeval ctime) 
-    {
+    int gpu_record_;
+    long gpu_await_time_us_;
+    long gpu_base_latency_us_;
+    long gpu_best_await_time_us_;
+    long gpu_best_eval_num_;
+
+
+    void show_time(timeval ftime, timeval ctime, bool final = false) {
         int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
         long tv_sec = duration_us / 1000000;
         long tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        if (final)
+            RCLCPP_INFO(this->get_logger(), "[*] [PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        else
+            RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
 
         duration_us = (ctime.tv_sec - starting_time.tv_sec) * 1000000 + (ctime.tv_usec - starting_time.tv_usec);
         tv_sec = duration_us / 1000000;
         tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        if (final)
+            RCLCPP_INFO(this->get_logger(), "[*] [PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        else
+            RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
     }
 
     int callback(const std_msgs::msg::Float32MultiArray::SharedPtr msg) {
 
         gettimeofday(&ftime, NULL);
+        // std::string position = nvinfer1::inference_img();
+        cudaSetDevice(kGpuId);
 
-        dummy_load_sleep(exe_time_, this->name_.c_str());
+        std::string engine_name = "/home/leshannx/hongyi/ros2_ws/experiment/demo_ws/src/sys/model/yolov5s.engine";
+        std::string img_file = "/home/leshannx/hongyi/ros2_ws/experiment/demo_ws/src/sys/model/images/bus.jpg";
 
-        std::string position = nvinfer1::inference_img();
+        // Deserialize the engine from file
+        nvinfer1::IRuntime* runtime = nullptr;
+        nvinfer1::ICudaEngine* engine = nullptr;
+        nvinfer1::IExecutionContext* context = nullptr;
+        nvinfer1::deserialize_engine(engine_name, &runtime, &engine, &context);
+        cudaStream_t stream;
+        CUDA_CHECK(cudaStreamCreate(&stream));
 
+        // Init CUDA preprocessing
+        cuda_preprocess_init(kMaxInputImageSize);
+
+        // Prepare cpu and gpu buffers
+        float* gpu_buffers[2];
+        float* cpu_output_buffer = nullptr;
+        nvinfer1::prepare_buffers(engine, &gpu_buffers[0], &gpu_buffers[1], &cpu_output_buffer);
+
+        std::vector<cv::Mat> img_batch;
+        std::vector<std::string> img_name_batch;
+        cv::Mat img = cv::imread(img_file);
+        img_batch.push_back(img);
+        img_name_batch.push_back(img_file);
+
+        // Preprocess
+        cuda_batch_preprocess(img_batch, gpu_buffers[0], kInputW, kInputH, stream);
+
+        // Run inference
+        auto start = std::chrono::system_clock::now();
+        // [Extend] infer(*context, stream, (void**)gpu_buffers, cpu_output_buffer, kBatchSize);
+        // void infer(IExecutionContext& context, cudaStream_t& stream, void** gpu_buffers, float* output, int batchsize)
+        context->enqueue(kBatchSize, ((void**)gpu_buffers), stream, nullptr);
+        auto mid = std::chrono::system_clock::now();
+        gettimeofday(&ctime, NULL);
+        show_time(ftime, ctime);
+
+        // ------------------------------------------------------------------------------
+        cudaStreamSynchronize(stream);
+        // ------------------------------------------------------------------------------
+        
+        gettimeofday(&ftime, NULL);
+        auto end = std::chrono::system_clock::now();
+        std::cout << "inference time: " <<  std::chrono::duration_cast<std::chrono::milliseconds>(mid - start).count()   << "ms " << 
+                                            std::chrono::duration_cast<std::chrono::milliseconds>(end - mid).count()     << "ms " << std::endl;
+        CUDA_CHECK(cudaMemcpyAsync(cpu_output_buffer, ((void**)gpu_buffers)[1], kBatchSize * nvinfer1::kOutputSize * sizeof(float), cudaMemcpyDeviceToHost, stream));
+        // NMS
+        std::vector<std::vector<Detection>> res_batch;
+        batch_nms(res_batch, cpu_output_buffer, img_batch.size(), nvinfer1::kOutputSize, kConfThresh, kNmsThresh);
+
+        // Draw bounding boxes
+        draw_bbox(img_batch, res_batch);
+
+        // Save images
+        for (size_t j = 0; j < img_batch.size(); j++) {
+            cv::imwrite("_" + img_name_batch[j], img_batch[j]);
+        }
+
+        // Release stream and buffers
+        cudaStreamDestroy(stream);
+        CUDA_CHECK(cudaFree(gpu_buffers[0]));
+        CUDA_CHECK(cudaFree(gpu_buffers[1]));
+        delete[] cpu_output_buffer;
+        cuda_preprocess_destroy();
+        
+        // Destroy the engine
+        context->destroy();
+        engine->destroy();
+        runtime->destroy();
+        std::string position= "0.3, 0, 0";
+
+        // After Func
         std::string name = this->get_name();
         auto message = std_msgs::msg::String();
         message.data = position;
-
         gettimeofday(&ctime, NULL);
-
         if (publisher_) publisher_->publish(message);
-        show_time(ftime, ctime);
-
+        show_time(ftime, ctime, true);
         return 1;
+    }
+
+    long eval(long base_latency, long cur_latency, long sync_time){
+        // The larger the better
+        return (base_latency - cur_latency) - sync_time;
+    }
+
+
+    Task<int, RosCoExecutor> co_callback(const std_msgs::msg::Float32MultiArray::SharedPtr msg) {
+        int duration_us;
+        long tv_sec, tv_usec;
+        gettimeofday(&ftime, NULL);
+        // std::string position = nvinfer1::inference_img();
+        cudaSetDevice(kGpuId);
+
+        std::string engine_name = "/home/leshannx/hongyi/ros2_ws/experiment/demo_ws/src/sys/model/yolov5s.engine";
+        std::string img_file = "/home/leshannx/hongyi/ros2_ws/experiment/demo_ws/src/sys/model/images/bus.jpg";
+
+        // Deserialize the engine from file
+        nvinfer1::IRuntime* runtime = nullptr;
+        nvinfer1::ICudaEngine* engine = nullptr;
+        nvinfer1::IExecutionContext* context = nullptr;
+        nvinfer1::deserialize_engine(engine_name, &runtime, &engine, &context);
+        cudaStream_t stream;
+        CUDA_CHECK(cudaStreamCreate(&stream));
+
+        // Init CUDA preprocessing
+        cuda_preprocess_init(kMaxInputImageSize);
+
+        // Prepare cpu and gpu buffers
+        float* gpu_buffers[2];
+        float* cpu_output_buffer = nullptr;
+        nvinfer1::prepare_buffers(engine, &gpu_buffers[0], &gpu_buffers[1], &cpu_output_buffer);
+
+        std::vector<cv::Mat> img_batch;
+        std::vector<std::string> img_name_batch;
+        cv::Mat img = cv::imread(img_file);
+        img_batch.push_back(img);
+        img_name_batch.push_back(img_file);
+
+        // Preprocess
+        cuda_batch_preprocess(img_batch, gpu_buffers[0], kInputW, kInputH, stream);
+
+        // Run inference
+        timeval kerftime, kerctime, allftime;
+        gettimeofday(&allftime, NULL);
+        auto start = std::chrono::system_clock::now();
+        // [Extend] infer(*context, stream, (void**)gpu_buffers, cpu_output_buffer, kBatchSize);
+        // void infer(IExecutionContext& context, cudaStream_t& stream, void** gpu_buffers, float* output, int batchsize)
+        context->enqueue(kBatchSize, ((void**)gpu_buffers), stream, nullptr);
+        auto mid = std::chrono::system_clock::now();
+        
+        // ------------------------------------------------------------------------------
+        if (use_pgo) {
+            if (this->gpu_record_ < 4) {
+                // Record Phase
+                gettimeofday(&kerftime, NULL);
+                gettimeofday(&ctime, NULL);
+                RCLCPP_INFO(this->get_logger(), "[Round: %ld] [PID: %ld] Before First Show Time",this->gpu_record_, gettid());
+                show_time(ftime, ctime);
+                cudaStreamSynchronize(stream);
+                gettimeofday(&ftime, NULL);
+                gettimeofday(&kerctime, NULL);
+                duration_us = (kerctime.tv_sec  - kerftime.tv_sec ) * 1000000 + 
+                            (kerctime.tv_usec - kerftime.tv_usec);
+                long all_duration_us = (kerctime.tv_sec - allftime.tv_sec) * 1000000 + (kerctime.tv_usec - allftime.tv_usec);
+                if (gpu_record_ == 3) {
+                    this->gpu_await_time_us_ = (this->gpu_await_time_us_ + duration_us) >> 3;
+                    this->gpu_base_latency_us_ = (this->gpu_base_latency_us_ + all_duration_us) >> 2;
+                } else {
+                    this->gpu_await_time_us_ += duration_us;
+                    this->gpu_base_latency_us_ += all_duration_us;
+                }
+                // Time Report
+                RCLCPP_INFO(this->get_logger(), "[Round: %d] All [us: %ld] Await [us: %ld] Sync [us: %ld]", 
+                            this->gpu_record_, all_duration_us, this->gpu_await_time_us_, duration_us);
+            } else {
+                // Pending Phase
+                gettimeofday(&ctime, NULL);
+                RCLCPP_INFO(this->get_logger(), "[Round: %ld] [PID: %ld] Before First Show Time",this->gpu_record_, gettid());
+                show_time(ftime, ctime);
+                co_await std::chrono::duration<int, std::chrono::microseconds::period>(this->gpu_await_time_us_);
+                gettimeofday(&ftime, NULL);
+                gettimeofday(&kerftime, NULL);
+                cudaStreamSynchronize(stream);
+                gettimeofday(&kerctime, NULL);
+                duration_us = (kerctime.tv_sec - kerftime.tv_sec) * 1000000 + (kerctime.tv_usec - kerftime.tv_usec);
+                tv_sec = duration_us / 1000000;
+                tv_usec = duration_us - tv_sec * 1000000;
+                long all_duration_us = (kerctime.tv_sec - allftime.tv_sec) * 1000000 + (kerctime.tv_usec - allftime.tv_usec);
+                // Time Report
+                RCLCPP_INFO(this->get_logger(), "[Round: %ld] [Base: %ld] [Score: %ld] All [us: %ld] Await [us: %ld] Sync [us: %ld]",
+                            this->gpu_record_, this->gpu_base_latency_us_, 
+                            eval(this->gpu_base_latency_us_, all_duration_us, duration_us),
+                            all_duration_us, this->gpu_await_time_us_, duration_us);
+
+                // Auto Modification
+                long delta = 10;
+                if (duration_us > (this->gpu_base_latency_us_ >> 4) && this->gpu_await_time_us_ + (duration_us >> 2) < all_duration_us) 
+                    this->gpu_await_time_us_ += duration_us >> 2;
+                else if (duration_us < 20) 
+                    this->gpu_await_time_us_  = this->gpu_await_time_us_ - (this->gpu_await_time_us_ >> 3);
+                else {
+                    if (eval(this->gpu_base_latency_us_, all_duration_us, duration_us) > this->gpu_best_eval_num_) {
+                        this->gpu_best_await_time_us_ = this->gpu_await_time_us_;
+                        this->gpu_best_eval_num_ = eval(this->gpu_base_latency_us_, all_duration_us, duration_us);
+                    }
+                    this->gpu_await_time_us_ = this->gpu_best_await_time_us_ + (rand() % (delta));
+                }
+            }
+            this->gpu_record_ += 1;
+        } else {
+            cudaStreamSynchronize(stream);
+        }
+        // ------------------------------------------------------------------------------
+        
+        auto end = std::chrono::system_clock::now();
+        CUDA_CHECK(cudaMemcpyAsync(cpu_output_buffer, ((void**)gpu_buffers)[1], kBatchSize * nvinfer1::kOutputSize * sizeof(float), cudaMemcpyDeviceToHost, stream));
+
+        std::cout << "inference time: " <<  std::chrono::duration_cast<std::chrono::milliseconds>(mid - start).count()   << "ms " << 
+                                            std::chrono::duration_cast<std::chrono::milliseconds>(end - mid).count()     << "ms " << std::endl;
+
+        // NMS
+        std::vector<std::vector<Detection>> res_batch;
+        batch_nms(res_batch, cpu_output_buffer, img_batch.size(), nvinfer1::kOutputSize, kConfThresh, kNmsThresh);
+
+        // Draw bounding boxes
+        draw_bbox(img_batch, res_batch);
+
+        // Save images
+        for (size_t j = 0; j < img_batch.size(); j++) {
+            cv::imwrite("_" + img_name_batch[j], img_batch[j]);
+        }
+
+        // Release stream and buffers
+        cudaStreamDestroy(stream);
+        CUDA_CHECK(cudaFree(gpu_buffers[0]));
+        CUDA_CHECK(cudaFree(gpu_buffers[1]));
+        delete[] cpu_output_buffer;
+        cuda_preprocess_destroy();
+        
+        // Destroy the engine
+        context->destroy();
+        engine->destroy();
+        runtime->destroy();
+        std::string position= "0.3, 0, 0";
+
+        // After Func
+        std::string name = this->get_name();
+        auto message = std_msgs::msg::String();
+        message.data = position;
+        gettimeofday(&ctime, NULL);
+        if (publisher_) publisher_->publish(message);
+        show_time(ftime, ctime, true);
+        co_return 1;
     }
 };
 
@@ -460,8 +718,14 @@ public:
         : Node(node_name), count_(0), exe_time_(exe_time), end_flag_(end_flag)
     {                        
         // create_subscription interface for sync callback
-        subscription_ = this->create_subscription<std_msgs::msg::String>(false, sub_topic, 1, std::bind(&ArmNode::callback, this, std::placeholders::_1));
+        // subscription_ = this->create_subscription<std_msgs::msg::String>(false, sub_topic, 1, std::bind(&ArmNode::callback, this, std::placeholders::_1));
         
+        if (no_coroutine) {
+            subscription_ = this->create_subscription<std_msgs::msg::String>(false, sub_topic, 1, std::bind(&ArmNode::callback, this, std::placeholders::_1));
+        } else {
+            subscription_ = this->create_subscription<std_msgs::msg::String>(true, sub_topic, 1, std::bind(&ArmNode::co_callback, this, std::placeholders::_1));
+        } 
+
         if (pub_topic != "") publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
         this->name_ = node_name;
 
@@ -475,7 +739,7 @@ public:
         std::cout<<"[Arm] init and sleep!"<<std::endl;
         sar_ptr_->arm_set_gripper_linear_position(0.0);      //设置夹爪的角度
         sar_ptr_->SetAllServoRadian(joint_positions);         //设置6个舵机的弧度
-        sleep(1);
+        rclcpp::sleep_for(100ms);
         std::cout<<"[Arm] SetAllServoRadian!"<<std::endl;
     }
 
@@ -493,17 +757,22 @@ private:
     sdk_sagittarius_arm::SagittariusArmKinematics* sgr_kinematics_ptr_;
     sdk_sagittarius_arm::SagittariusArmReal* sar_ptr_;
 
-    void show_time(timeval ftime, timeval ctime) 
-    {
+    void show_time(timeval ftime, timeval ctime, bool final = false) {
         int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
         long tv_sec = duration_us / 1000000;
         long tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        if (final)
+            RCLCPP_INFO(this->get_logger(), "[*] [PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        else
+            RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
 
         duration_us = (ctime.tv_sec - starting_time.tv_sec) * 1000000 + (ctime.tv_usec - starting_time.tv_usec);
         tv_sec = duration_us / 1000000;
         tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        if (final)
+            RCLCPP_INFO(this->get_logger(), "[*] [PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        else
+            RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
     }
 
     int callback(const std_msgs::msg::String::SharedPtr msg) {
@@ -520,7 +789,10 @@ private:
         {
             std::cout<<"[Arm] IK True!"<<std::endl;
             sar_ptr_->SetAllServoRadian(joint_positions);
-            sleep(1/30);
+            gettimeofday(&ctime, NULL);
+            show_time(ftime, ctime);
+            rclcpp::sleep_for(100ms);
+            gettimeofday(&ftime, NULL);
             std::cout<<"SetAllServoRadian!"<<std::endl;
         }
 
@@ -531,9 +803,42 @@ private:
         gettimeofday(&ctime, NULL);
 
         if (publisher_) publisher_->publish(message);
-        show_time(ftime, ctime);
+        show_time(ftime, ctime, true);
 
         return 1;
+    }
+
+    Task<int, RosCoExecutor> co_callback(const std_msgs::msg::String::SharedPtr msg) {
+
+        gettimeofday(&ftime, NULL);
+
+        std::string pos_string = msg->data;
+        std::cout<<"[Arm] get message: "<<pos_string<<std::endl;
+
+        std::vector<float> nums = parseFloats(pos_string);
+
+        float joint_positions[7];
+        if(sgr_kinematics_ptr_->getIKinThetaEuler(nums[0], nums[1], nums[2], 0, 0, 0, joint_positions))
+        {
+            std::cout<<"[Arm] IK True!"<<std::endl;
+            sar_ptr_->SetAllServoRadian(joint_positions);
+            gettimeofday(&ctime, NULL);
+            show_time(ftime, ctime);
+            co_await 100ms;
+            gettimeofday(&ftime, NULL);
+            std::cout<<"SetAllServoRadian!"<<std::endl;
+        }
+
+        std::string name = this->get_name();
+        auto message = std_msgs::msg::String();
+        message.data = "***ArmNode callback!***";
+
+        gettimeofday(&ctime, NULL);
+
+        if (publisher_) publisher_->publish(message);
+        show_time(ftime, ctime, true);
+
+        co_return 1;
     }
 };
 
@@ -545,10 +850,6 @@ public:
     {                        
         // create_subscription interface for sync callback
         subscription_ = this->create_subscription<std_msgs::msg::String>(false, sub_topic, 1, std::bind(&IntermediateNode::callback, this, std::placeholders::_1));
-        
-        // create_subscription interface for async callback
-        // subscription_ = this->create_subscription<std_msgs::msg::String>(true, sub_topic, 1, std::bind(&IntermediateNode::co_callback, this, std::placeholders::_1));
-        
         if (pub_topic != "") publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
         this->name_ = node_name;
     }
@@ -563,17 +864,22 @@ private:
     double latency;
     bool end_flag_;
 
-    void show_time(timeval ftime, timeval ctime) 
-    {
+    void show_time(timeval ftime, timeval ctime, bool final = false) {
         int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
         long tv_sec = duration_us / 1000000;
         long tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        if (final)
+            RCLCPP_INFO(this->get_logger(), "[*] [PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        else
+            RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
 
         duration_us = (ctime.tv_sec - starting_time.tv_sec) * 1000000 + (ctime.tv_usec - starting_time.tv_usec);
         tv_sec = duration_us / 1000000;
         tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        if (final)
+            RCLCPP_INFO(this->get_logger(), "[*] [PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+        else
+            RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
     }
 
     int callback(const std_msgs::msg::String::SharedPtr msg) {
@@ -589,7 +895,7 @@ private:
         gettimeofday(&ctime, NULL);
 
         if (publisher_) publisher_->publish(message);
-        show_time(ftime, ctime);
+        show_time(ftime, ctime, true);
 
         return 1;
     }
@@ -606,20 +912,30 @@ int main(int argc, char* argv[])
 
     // c1
     auto c1_timer = std::make_shared<cb_chain_demo::StartNode>("Timer_callback1", "c1", 100, 2000, false);
-    auto c1_r_cb_1 = std::make_shared<cb_chain_demo::RealSenseNode>("RealSense_callback", "c1", "r1", 100, true);
-    auto c1_r_cb_2 = std::make_shared<cb_chain_demo::YoloNode>("Yolo_callback", "r1", "y1", 100, true);
-    auto c1_r_cb_3 = std::make_shared<cb_chain_demo::ArmNode>("Arm_callback", "y1", "a1", 100, true);
-    auto c1_r_cb_4 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback11", "a1", "", 100, true);
+    auto c1_r_cb_1 = std::make_shared<cb_chain_demo::RealSenseNode>("RealSense_callback1", "c1", "r1", 100, true);
+    
+    auto c1_r_cb_2 = std::make_shared<cb_chain_demo::YoloNode>("Yolo_callback1", "r1", "y1", 100, true);
+    auto c1_r_cb_3 = std::make_shared<cb_chain_demo::ArmNode>("Arm_callback1", "y1", "a1", 100, true);
+    auto c1_r_cb_4 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback1", "a1", "", 100, true);
+
+    auto c2_r_cb_2 = std::make_shared<cb_chain_demo::YoloNode>("Yolo_callback2", "r1", "y2", 100, true);
+    auto c2_r_cb_3 = std::make_shared<cb_chain_demo::ArmNode>("Arm_callback2", "y2", "a2", 100, true);
+    auto c2_r_cb_4 = std::make_shared<cb_chain_demo::IntermediateNode>("Regular_callback2", "a2", "", 100, true);
 
     // Create executors
-    rclcpp::executors::ExecutorNodelet exec1(rclcpp::executor::ExecutorArgs(), 3, true);
+    rclcpp::executors::ExecutorNodelet exec1(rclcpp::executor::ExecutorArgs(), 4, true);
     
     // Allocate callbacks to executors
     exec1.add_node(c1_timer);
     exec1.add_node(c1_r_cb_1);
+
     exec1.add_node(c1_r_cb_2);
     exec1.add_node(c1_r_cb_3);
     exec1.add_node(c1_r_cb_4);
+
+    exec1.add_node(c2_r_cb_2);
+    exec1.add_node(c2_r_cb_3);
+    exec1.add_node(c2_r_cb_4);
 
     // Record Starting Time:
     gettimeofday(&starting_time, NULL);
@@ -635,9 +951,14 @@ int main(int argc, char* argv[])
     // Remove Extra-node
     exec1.remove_node(c1_timer);
     exec1.remove_node(c1_r_cb_1);
+
     exec1.remove_node(c1_r_cb_2);
     exec1.remove_node(c1_r_cb_3);
     exec1.remove_node(c1_r_cb_4);
+
+    exec1.remove_node(c2_r_cb_2);
+    exec1.remove_node(c2_r_cb_3);
+    exec1.remove_node(c2_r_cb_4);
 
     // Shutdown
     rclcpp::shutdown();
