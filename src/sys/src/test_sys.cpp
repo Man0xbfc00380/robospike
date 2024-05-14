@@ -12,8 +12,7 @@
 #include "rclcpp/executor.hpp"
 #include "std_srvs/srv/empty.hpp"
 #include "std_msgs/msg/string.hpp"
-
-// #include <sensor_msgs/Image.h>
+#include "std_msgs/msg/float32_multi_array.hpp"
 
 #include "cospike/coroutine.hpp"
 #include "cospike/generator.hpp"
@@ -104,20 +103,49 @@ int dummy_load_sleep(int load_ms, const char * name_str) {
     return 1;
 }
 
-std::vector<cv::Mat> get_frames_color_depth(rs2::pipeline pipe, rs2::align align_to) {
+// std::vector<cv::Mat> get_frames_color_depth(rs2::pipeline pipe, rs2::align align_to) {
+//     rs2::frameset frames = pipe.wait_for_frames();
+//     frames = align_to.process(frames);
+//     rs2::video_frame depth = frames.get_depth_frame();
+//     cv::Mat depth_image = cv::Mat(cv::Size(640,480), CV_16U, (void*)depth.get_data(), cv::Mat::AUTO_STEP);
+//     rs2::video_frame color = frames.get_color_frame();
+//     cv::Mat color_image = cv::Mat(cv::Size(640,480), CV_8UC3, (void*)color.get_data(), cv::Mat::AUTO_STEP);
+//     cv::imwrite("Depth Image.jpg", depth_image);
+//     cv::imwrite("Color Image.jpg", color_image);
+
+//     std::vector<cv::Mat> result;
+//     result.push_back(depth_image);
+//     result.push_back(color_image);
+//     return result;
+// }
+
+std_msgs::msg::Float32MultiArray get_frames_color_depth(rs2::pipeline pipe, rs2::align align_to) {
     rs2::frameset frames = pipe.wait_for_frames();
     frames = align_to.process(frames);
     rs2::video_frame depth = frames.get_depth_frame();
-    cv::Mat depth_image = cv::Mat(cv::Size(640,480), CV_16U, (void*)depth.get_data(), cv::Mat::AUTO_STEP);
+    const uint8_t* depth_ptr = (const uint8_t*)(depth.get_data());
     rs2::video_frame color = frames.get_color_frame();
-    cv::Mat color_image = cv::Mat(cv::Size(640,480), CV_8UC3, (void*)color.get_data(), cv::Mat::AUTO_STEP);
-    cv::imwrite("Depth Image.jpg", depth_image);
-    cv::imwrite("Color Image.jpg", color_image);
+    const uint8_t* color_ptr = (const uint8_t*)(color.get_data());
 
-    std::vector<cv::Mat> result;
-    result.push_back(depth_image);
-    result.push_back(color_image);
-    return result;
+    std_msgs::msg::Float32MultiArray array_data;
+    array_data.data.resize(640*480*2);
+    for (size_t i=0; i<640*480; ++i) {
+        array_data.data[i] = static_cast<float> (*(depth_ptr+i));
+    }
+    for (size_t i=0; i<640*480; ++i) {
+        array_data.data[i+640*480] = static_cast<float> (*(color_ptr+i));
+    }
+    array_data.layout.dim[0].label = "height";
+    array_data.layout.dim[0].size = 480;
+    array_data.layout.dim[0].stride = 640*2;
+    array_data.layout.dim[1].label = "width";
+    array_data.layout.dim[1].size = 640;
+    array_data.layout.dim[1].stride = 2;
+    array_data.layout.dim[2].label = "channels";
+    array_data.layout.dim[2].size = 2;
+    array_data.layout.dim[2].stride = 1;
+
+    return array_data;
 }
 
 std::vector<float> parseFloats(const std::string& input) {
@@ -313,7 +341,7 @@ public:
         // create_subscription interface for sync callback
         subscription_ = this->create_subscription<std_msgs::msg::String>(false, sub_topic, 1, std::bind(&RealSenseNode::callback, this, std::placeholders::_1));
         
-        if (pub_topic != "") publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
+        if (pub_topic != "") publisher_ = this->create_publisher<std_msgs::msg::Float32MultiArray>(pub_topic, 1);
         this->name_ = node_name;
 
         pipeline_ = new rs2::pipeline;
@@ -325,7 +353,7 @@ public:
         align_to_ = new rs2::align(RS2_STREAM_COLOR);
     }
 
-    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
+    rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr publisher_;
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
 private:
     std::string name_;
@@ -353,16 +381,67 @@ private:
     int callback(const std_msgs::msg::String::SharedPtr msg) {
 
         gettimeofday(&ftime, NULL);
-
-        std::vector<cv::Mat> result = get_frames_color_depth(*pipeline_, *align_to_);
-
-        // sensor_msgs::ImagePtr ros_image =  cv_bridge::toImageMsg(result[0]);
-        
+      
         dummy_load_sleep(exe_time_, this->name_.c_str());
 
         std::string name = this->get_name();
+        std_msgs::msg::Float32MultiArray message = get_frames_color_depth(*pipeline_, *align_to_);
+
+        gettimeofday(&ctime, NULL);
+
+        if (publisher_) publisher_->publish(message);
+        show_time(ftime, ctime);
+
+        return 1;
+    }
+};
+
+class YoloNode : public rclcpp::Node
+{
+public:
+    YoloNode(const std::string node_name, const std::string sub_topic, const std::string pub_topic, int exe_time, bool end_flag) 
+        : Node(node_name), count_(0), exe_time_(exe_time), end_flag_(end_flag)
+    {                        
+        subscription_ = this->create_subscription<std_msgs::msg::Float32MultiArray>(false, sub_topic, 1, std::bind(&YoloNode::callback, this, std::placeholders::_1));
+        
+        if (pub_topic != "") publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
+        this->name_ = node_name;
+    }
+
+    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
+    rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr subscription_;
+private:
+    std::string name_;
+    size_t count_;
+    int exe_time_;
+    timeval ctime, ftime;
+    double latency;
+    bool end_flag_;
+
+    void show_time(timeval ftime, timeval ctime) 
+    {
+        int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
+        long tv_sec = duration_us / 1000000;
+        long tv_usec = duration_us - tv_sec * 1000000;
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+
+        duration_us = (ctime.tv_sec - starting_time.tv_sec) * 1000000 + (ctime.tv_usec - starting_time.tv_usec);
+        tv_sec = duration_us / 1000000;
+        tv_usec = duration_us - tv_sec * 1000000;
+        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
+    }
+
+    int callback(const std_msgs::msg::Float32MultiArray::SharedPtr msg) {
+
+        gettimeofday(&ftime, NULL);
+
+        dummy_load_sleep(exe_time_, this->name_.c_str());
+
+        std::string position = nvinfer1::inference_img();
+
+        std::string name = this->get_name();
         auto message = std_msgs::msg::String();
-        message.data = "***RealSense node callback!***";
+        message.data = position;
 
         gettimeofday(&ctime, NULL);
 
@@ -447,62 +526,6 @@ private:
         std::string name = this->get_name();
         auto message = std_msgs::msg::String();
         message.data = "***ArmNode callback!***";
-
-        gettimeofday(&ctime, NULL);
-
-        if (publisher_) publisher_->publish(message);
-        show_time(ftime, ctime);
-
-        return 1;
-    }
-};
-
-class YoloNode : public rclcpp::Node
-{
-public:
-    YoloNode(const std::string node_name, const std::string sub_topic, const std::string pub_topic, int exe_time, bool end_flag) 
-        : Node(node_name), count_(0), exe_time_(exe_time), end_flag_(end_flag)
-    {                        
-        subscription_ = this->create_subscription<std_msgs::msg::String>(false, sub_topic, 1, std::bind(&YoloNode::callback, this, std::placeholders::_1));
-        
-        if (pub_topic != "") publisher_ = this->create_publisher<std_msgs::msg::String>(pub_topic, 1);
-        this->name_ = node_name;
-    }
-
-    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
-    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
-private:
-    std::string name_;
-    size_t count_;
-    int exe_time_;
-    timeval ctime, ftime;
-    double latency;
-    bool end_flag_;
-
-    void show_time(timeval ftime, timeval ctime) 
-    {
-        int duration_us = (ftime.tv_sec - starting_time.tv_sec) * 1000000 + (ftime.tv_usec - starting_time.tv_usec);
-        long tv_sec = duration_us / 1000000;
-        long tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [Bgn] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
-
-        duration_us = (ctime.tv_sec - starting_time.tv_sec) * 1000000 + (ctime.tv_usec - starting_time.tv_usec);
-        tv_sec = duration_us / 1000000;
-        tv_usec = duration_us - tv_sec * 1000000;
-        RCLCPP_INFO(this->get_logger(), "[PID: %ld] [End] [s: %ld] [us: %ld]", gettid(), tv_sec, tv_usec);
-    }
-
-    int callback(const std_msgs::msg::String::SharedPtr msg) {
-
-        gettimeofday(&ftime, NULL);
-
-        dummy_load_sleep(exe_time_, this->name_.c_str());
-
-        std::string position = nvinfer1::inference_img();
-
-        std::string name = this->get_name();
-        auto message = std_msgs::msg::String();
-        message.data = position;
 
         gettimeofday(&ctime, NULL);
 
