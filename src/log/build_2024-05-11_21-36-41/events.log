@@ -1,0 +1,8 @@
+[0.000000] (-) TimerEvent: {}
+[0.000956] (-) JobUnselected: {'identifier': 'cb_grp_example'}
+[0.001198] (-) JobUnselected: {'identifier': 'exp'}
+[0.001353] (-) JobUnselected: {'identifier': 'rclcpp_spk'}
+[0.001427] (sys) JobQueued: {'identifier': 'sys', 'dependencies': OrderedDict([('rclcpp_spk', '/home/leshannx/hongyi/ros2_ws/experiment/demo_ws/src/install/rclcpp_spk')])}
+[0.001549] (sys) JobStarted: {'identifier': 'sys'}
+[0.018586] (sys) JobEnded: {'identifier': 'sys', 'rc': 1}
+[0.029732] (-) EventReactorShutdown: {}
